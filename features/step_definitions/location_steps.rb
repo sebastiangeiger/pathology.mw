@@ -13,3 +13,7 @@ end
 Then(/^(?:|I )should(?:| still) be on the sign in page$/) do
   expect(current_path).to eql "/users/sign_in"
 end
+
+Then(/^I should be on the home page$/) do
+  expect(current_path).to eql "/"
+end

@@ -10,8 +10,16 @@ Given(/^(?:|I )signed up with "(.*?)" \/ "(.*?)"$/) do |email, password|
   expect(User.count).to eql 0
   step %Q{go to the sign up page}
   step %Q{fill "Email" with "#{email}"}
-  step %Q{fill "Password" with "supersecret"}
+  step %Q{fill "Password" with "#{password}"}
   step %Q{fill "Password confirmation" with "#{password}"}
   step %Q{click on "Sign up"}
   expect(User.count).to eql 1
+end
+
+When(/^(?:|I )sign in with "(.*?)" \/ "(.*?)"$/) do |email, password|
+  step %Q{go to the sign in page}
+  step %Q{fill "Email" with "#{email}"}
+  step %Q{fill "Password" with "#{password}"}
+  step %Q{click on "Sign in"}
+  step %Q{should see "Signed in successfully"}
 end
