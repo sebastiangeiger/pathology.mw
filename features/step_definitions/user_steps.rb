@@ -23,3 +23,11 @@ When(/^(?:|I )sign in with "(.*?)" \/ "(.*?)"$/) do |email, password|
   step %Q{click on "Sign in"}
   step %Q{should see "Signed in successfully"}
 end
+
+Given(/^the user "(.*?)" \/ "(.*?)" exists$/) do |email, password|
+  User.create(email: email, password: password).confirm!
+end
+
+Given(/^"(.*?)" is an administrator$/) do |email|
+  expect(User.where(email: email).first).to be_present
+end
