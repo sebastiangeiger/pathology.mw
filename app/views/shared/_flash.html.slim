@@ -1,0 +1,5 @@
+- flash.each do |kind,message|
+  div class=(["alert-box", kind].join(" ")) data-alert=true
+    = message
+    a.close href="#" &times
+
