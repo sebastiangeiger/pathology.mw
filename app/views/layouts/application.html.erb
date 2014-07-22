@@ -23,9 +23,11 @@
 
   <body>
 
+    <%= render partial: 'shared/flash' %>
+
     <%= yield %>
 
-    
+
     <%= javascript_include_tag "application" %>
   </body>
 </html>
