@@ -16,6 +16,10 @@ gem 'zurb-foundation', '~> 4.3.2'
 
 group :test, :development do
   gem 'rspec-rails', '~> 3.0.2'
+end
+
+group :test do
   gem 'cucumber-rails', '~> 1.4.1'
+  gem 'database_cleaner', '~> 1.3.0'
 end
 
