@@ -1,4 +1,5 @@
 #Pathology.mw
+Hello Travis
 
 ##Roadmap
   1. [x] Users can sign up and sign in: Standard devise workflow. Once signed in they see a blank index page.
