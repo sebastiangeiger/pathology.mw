@@ -3,6 +3,9 @@ source "https://rubygems.org"
 
 gem 'rails', '~> 4.1.4'
 
+#Database
+gem 'sqlite3', '~> 1.3.9'
+
 #Authentication and authorization
 gem 'devise', '~> 3.2.4'
 gem 'cancancan', '~> 1.9.1'
