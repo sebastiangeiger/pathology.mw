@@ -23,3 +23,21 @@ When(/^(?:|I )sign in with "(.*?)" \/ "(.*?)"$/) do |email, password|
   step %Q{click on "Sign in"}
   step %Q{should see "Signed in successfully"}
 end
+
+Given(/^the user "(.*?)" \/ "(.*?)" exists$/) do |email, password|
+  User.create(email: email, password: password).confirm!
+end
+
+Given(/^the (administrator|guest) "(.*?)" \/ "(.*?)" exists$/) do |role_name,email, password|
+  role_name = role_name.to_sym
+  User.create(email: email,
+              password: password,
+              role_name: role_name).confirm!
+end
+
+Then(/^"(.*?)" should be a physician$/) do |email|
+  user = User.where(email: email).first
+  expect(user).to be_present
+  expect(user.role_name).to eql :physician
+end
+

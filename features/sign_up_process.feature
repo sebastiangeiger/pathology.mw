@@ -27,3 +27,4 @@ Feature: Sign up users
     Then I should be on the sign in page
     When I sign in with "user@example.com" / "supersecret"
     Then I should be on the home page
+    And I should see "user@example.com" in the top bar
