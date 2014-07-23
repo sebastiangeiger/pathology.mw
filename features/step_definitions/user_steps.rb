@@ -28,6 +28,8 @@ Given(/^the user "(.*?)" \/ "(.*?)" exists$/) do |email, password|
   User.create(email: email, password: password).confirm!
 end
 
-Given(/^"(.*?)" is an administrator$/) do |email|
-  expect(User.where(email: email).first).to be_present
+Given(/^the administrator "(.*?)" \/ "(.*?)" exists$/) do |email, password|
+  User.create(email: email,
+              password: password,
+              role_name: :administrator).confirm!
 end

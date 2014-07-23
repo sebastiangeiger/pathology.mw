@@ -10,4 +10,5 @@ nav.top-bar
         li.has-dropdown
           a href="#" = current_user.email
           ul.dropdown
+            li#login-status == "Signed in as a <b>#{current_user.role_name.capitalize}</b>"
             li = link_to "Sign out", destroy_user_session_path, method: :delete
