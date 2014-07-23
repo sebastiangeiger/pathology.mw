@@ -7,23 +7,15 @@ RSpec.describe UsersController, :type => :controller do
       user.confirm!
       sign_in user
     end
-    describe 'as an administrator' do
-      let(:user) do
-        User.create(email: "admin@example.com",
-                    password: "supersecret",
-                    role_name: :administrator)
-      end
+    describe 'as an admin' do
+      let(:user) { FactoryGirl.create(:admin) }
       it 'is granted access' do
         subject
         expect(response).to be_success
       end
     end
     describe 'as a pathologist' do
-      let(:user) do
-        User.create(email: "pathologise@example.com",
-                    password: "supersecret",
-                    role_name: :pathologist)
-      end
+      let(:user) { FactoryGirl.create(:pathologist) }
       it 'is turned down' do
         subject
         expect(response).to redirect_to root_path
