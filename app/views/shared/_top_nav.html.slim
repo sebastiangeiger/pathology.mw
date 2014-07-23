@@ -7,6 +7,11 @@ nav.top-bar
   section.top-bar-section
     ul.right
       - if signed_in?
+        - if current_user.admin?
+          li.has-dropdown.admin
+            a href="#" Manage
+            ul.dropdown
+              li = link_to "Users", users_path
         li.has-dropdown
           a href="#" = current_user.email
           ul.dropdown

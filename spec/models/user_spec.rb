@@ -10,7 +10,7 @@ RSpec.describe User, :type => :model do
       it { is_expected.to be_valid }
     end
   end
-  describe 'role_name validation' do
+  describe 'role_name' do
     subject do
       User.new(email: "some@email.com",
                password: "supersecret",
@@ -19,6 +19,7 @@ RSpec.describe User, :type => :model do
     context 'with guest' do
       let(:role_name) { :guest }
       it { is_expected.to be_valid }
+      it { is_expected.to be_guest }
     end
     context 'with invalid name' do
       let(:role_name) { :invalid }

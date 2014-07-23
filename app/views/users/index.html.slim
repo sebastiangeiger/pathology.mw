@@ -1,0 +1,4 @@
+h1 Users
+ul
+  - User.all.each do |user|
+    li = link_to user.email, edit_user_path(user)
