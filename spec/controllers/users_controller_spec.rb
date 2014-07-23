@@ -3,7 +3,10 @@ require 'rails_helper'
 RSpec.describe UsersController, :type => :controller do
   describe 'GET /users' do
     subject { get :index }
-    before(:each) { sign_in user }
+    before(:each) do
+      user.confirm!
+      sign_in user
+    end
     describe 'as an administrator' do
       let(:user) do
         User.create(email: "admin@example.com",
@@ -11,6 +14,7 @@ RSpec.describe UsersController, :type => :controller do
                     role_name: :administrator)
       end
       it 'is granted access' do
+        subject
         expect(response).to be_success
       end
     end
@@ -20,11 +24,12 @@ RSpec.describe UsersController, :type => :controller do
                     password: "supersecret",
                     role_name: :pathologist)
       end
-      it 'is granted access' do
+      it 'is turned down' do
+        subject
         expect(response).to redirect_to root_path
       end
-      it 'is sets a flash message' do
-        expect { subject }.to change { flash[:error] }
+      it 'sees a flash message' do
+        expect { subject }.to change { flash[:alert] }
       end
     end
   end
