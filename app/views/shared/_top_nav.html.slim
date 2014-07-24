@@ -6,11 +6,11 @@ nav.top-bar
 
   section.top-bar-section
     ul.left
-      - if can? :manage, Patient
+      - if can? :read, Patient
         li
           = link_to "Patients", patients_path
     ul.right
-      - if can? :manage, User
+      - if can? :read, User
         li.has-dropdown.admin
           a href="#" Manage
           ul.dropdown
