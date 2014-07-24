@@ -5,6 +5,10 @@ nav.top-bar
         a href="#" pathology.mw
 
   section.top-bar-section
+    ul.left
+      - if can? :manage, Patient
+        li
+          = link_to "Patients", patients_path
     ul.right
       - if can? :manage, User
         li.has-dropdown.admin

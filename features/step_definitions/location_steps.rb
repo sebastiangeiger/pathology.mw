@@ -34,3 +34,12 @@ end
 Then(/^I should be on the home page$/) do
   expect(current_path).to eql "/"
 end
+
+When(/^I am on the patients overview page$/) do
+  click_in_top_bar "Patients"
+end
+
+Then(/^I should be on the patients overview page$/) do
+  expect(current_path).to eql "/patients"
+end
+

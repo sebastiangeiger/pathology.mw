@@ -17,6 +17,10 @@ gem 'slim', '~> 2.0.3'
 gem 'zurb-foundation', '~> 4.3.2'
 gem 'sass'
 
+group :development do
+  gem 'launchy'
+end
+
 group :test, :development do
   gem 'rspec-rails', '~> 3.0.2'
   gem 'pry'

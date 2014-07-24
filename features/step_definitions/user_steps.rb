@@ -6,7 +6,7 @@ Then(/^there should be (\d+) user$/) do |number_of_users|
   expect(User.count).to eql (number_of_users.to_i)
 end
 
-Given(/^(?:|I )signed up with "(.*?)" \/ "(.*?)"$/) do |email, password|
+Given(/^(?:|I )sign(?:|ed) up with "(.*?)" \/ "(.*?)"$/) do |email, password|
   expect(User.count).to eql 0
   step %Q{go to the sign up page}
   step %Q{fill "Email" with "#{email}"}
@@ -41,3 +41,7 @@ Then(/^"(.*?)" should be a physician$/) do |email|
   expect(user.role_name).to eql :physician
 end
 
+Given(/^I am signed in as an administrator$/) do
+  step %Q{the administrator "administrator@example.com" / "supersecret" exists}
+  step %Q{sign in with "administrator@example.com" / "supersecret"}
+end

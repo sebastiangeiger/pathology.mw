@@ -7,5 +7,6 @@ class Ability
     if user.admin?
       can :manage, User
     end
+    can :manage, Patient
   end
 end
