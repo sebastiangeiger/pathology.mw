@@ -28,7 +28,7 @@ Given(/^the user "(.*?)" \/ "(.*?)" exists$/) do |email, password|
   User.create(email: email, password: password).confirm!
 end
 
-Given(/^the (administrator|guest) "(.*?)" \/ "(.*?)" exists$/) do |role_name,email, password|
+Given(/^the (administrator|guest|pathologist) "(.*?)" \/ "(.*?)" exists$/) do |role_name,email, password|
   role_name = role_name.to_sym
   User.create(email: email,
               password: password,
@@ -41,7 +41,7 @@ Then(/^"(.*?)" should be a physician$/) do |email|
   expect(user.role_name).to eql :physician
 end
 
-Given(/^I am signed in as an administrator$/) do
-  step %Q{the administrator "administrator@example.com" / "supersecret" exists}
-  step %Q{sign in with "administrator@example.com" / "supersecret"}
+Given(/^I am signed in as an? (administrator|pathologist)$/) do |role_name|
+  step %Q{the #{role_name} "#{role_name}@example.com" / "supersecret" exists}
+  step %Q{sign in with "#{role_name}@example.com" / "supersecret"}
 end

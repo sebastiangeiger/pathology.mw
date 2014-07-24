@@ -1,7 +1,7 @@
 Feature: Patient Management
 
   Scenario: Add a new patient
-    Given I am signed in as an administrator
+    Given I am signed in as a pathologist
     When I am on the patients overview page
     And I click on "New Patient"
     And I fill in the following:
