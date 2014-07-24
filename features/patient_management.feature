@@ -12,4 +12,5 @@ Feature: Patient Management
       | Birthday   | 14. July 1988 |
     And I click on "Create Patient"
     Then I should be on the patients overview page
-    And I should see "Patient 'Anne Moore' has been created"
+    And I should see "Patient Anne Moore has been created"
+

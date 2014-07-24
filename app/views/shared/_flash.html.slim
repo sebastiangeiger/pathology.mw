@@ -1,5 +1,8 @@
 - flash.each do |kind,message|
   div class=(["alert-box", kind].join(" ")) data-alert=true
-    = message
+    - if message.is_a? Hash
+      = message["html_safe"].html_safe
+    - else
+      = message
     a.close href="#" &times
 
