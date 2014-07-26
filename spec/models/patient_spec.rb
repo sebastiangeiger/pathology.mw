@@ -18,5 +18,13 @@ RSpec.describe Patient, :type => :model do
         expect(FactoryGirl.build(:patient, gender: "male")).to be_valid
       end
     end
+    describe 'for birthday' do
+      it 'denies nil date' do
+        expect(FactoryGirl.build(:patient, birthday: nil)).to be_invalid
+      end
+      it 'denies random text' do
+        expect(FactoryGirl.build(:patient, birthday: "Something")).to be_invalid
+      end
+    end
   end
 end

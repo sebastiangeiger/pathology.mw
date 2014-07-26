@@ -2,6 +2,7 @@ class Patient < ActiveRecord::Base
   validates :first_name, presence: true, length: { minimum: 1}
   validates :last_name,  presence: true, length: { minimum: 1}
   validates :gender, inclusion: ["Male","Female"]
+  validates :birthday, presence: true
 
   def patient_number
     "PHTRS #{format('%04d', id)}"
