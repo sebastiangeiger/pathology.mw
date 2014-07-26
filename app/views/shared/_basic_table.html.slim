@@ -1,0 +1,11 @@
+table
+  thead
+    tr
+      - headers.each do |header|
+        th = header
+  tbody
+    - rows.each do |row|
+      tr data-link-to=row[:link]
+        - row[:cells].each do |cell|
+          td = cell
+

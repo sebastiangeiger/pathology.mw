@@ -13,4 +13,5 @@ Feature: Patient Management
     And I click on "Create Patient"
     Then I should be on the patients overview page
     And I should see "Patient Anne Moore has been created"
+    And I should see 1 patient in the table
 

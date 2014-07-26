@@ -34,7 +34,7 @@ class RobustFillIn
     fitting_labels = options_labels.select{|label| label.text == @value}
     raise unless fitting_labels.size == 1
     fitting_option_id = fitting_labels.first['for']
-    @page.find("input[id=#{fitting_option_id}]").click
+    @page.find("input[id=#{fitting_option_id}]").set(true)
   end
 
   def select_field
