@@ -3,22 +3,16 @@ h1 New Patient
 
 = form_for @patient do |form|
 
-  = form.label :first_name, "First Name"
+  = form_errors_summary(@patient)
+
   = form.text_field :first_name
 
-  = form.label :last_name, "Last Name"
   = form.text_field :last_name
 
-  = form.label :gender, "Gender"
-  = form.radio_button :gender, :male
-  = form.label :gender_male, "Male"
-  = form.radio_button :gender, :female
-  = form.label :gender_female, "Female"
+  = form.select :gender, %w{Male Female}, include_blank: true
 
-  = form.label :birthday, "Birthday"
   = form.text_field :birthday
 
-  = form.label :district, "District"
-  = form.select :district, Districts.names
+  = form.select :district, Districts.names, include_blank: true
 
   = form.submit "Create Patient"
