@@ -55,3 +55,7 @@ When(/^I fill in the following:$/) do |table|
     RobustFillIn.new(page).fill_in(field_name,value)
   end
 end
+
+When(/^I enter "(.*?)" into "(.*?)"$/) do |arg1, arg2|
+  pending # express the regexp above with the code you wish you had
+end
