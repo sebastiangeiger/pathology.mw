@@ -15,7 +15,12 @@ gem 'jquery-rails', '~> 3.1.1'
 gem 'turbolinks', '~> 2.2.2'
 gem 'slim', '~> 2.0.3'
 gem 'zurb-foundation', '~> 4.3.2'
+gem 'foundation_rails_helper'
 gem 'sass'
+
+group :development do
+  gem 'launchy'
+end
 
 group :test, :development do
   gem 'rspec-rails', '~> 3.0.2'

@@ -2,11 +2,15 @@ nav.top-bar
   ul.title-area
     li.name
       h1
-        a href="#" pathology.mw
+        =link_to "pathology.mw", root_path
 
   section.top-bar-section
+    ul.left
+      - if can? :read, Patient
+        li
+          = link_to "Patients", patients_path
     ul.right
-      - if can? :manage, User
+      - if can? :read, User
         li.has-dropdown.admin
           a href="#" Manage
           ul.dropdown

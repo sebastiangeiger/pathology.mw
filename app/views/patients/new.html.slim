@@ -1,0 +1,18 @@
+h1 New Patient
+
+
+= form_for @patient do |form|
+
+  = form_errors_summary(@patient)
+
+  = form.text_field :first_name
+
+  = form.text_field :last_name
+
+  = form.select :gender, %w{Male Female}, include_blank: true
+
+  = form.text_field :birthday
+
+  = form.select :district, Districts.names, include_blank: true
+
+  = form.submit "Create Patient"

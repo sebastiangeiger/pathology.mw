@@ -23,10 +23,14 @@
 
   <body>
 
-    <%= render partial: 'shared/top_nav' %>
-    <%= render partial: 'shared/flash' %>
+    <header>
+      <%= render partial: 'shared/top_nav' %>
+      <%= render partial: 'shared/flash' %>
+    </header>
 
-    <%= yield %>
+    <main>
+      <%= yield %>
+    </main>
 
 
     <%= javascript_include_tag "application" %>
