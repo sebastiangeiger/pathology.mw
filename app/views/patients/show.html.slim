@@ -1,3 +1,11 @@
 h1 = @patient.full_name
 
-= link_to "Add clincal history"
+= link_to "Add clincal history", new_patient_clinical_history_path(patient_id: @patient.id), class: "button"
+
+- if @patient.clinical_histories.any?
+  ul
+    - @patient.clinical_histories.each do |entry|
+      li
+        .date = entry.date
+        .description = entry.description
+

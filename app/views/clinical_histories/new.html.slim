@@ -1,0 +1,8 @@
+h1 New clinical history for "#{@patient.full_name}"
+
+= form_for [@patient, @clinical_history] do |form|
+
+  = form.text_field :date, type: :date, value: Date.today
+  = form.text_area :description, label: "Clinical history"
+
+  = form.submit "Save"

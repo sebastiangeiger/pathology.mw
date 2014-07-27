@@ -5,7 +5,7 @@ Feature: Clincal history
     And the patient "Anne Moore" exists
     When I go to the patient page for "Anne Moore"
     And I click on "Add clincal history"
-    And I enter "Bloaty head, uncommon cold" into "Clincal history"
+    And I enter "Bloaty head, uncommon cold" into "Clinical history"
     And I click on "Save"
     Then I should be on the patient page for "Anne Moore"
     And I should see "Bloaty head, uncommon cold"
