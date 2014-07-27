@@ -4,7 +4,7 @@ source "https://rubygems.org"
 gem 'rails', '~> 4.1.4'
 
 #Database
-gem 'sqlite3', '~> 1.3.9'
+gem 'pg', '~> 0.17.1'
 
 #Authentication and authorization
 gem 'devise', '~> 3.2.4'
@@ -19,6 +19,7 @@ gem 'foundation_rails_helper'
 gem 'sass'
 
 group :development do
+  gem 'sqlite3', '~> 1.3.9'
   gem 'launchy'
 end
 
