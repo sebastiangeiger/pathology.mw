@@ -1,4 +1,4 @@
-# A sample Gemfile
+ruby '2.1.2'
 source "https://rubygems.org"
 
 gem 'rails', '~> 4.1.4'
@@ -21,6 +21,8 @@ gem 'sass'
 #Assets
 gem 'uglifier'
 
+#Heroku
+gem 'rails_12factor'
 
 group :development do
   gem 'sqlite3', '~> 1.3.9'
