@@ -13,6 +13,7 @@ class Ability
 
     if user.pathologist?
       can :cru, Patient
+      can :cru, ClinicalHistory
     end
 
   end

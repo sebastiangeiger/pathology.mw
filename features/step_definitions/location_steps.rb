@@ -35,7 +35,7 @@ Then(/^I should be on the home page$/) do
   expect(current_path).to eql "/"
 end
 
-When(/^I am on the patients overview page$/) do
+When(/^(?:I am on|go to) the patients overview page$/) do
   click_in_top_bar "Patients"
 end
 
@@ -43,3 +43,22 @@ Then(/^I should be on the patients overview page$/) do
   expect(current_path).to eql "/patients"
 end
 
+When(/^I go to the patient page for "(.*?)"$/) do |patient_name|
+  first_name, last_name = patient_name.split(" ")
+  step %Q{go to the patients overview page}
+  row = all('tr').select do |tr|
+    tr.text.include?(first_name) and
+      tr.text.include?(last_name)
+  end.first
+  if row and target = row['data-link-to']
+    visit target
+  else
+    raise "Could not find link"
+  end
+end
+
+Then(/^I should be on the patient page for "(.*?)"$/) do |full_name|
+  first_name, last_name = full_name.split(" ")
+  patient = Patient.where(first_name: first_name, last_name: last_name).first
+  expect(current_path).to eql "/patients/#{patient.id}"
+end
