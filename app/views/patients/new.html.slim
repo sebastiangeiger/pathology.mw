@@ -11,7 +11,7 @@ h1 New Patient
 
   = form.select :gender, %w{Male Female}, include_blank: true
 
-  = form.text_field :birthday
+  = form.text_field :birthday, type: :date
 
   = form.select :district, Districts.names, include_blank: true
 
