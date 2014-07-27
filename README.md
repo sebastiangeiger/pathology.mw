@@ -6,6 +6,7 @@
   2.  [x] Set up travis CI to run on the github repository
   3.  [x] An administrator can assign a user a role, the default role is Guest. The role is reflected in the status bar.
   4.  [x] Make it possible for an admin / pathologist to add Patients
-  5.  [ ] Add clinical history when entering a patient
+  5.  [x] Add clinical history when entering a patient
+  6.  [ ] Add a specimen to a patient
   99. [ ] Make a first deployment on digital ocean
 
