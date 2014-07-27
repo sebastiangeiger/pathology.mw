@@ -18,6 +18,10 @@ gem 'zurb-foundation', '~> 4.3.2'
 gem 'foundation_rails_helper'
 gem 'sass'
 
+#Assets
+gem 'uglifier'
+
+
 group :development do
   gem 'sqlite3', '~> 1.3.9'
   gem 'launchy'
