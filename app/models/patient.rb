@@ -4,6 +4,8 @@ class Patient < ActiveRecord::Base
   validates :gender, inclusion: ["Male","Female"]
   validates :birthday, presence: true
 
+  has_many :clinical_histories
+
   def patient_number
     "PHTRS #{format('%04d', id)}"
   end
