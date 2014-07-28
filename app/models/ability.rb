@@ -14,6 +14,7 @@ class Ability
     if user.pathologist?
       can :cru, Patient
       can :cru, ClinicalHistory
+      can :cru, Specimen
     end
 
   end

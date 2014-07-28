@@ -1,0 +1,15 @@
+h1 New specimen for "#{@patient.full_name}"
+
+= form_for [@patient, @specimen] do |form|
+
+  = form.text_field :pathology_number, label: "Pathology #"
+
+  = form.text_field :description, label: "Specimen"
+
+  = form.text_field :diagnosis
+
+  = form.text_field :date_submitted, type: :date, value: Date.today
+
+  = form.text_area :notes
+
+  = form.submit "Save"
