@@ -1,20 +1,37 @@
 h1 = @patient.full_name
 
-= link_to "Add clincal history", new_patient_clinical_history_path(patient_id: @patient.id), class: "button"
-= link_to "Add specimen", new_patient_specimen_path(patient_id: @patient.id), class: "button"
 
-- if @patient.clinical_histories.any?
-  ul
-    - @patient.clinical_histories.each do |entry|
-      li
-        .date = entry.date
-        .description = entry.description
+#patient-info
+  .patient-number
+    'Patient number:
+    = @patient.patient_number
+  .age
+    'Age:
+    = @patient.age
+  .gender
+    'Gender:
+    = @patient.gender
+  .district
+    'District:
+    = optional_attribute(@patient.district)
 
-- if @patient.specimens.any?
-  ul
-    - @patient.specimens.each do |entry|
-      li
-        .date = entry.date_submitted
-        .description = entry.description
-        .diagnosis = entry.diagnosis
-        .notes = entry.notes
+#activity-feed
+  .header
+    h2 Activity
+    = link_to "Add clincal history", new_patient_clinical_history_path(patient_id: @patient.id), class: "button"
+    = link_to "Add specimen", new_patient_specimen_path(patient_id: @patient.id), class: "button"
+  - if @patient.clinical_histories.any?
+    ul
+      - @patient.clinical_histories.each do |entry|
+        li
+          .date = entry.date
+          .description = entry.description
+
+  - if @patient.specimens.any?
+    ul
+      - @patient.specimens.each do |entry|
+        li
+          .date = entry.date_submitted
+          .description = entry.description
+          .diagnosis = entry.diagnosis
+          .notes = entry.notes
