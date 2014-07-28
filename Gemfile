@@ -27,6 +27,8 @@ group :development do
   gem 'sqlite3', '~> 1.3.9'
   gem 'launchy'
   gem 'meta_request'
+  gem 'rack-livereload'
+  gem 'guard-livereload', require: false
 end
 
 group :test, :development do
