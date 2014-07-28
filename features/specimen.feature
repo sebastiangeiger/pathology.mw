@@ -6,4 +6,6 @@ Feature: Clincal history
     When I go to the patient page for "Anne Moore"
     And I click on "Add specimen"
     And I enter "Left Eye" into "Specimen"
-    Then show me the page
+    And I click on "Save"
+    Then I should be on the patient page for "Anne Moore"
+    And I should see "Left Eye"

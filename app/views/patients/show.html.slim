@@ -14,5 +14,5 @@ h1 = @patient.full_name
   ul
     - @patient.specimens.each do |entry|
       li
-        .date = entry.submitted_date
+        .date = entry.date_submitted
         .description = entry.description
