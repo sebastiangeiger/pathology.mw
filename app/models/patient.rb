@@ -5,6 +5,7 @@ class Patient < ActiveRecord::Base
   validates :birthday, presence: true
 
   has_many :clinical_histories
+  has_many :specimens
 
   def patient_number
     "PHTRS #{format('%04d', id)}"

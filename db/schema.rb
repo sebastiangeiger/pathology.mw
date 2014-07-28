@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140727151923) do
+ActiveRecord::Schema.define(version: 20140728162722) do
 
   create_table "clinical_histories", force: true do |t|
     t.integer  "patient_id"
@@ -34,6 +34,19 @@ ActiveRecord::Schema.define(version: 20140727151923) do
     t.datetime "updated_at"
     t.string   "district"
   end
+
+  create_table "specimens", force: true do |t|
+    t.integer  "patient_id"
+    t.string   "description"
+    t.string   "diagnosis"
+    t.text     "notes"
+    t.string   "pathology_number"
+    t.date     "date_submitted"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "specimens", ["patient_id"], name: "index_specimens_on_patient_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",      null: false
