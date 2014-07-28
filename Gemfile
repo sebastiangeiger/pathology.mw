@@ -26,6 +26,7 @@ gem 'rails_12factor'
 group :development do
   gem 'sqlite3', '~> 1.3.9'
   gem 'launchy'
+  gem 'meta_request'
 end
 
 group :test, :development do
