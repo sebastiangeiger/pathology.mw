@@ -29,6 +29,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.6)
     arel (5.0.1.20140414130214)
+    backports (3.6.0)
     bcrypt (3.1.7)
     builder (3.2.2)
     callsite (0.0.11)
@@ -73,6 +74,8 @@ GEM
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
     erubis (2.7.0)
+    ethon (0.7.1)
+      ffi (>= 1.3.0)
     eventmachine (1.0.3)
     execjs (2.2.1)
     factory_girl (4.4.0)
@@ -80,11 +83,22 @@ GEM
     factory_girl_rails (4.4.1)
       factory_girl (~> 4.4.0)
       railties (>= 3.0.0)
+    faraday (0.9.0)
+      multipart-post (>= 1.2, < 3)
+    faraday_middleware (0.9.1)
+      faraday (>= 0.7.4, < 0.10)
     ffi (1.9.3)
     formatador (0.2.5)
     foundation_rails_helper (0.4)
       actionpack (>= 3.0)
       railties (>= 3.0)
+    gh (0.13.2)
+      addressable
+      backports
+      faraday (~> 0.8)
+      multi_json (~> 1.0)
+      net-http-persistent (>= 2.7)
+      net-http-pipeline
     gherkin (2.12.2)
       multi_json (~> 1.3)
     guard (2.6.1)
@@ -97,6 +111,7 @@ GEM
       em-websocket (~> 0.5)
       guard (~> 2.0)
       multi_json (~> 1.8)
+    highline (1.6.21)
     hike (1.2.3)
     http_parser.rb (0.6.0)
     i18n (0.6.11)
@@ -124,15 +139,21 @@ GEM
     minitest (5.4.0)
     multi_json (1.10.1)
     multi_test (0.1.1)
+    multipart-post (2.0.0)
+    net-http-persistent (2.9.4)
+    net-http-pipeline (1.0.1)
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
     orm_adapter (0.5.0)
     pg (0.17.1)
     polyglot (0.3.5)
-    pry (0.10.0)
-      coderay (~> 1.1.0)
-      method_source (~> 0.8.1)
+    pry (0.9.12.6)
+      coderay (~> 1.0)
+      method_source (~> 0.8)
       slop (~> 3.4)
+    pusher-client (0.6.0)
+      json
+      websocket (~> 1.0)
     rack (1.5.2)
     rack-contrib (1.1.0)
       rack (>= 0.9.1)
@@ -200,6 +221,17 @@ GEM
     thread_safe (0.3.4)
     tilt (1.4.1)
     timers (1.1.0)
+    travis (1.6.17)
+      addressable (~> 2.3)
+      backports
+      faraday (~> 0.9)
+      faraday_middleware (~> 0.9, >= 0.9.1)
+      gh (~> 0.13)
+      highline (~> 1.6)
+      launchy (~> 2.1)
+      pry (~> 0.9, < 0.10)
+      pusher-client (~> 0.4)
+      typhoeus (~> 0.6, >= 0.6.8)
     treetop (1.4.15)
       polyglot
       polyglot
@@ -222,6 +254,8 @@ GEM
       polyglot (>= 0.3.1)
     turbolinks (2.2.2)
       coffee-rails
+    typhoeus (0.6.9)
+      ethon (>= 0.7.1)
     tzinfo (1.2.1)
       thread_safe (~> 0.1)
     uglifier (2.5.3)
@@ -229,6 +263,7 @@ GEM
       json (>= 1.8.0)
     warden (1.2.3)
       rack (>= 1.0)
+    websocket (1.2.0)
     xpath (2.0.0)
       nokogiri (~> 1.3)
     zurb-foundation (4.3.2)
@@ -249,7 +284,7 @@ DEPENDENCIES
   launchy
   meta_request
   pg (~> 0.17.1)
-  pry
+  pry (< 0.10)
   rack-livereload
   rails (~> 4.1.4)
   rails_12factor
@@ -257,6 +292,7 @@ DEPENDENCIES
   sass
   slim (~> 2.0.3)
   sqlite3 (~> 1.3.9)
+  travis (~> 1.6.17)
   turbolinks (~> 2.2.2)
   uglifier
   zurb-foundation (~> 4.3.2)

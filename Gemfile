@@ -29,11 +29,12 @@ group :development do
   gem 'meta_request'
   gem 'rack-livereload'
   gem 'guard-livereload', require: false
+  gem 'travis', '~> 1.6.17'
 end
 
 group :test, :development do
   gem 'rspec-rails', '~> 3.0.2'
-  gem 'pry'
+  gem 'pry', '< 0.10'
 end
 
 group :test do
