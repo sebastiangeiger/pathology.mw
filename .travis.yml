@@ -10,3 +10,4 @@ deploy:
   on:
     repo: sebastiangeiger/pathology.mw
     branch: develop
+    ruby: 2.1.2
