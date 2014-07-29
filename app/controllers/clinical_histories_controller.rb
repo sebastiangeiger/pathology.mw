@@ -9,7 +9,6 @@ class ClinicalHistoriesController < ApplicationController
     if @clinical_history.save
       redirect_to @patient
     else
-      binding.pry
       render :new
     end
   end
