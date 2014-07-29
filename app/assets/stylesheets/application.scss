@@ -4,6 +4,8 @@ $content-background-color: rgb(255,255,255);
 $accent-color: rgb(62,106,173);
 $accent-color-darker: rgb(53,91,149);
 
+$row-width: 98%;
+$column-gutter: 5%;
 $body-font-family: 'Roboto', sans-serif;
 $header-font-family: 'Roboto', sans-serif;
 $header-font-weight: 100;
@@ -34,4 +36,11 @@ input.button {
 }
 input.button:hover {
   background-color: $accent-color-darker;
+}
+
+main .row {
+  margin-top: 1em;
+  &.pushed-down {
+    margin-top: 2em;
+  }
 }

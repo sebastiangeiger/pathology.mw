@@ -1,22 +1,6 @@
 #patient-info {
-  border: 1px solid black;
   .not-set {
     color: lightgrey;
     font-style: italic;
-  }
-}
-#activity-feed {
-  margin-top: 1em;
-  .header {
-    h2 {
-      display: inline;
-      padding-right: 1em;
-      margin: 0px;
-    }
-    .button {
-      margin: 0px;
-      margin-left: 0.2em;
-      vertical-align: top;
-    }
   }
 }
