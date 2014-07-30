@@ -1,0 +1,11 @@
+.row
+  .large-12.columns.content
+    - if item.is_a? ClinicalHistory
+      .date = item.date
+      .description = item.description
+
+    - if item.is_a? Specimen
+      .date = item.date_submitted
+      .description = item.description
+      .diagnosis = item.diagnosis
+      .notes = item.notes

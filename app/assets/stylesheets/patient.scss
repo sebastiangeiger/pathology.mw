@@ -4,3 +4,11 @@
     font-style: italic;
   }
 }
+#activity-feed {
+  .year {
+    color: $background-color-more-contrast;
+    font-size: 1.5em;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+  }
+}
