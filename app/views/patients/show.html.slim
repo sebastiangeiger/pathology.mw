@@ -10,9 +10,9 @@
           = link_to "Add clincal history", new_patient_clinical_history_path(patient_id: @patient.id), class: "button"
           = link_to "Add specimen", new_patient_specimen_path(patient_id: @patient.id), class: "button"
       - @activity_feed_items.each_pair do |year,items|
-        .row
-          .large-12.columns.year
+        .activity-group
+          .year
             = year
-        - items.each do |item|
-          = render partial: 'activity_feed_item', locals: { item: item }
+          - items.each do |item|
+            = render partial: 'activity_feed_item', locals: { item: item }
 

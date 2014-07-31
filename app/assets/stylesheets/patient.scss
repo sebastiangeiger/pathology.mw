@@ -9,10 +9,15 @@
   }
 }
 #activity-feed {
+  .activity-group {
+    margin-top: 1em;
+  }
+
+  .activity-group > .row:not(:first-child) {
+    margin-top: 0.5em;
+  }
   .year {
     color: $background-color-more-contrast;
     font-size: 1.5em;
-    margin-top: 1em;
-    margin-bottom: 0.5em;
   }
 }
