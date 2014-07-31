@@ -1,0 +1,5 @@
+#patient-info
+  h1 = patient.full_name
+
+  - ["Patient number", "Age", "Gender", "District"].each do |attribute|
+    = patient_info_row(attribute,patient)

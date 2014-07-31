@@ -1,20 +1,6 @@
 .row
   .large-4.columns.content
-    h1 = @patient.full_name
-
-    #patient-info
-      .patient-number
-        'Patient number:
-        = @patient.patient_number
-      .age
-        'Age:
-        = @patient.age
-      .gender
-        'Gender:
-        = @patient.gender
-      .district
-        'District:
-        = optional_attribute(@patient.district)
+    = render partial: 'patient_info', locals: { patient: @patient }
 
   .large-8.columns
     #activity-feed
