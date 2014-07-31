@@ -16,8 +16,30 @@
   .activity-group > .row:not(:first-child) {
     margin-top: 0.5em;
   }
+
   .year {
     color: $background-color-more-contrast;
     font-size: 1.5em;
+  }
+
+  .specimen, .clinical_history {
+    padding-top: 1.5em;
+    padding-bottom: 1em;
+
+
+    & > div {
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+      &.date {
+        color: $background-color-more-contrast;
+        font-size: 0.9em;
+        margin-top: 0.2em;
+      }
+      &.description {
+        margin-bottom: 0em;
+        font-size: 1.5em;
+      }
+    }
+
   }
 }

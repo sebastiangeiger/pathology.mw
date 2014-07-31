@@ -14,5 +14,8 @@ module PatientHelper
       attribute
     end
   end
+  def class_name_to_css(item)
+    item.class.to_s.underscore
+  end
 end
 
