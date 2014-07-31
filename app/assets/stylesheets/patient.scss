@@ -11,6 +11,11 @@
 #activity-feed {
   .activity-group {
     margin-top: 1em;
+    &:last-child {
+      margin-top: 2em;
+      text-align: center;
+      font-style: italic;
+    }
   }
 
   .activity-group > .row:not(:first-child) {
@@ -40,6 +45,7 @@
         font-size: 1.5em;
       }
     }
-
   }
+
+  margin-bottom: 3em;
 }
