@@ -1,18 +1,22 @@
-h1 New Patient
+.row.vertically-centered
+  .large-8.large-centered.columns.content
+
+    h1 New Patient
 
 
-= form_for @patient do |form|
+    = form_for @patient do |form|
 
-  = form_errors_summary(@patient)
+      = form_errors_summary(@patient)
 
-  = form.text_field :first_name
+      = form.text_field :first_name
 
-  = form.text_field :last_name
+      = form.text_field :last_name
 
-  = form.select :gender, %w{Male Female}, include_blank: true
+      = form.select :gender, %w{Male Female}, include_blank: true
 
-  = form.text_field :birthday, type: :date
+      = form.text_field :birthday, type: :date
 
-  = form.select :district, Districts.names, include_blank: true
+      = form.select :district, Districts.names, include_blank: true
 
-  = form.submit "Create Patient"
+      .text-right
+        = form.submit "Create Patient", class: "small button"

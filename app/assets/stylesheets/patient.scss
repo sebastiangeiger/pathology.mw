@@ -1,22 +1,55 @@
+table#patients {
+  margin: 0px;
+  width: 100%;
+}
 #patient-info {
-  border: 1px solid black;
   .not-set {
     color: lightgrey;
     font-style: italic;
   }
+  .row {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
 }
 #activity-feed {
-  margin-top: 1em;
-  .header {
-    h2 {
-      display: inline;
-      padding-right: 1em;
-      margin: 0px;
-    }
-    .button {
-      margin: 0px;
-      margin-left: 0.2em;
-      vertical-align: top;
+  .activity-group {
+    margin-top: 1em;
+    & > .row:not(:first-child) {
+      margin-top: 0.5em;
     }
   }
+
+  .year, .end-of-feed {
+    color: $background-color-more-contrast;
+    font-size: 1.5em;
+  }
+
+  .end-of-feed {
+    margin-top: 2em;
+    text-align: center;
+    font-style: italic;
+  }
+
+  .specimen, .clinical_history {
+    padding-top: 1.5em;
+    padding-bottom: 1em;
+
+
+    & > div {
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+      &.date {
+        color: $background-color-more-contrast;
+        font-size: 0.9em;
+        margin-top: 0.2em;
+      }
+      &.description {
+        margin: 0;
+        font-size: 1.5em;
+      }
+    }
+  }
+
+  margin-bottom: 3em;
 }

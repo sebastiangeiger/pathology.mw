@@ -2,6 +2,7 @@ class PatientsController < ApplicationController
   load_and_authorize_resource
 
   def index
+    @menu_point_active = :patient
   end
 
   def new
@@ -18,6 +19,8 @@ class PatientsController < ApplicationController
   end
 
   def show
+    items = @patient.clinical_histories + @patient.specimens
+    @activity_feed_items = ActivityFeed.new(items).calculate
   end
 
   private

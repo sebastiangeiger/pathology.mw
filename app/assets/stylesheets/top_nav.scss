@@ -1,13 +1,27 @@
 nav.top-bar {
-  background: #333;
   li#login-status {
+    background-color: white;
     border-left: 1px solid black;
     border-right: 1px solid black;
     text-align: center;
     padding: 0.5em;
-    background: #EEE;
   }
-  li.admin > a {
-    background-color: #961c00;
+  li.admin {
+    .dropdown li a {
+      background-color: $accent-color;
+      &:hover {
+        background-color: $admin-color;
+      }
+    }
+    & > a {
+      background-color: $admin-color;
+      &:hover {
+        background-color: $admin-color;
+      }
+    }
   }
+}
+
+.top-bar-section li .active:not(.has-form) a:not(.button):hover {
+  background: $topbar-link-bg-active-hover;
 }

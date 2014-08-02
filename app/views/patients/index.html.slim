@@ -1,5 +1,9 @@
-h1 Patients
-- if can? :create, Patient
-  = link_to "New Patient", new_patient_path, class: "button"
+.row
+  .large-12.columns.content
+    h1 Patients
+    - if can? :create, Patient
+      = link_to "New Patient", new_patient_path, class: "button"
 
-= table_for PatientTable.new(@patients)
+.row
+  .large-12
+    = table_for PatientTable.new(@patients), html: { id: "patients", class: "content" }
