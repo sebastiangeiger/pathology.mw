@@ -15,20 +15,20 @@ table#patients {
 #activity-feed {
   .activity-group {
     margin-top: 1em;
-    &:last-child {
-      margin-top: 2em;
-      text-align: center;
-      font-style: italic;
+    & > .row:not(:first-child) {
+      margin-top: 0.5em;
     }
   }
 
-  .activity-group > .row:not(:first-child) {
-    margin-top: 0.5em;
-  }
-
-  .year {
+  .year, .end-of-feed {
     color: $background-color-more-contrast;
     font-size: 1.5em;
+  }
+
+  .end-of-feed {
+    margin-top: 2em;
+    text-align: center;
+    font-style: italic;
   }
 
   .specimen, .clinical_history {

@@ -19,7 +19,7 @@ RSpec.describe ActivityFeed do
     let(:entries) do
       []
     end
-    it { is_expected.to eql({2014 => []}) }
+    it { is_expected.to eql({}) }
   end
   describe 'for one entry' do
     let(:entries) do

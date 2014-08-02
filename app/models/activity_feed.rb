@@ -21,6 +21,7 @@ class ActivityFeed
   end
 
   def fill_in_empty_years(hash)
+    return hash if hash.keys.empty?
     years = hash.keys + [@current_year]
     Range.new(*years.minmax).each do |year|
       unless hash.has_key? year
