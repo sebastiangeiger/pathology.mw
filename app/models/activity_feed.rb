@@ -6,7 +6,7 @@ class ActivityFeed
   def calculate
     items = fill_in_empty_years(divide_into_years(sort(@items)))
     #Hash preserves order, empty years come at the end
-    items.sort.reverse.to_h
+    Hash[items.sort.reverse]
   end
 
   private
