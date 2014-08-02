@@ -7,7 +7,7 @@ nav.top-bar
   section.top-bar-section
     ul.left
       - if can? :read, Patient
-        li
+        li class=(is_active?(:patient))
           = link_to "Patients", patients_path
     ul.right
       - if can? :read, User

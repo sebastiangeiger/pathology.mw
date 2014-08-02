@@ -2,6 +2,7 @@ class PatientsController < ApplicationController
   load_and_authorize_resource
 
   def index
+    @menu_point_active = :patient
   end
 
   def new

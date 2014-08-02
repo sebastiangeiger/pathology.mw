@@ -1,9 +1,23 @@
 $background-color: rgb(229,229,229);
 $background-color-contrast: rgb(216,216,216);
-$background-color-more-contrast: #9E9E9E;
+$background-color-more-contrast: rgb(158,158,158);
 $content-background-color: rgb(255,255,255);
 $accent-color: rgb(62,106,173);
-$accent-color-darker: rgb(53,91,149);
+$accent-color-darker: rgb(46,78,127);
+$accent-color-darkest: rgb(23,39,64);
+$admin-color: rgb(150,28,0);
+$admin-color-darker: rgb(86,18,0);
+
+$topbar-bg: $accent-color;
+$topbar-link-color: white;
+$topbar-link-color-hover: white;
+$topbar-link-color-active: white;
+$topbar-link-color-active-hover: white;
+$topbar-link-hover-lightness: -10%; // Darken by 10%
+$topbar-link-bg-color-hover: red;
+$topbar-link-bg-hover: $accent-color-darkest;
+$topbar-link-bg-active: $accent-color-darker;
+$topbar-link-bg-active-hover: $accent-color-darkest;
 
 $row-width: 98%;
 $column-gutter: 5%;
@@ -11,7 +25,6 @@ $body-font-family: 'Roboto', sans-serif;
 $header-font-family: 'Roboto', sans-serif;
 $header-font-weight: 100;
 
-$top-nav-background-color: $accent-color;
 
 @import "foundation_and_overrides";
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,100);
