@@ -1,6 +1,5 @@
 class ClinicalHistory < ActiveRecord::Base
-  belongs_to :patient
-  validates :patient, presence: true
+  has_many :specimens
   validates :description, presence: true
   validates :date, presence: true
 

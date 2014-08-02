@@ -30,6 +30,7 @@ group :development do
   gem 'rack-livereload'
   gem 'guard-livereload', require: false
   gem 'travis', '~> 1.6.17'
+  gem 'pry'
 end
 
 group :test, :development do
