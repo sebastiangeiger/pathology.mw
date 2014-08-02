@@ -1,13 +1,10 @@
 .row
   .large-12.columns.content
     div class=(class_name_to_css(item))
-      - if item.is_a? ClinicalHistory
-        .description = item.description
-        .date = l(item.date)
-
-      - if item.is_a? Specimen
-        .description = item.description
-        .date = l(item.date_submitted)
-        .diagnosis = item.diagnosis
-        .clinical-history = item.clinical_history_description
-        .notes = item.notes
+      .description = item.description
+      .date = l(item.date_submitted)
+      .diagnosis = item.diagnosis
+      .clinical-history = item.clinical_history_description
+      .gross = item.gross
+      .stains = item.stains
+      .notes = item.notes

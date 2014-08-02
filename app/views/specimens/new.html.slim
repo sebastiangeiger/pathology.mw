@@ -17,8 +17,14 @@
 
           = form.text_field :diagnosis
 
+          = form.text_area :gross
+
+          = form.text_area :stains
+
           = form.text_field :date_submitted, type: :date, value: Date.today
 
           = form.text_area :notes
 
-          = form.submit "Save"
+          .text-right
+            = link_to "Cancel", @patient, class: "button small cancel"
+            = form.submit "Save", class: "button small"

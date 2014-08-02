@@ -16,7 +16,8 @@ class SpecimensController < ApplicationController
 
   def create_params
     params.require(:specimen)
-      .permit(:pathologist, :description, :diagnosis, :date_submitted, :notes)
+      .permit(:pathologist, :description, :diagnosis, :date_submitted, :notes,
+              :gross, :stains)
   end
 
   def save_clinical_history!

@@ -31,6 +31,7 @@ $header-font-weight: 100;
 @import "top_nav";
 @import "form_errors_summary";
 @import "patient";
+@import "specimen";
 
 body {
   background-color: $background-color;
@@ -50,6 +51,11 @@ input.button {
 }
 input.button:hover {
   background-color: $accent-color-darker;
+}
+
+.button.cancel {
+  background-color: $background-color-more-contrast;
+  border-color: $background-color-more-contrast;
 }
 
 main .row {
