@@ -11,9 +11,7 @@ Feature: Patient Management
       | District   | Blantyre      |
       | Birthday   | 14. July 1988 |
     And I click on "Create Patient"
-    Then I should be on the patients overview page
-    And I should see "Patient Anne Moore has been created"
-    And I should see 1 patient in the table
+    Then I should be on the patient page for "Anne Moore"
 
   Scenario: Showing errors
     Given I am signed in as a pathologist
@@ -24,3 +22,4 @@ Feature: Patient Management
     And I click on "Create Patient"
     Then I should see "Could not create the Patient"
     And I should see "can't be blank"
+

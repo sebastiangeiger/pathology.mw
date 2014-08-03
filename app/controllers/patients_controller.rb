@@ -12,7 +12,7 @@ class PatientsController < ApplicationController
     if @patient.save
       patient_link = view_context.link_to(@patient.full_name, patient_path(@patient))
       flash[:success] = {html_safe: "Patient #{patient_link} has been created."}
-      redirect_to patients_path
+      redirect_to @patient
     else
       render :new
     end
