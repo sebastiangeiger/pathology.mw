@@ -284,6 +284,7 @@ DEPENDENCIES
   launchy
   meta_request
   pg (~> 0.17.1)
+  pry
   rack-livereload
   rails (~> 4.1.4)
   rails_12factor

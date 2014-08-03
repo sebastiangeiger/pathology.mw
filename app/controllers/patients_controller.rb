@@ -19,8 +19,7 @@ class PatientsController < ApplicationController
   end
 
   def show
-    items = @patient.clinical_histories + @patient.specimens
-    @activity_feed_items = ActivityFeed.new(items).calculate
+    @activity_feed_items = ActivityFeed.new(@patient.specimens).calculate
   end
 
   private

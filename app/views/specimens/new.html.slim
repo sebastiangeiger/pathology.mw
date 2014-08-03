@@ -1,15 +1,30 @@
-h1 New specimen for "#{@patient.full_name}"
+.row
+  .large-4.columns.content
+    = render partial: 'patients/patient_info', locals: { patient: @patient }
 
-= form_for [@patient, @specimen] do |form|
+  .large-8.columns
+    .row
+      .large-12.columns.content
+        h2 New specimen
 
-  = form.text_field :pathology_number, label: "Pathology #"
+        = form_for [@patient, @specimen] do |form|
 
-  = form.text_field :description, label: "Specimen"
+          = form.text_field :pathology_number, label: "Pathology #"
 
-  = form.text_field :diagnosis
+          = form.text_field :description, label: "Specimen"
 
-  = form.text_field :date_submitted, type: :date, value: Date.today
+          = form.text_area :clinical_history_description, label: "Clinical history"
 
-  = form.text_area :notes
+          = form.text_field :diagnosis
 
-  = form.submit "Save"
+          = form.text_area :gross
+
+          = form.text_area :stains
+
+          = form.text_field :date_submitted, type: :date, value: Date.today
+
+          = form.text_area :notes
+
+          .text-right
+            = link_to "Cancel", @patient, class: "button small cancel"
+            = form.submit "Save", class: "button small"

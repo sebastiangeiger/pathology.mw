@@ -1,0 +1,32 @@
+form#new_specimen {
+  .button.cancel {
+    margin-right: 1em;
+  }
+}
+
+.specimen {
+  padding-top: 1.5em;
+  padding-bottom: 1em;
+
+
+  dt.description, dt.date-submitted {
+    display: none;
+  }
+  .description {
+    margin: 0;
+    font-size: 1.5em;
+  }
+  .date-submitted {
+    color: $background-color-more-contrast;
+    font-size: 0.9em;
+    margin-top: 0.2em;
+  }
+  dt {
+    color: $background-color-more-contrast;
+    font-weight: normal;
+    font-style: italic;
+    margin-bottom: 0px;
+    line-height: 1em;
+  }
+}
+

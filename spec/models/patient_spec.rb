@@ -27,18 +27,4 @@ RSpec.describe Patient, :type => :model do
       end
     end
   end
-
-  describe '#clincal_history' do
-    let(:patient) do
-      FactoryGirl.build(:patient)
-    end
-    subject { patient.clinical_histories }
-    it { is_expected.to be_empty }
-    context 'with a clincal history created' do
-      let(:clinical_history) do
-        FactoryGirl.create(:clinical_history, patient: patient)
-      end
-      it { is_expected.to include clinical_history }
-    end
-  end
 end
