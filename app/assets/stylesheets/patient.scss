@@ -2,6 +2,7 @@ table#patients {
   margin: 0px;
   width: 100%;
 }
+
 #patient-info {
   .not-set {
     color: lightgrey;
@@ -12,6 +13,7 @@ table#patients {
     margin-bottom: 0.5em;
   }
 }
+
 #activity-feed {
   .activity-group {
     margin-top: 1em;
@@ -52,4 +54,16 @@ table#patients {
   }
 
   margin-bottom: 3em;
+}
+
+#new_patient {
+  .or, .single-line {
+    margin-top: 1.5em;
+  }
+  .or {
+    font-weight: bold;
+  }
+  input[type=checkbox] {
+    margin-right: 0.5em;
+  }
 }

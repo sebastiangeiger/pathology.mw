@@ -12,23 +12,25 @@
 
       = form.text_field :last_name
 
-      = form.select :gender, %w{Male Female}, include_blank: true
 
       .row
         = form.hidden_field :birthyear
         .small-4.columns
           = form.text_field :birthday, type: :date
-        .small-1.columns
+        .small-1.columns.or
           ' or
-        .small-3.columns
+        .small-2.columns
           = label_tag :patient_age, "Age"
           = text_field_tag :patient_age, "", type: :number
-        .small-1.columns
+        .small-1.columns.or
           ' or
-        .small-3.columns
-          = form.check_box :birthday_unknown
+        .small-4.columns.single-line
+          = form.check_box :birthday_unknown, label: "Birthday and age are unknown"
 
-      = form.select :district, Districts.names, include_blank: true
-
-      .text-right
-        = form.submit "Create Patient", class: "small button"
+      .row
+        .small-4.columns
+          = form.select :gender, %w{Male Female}, include_blank: true
+        .small-4.columns
+          = form.select :district, Districts.names, include_blank: true
+        .small-4.columns.text-right
+          = form.submit "Create Patient", class: "small button"
