@@ -19,9 +19,24 @@ RSpec.describe Patient, :type => :model do
       end
     end
     describe 'for age indicator' do
-      it 'denies nil date' do
+      it 'denies birthday and year being nil' do
         expect(FactoryGirl.build(:patient, birthday: nil,
                                            birthyear: nil)).to be_invalid
+      end
+      it 'allows birthday and year being nil when birthday_unknown is set' do
+        expect(FactoryGirl.build(:patient, birthday: nil,
+                                           birthyear: nil,
+                                           birthday_unknown: true)).to be_valid
+      end
+      it 'allows birthday and year being nil when birthday_unknown is set to 1' do
+        expect(FactoryGirl.build(:patient, birthday: nil,
+                                           birthyear: nil,
+                                           birthday_unknown: "1")).to be_valid
+      end
+      it 'denies birthday and year being nil when birthday_unknown is set to 0' do
+        expect(FactoryGirl.build(:patient, birthday: nil,
+                                           birthyear: nil,
+                                           birthday_unknown: "0")).to be_invalid
       end
       it 'denies random text as birthday' do
         expect(FactoryGirl.build(:patient, birthday: "Something",
@@ -45,10 +60,11 @@ RSpec.describe Patient, :type => :model do
   describe '#detailed_age' do
     subject { patient.detailed_age }
     let(:patient) do
-      FactoryGirl.build(:patient, birthday: birthday, birthyear: birthyear)
+      FactoryGirl.build(:patient, birthday: birthday, birthyear: birthyear, birthday_unknown: birthday_unknown)
     end
     let(:birthday) { nil }
     let(:birthyear) { nil }
+    let(:birthday_unknown) { false }
     context 'with birthday on June 16 1984' do
       let(:birthday) { "June 16 1984" }
       it { is_expected.to eql "30 (born June 16 1984)" }
@@ -56,6 +72,10 @@ RSpec.describe Patient, :type => :model do
     context 'with birthyear 1984' do
       let(:birthyear) { "January 01 1984" }
       it { is_expected.to eql "30 (born in 1984)" }
+    end
+    context 'with birthday unknown' do
+      let(:birthday_unknown) { true }
+      it { is_expected.to eql "" }
     end
   end
 end
