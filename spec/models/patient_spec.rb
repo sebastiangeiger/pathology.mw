@@ -52,7 +52,7 @@ RSpec.describe Patient, :type => :model do
       end
       it 'accepts a string as birthyear' do
         expect(FactoryGirl.build(:patient, birthday: nil,
-                                           birthyear: "1984-01-01")).to be_valid
+                                           birthyear: "1984")).to be_valid
       end
     end
   end
@@ -70,7 +70,7 @@ RSpec.describe Patient, :type => :model do
       it { is_expected.to eql "30 (born June 16 1984)" }
     end
     context 'with birthyear 1984' do
-      let(:birthyear) { "January 01 1984" }
+      let(:birthyear) { "1984" }
       it { is_expected.to eql "30 (born in 1984)" }
     end
     context 'with birthday unknown' do

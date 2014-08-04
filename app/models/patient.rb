@@ -19,11 +19,12 @@ class Patient < ActiveRecord::Base
   end
 
   def age
-    date = birthday || birthyear
-    if date
-      now = Date.today
-      year_adjustment = (now.month > date.month || (now.month == date.month && now.day >= date.day)) ? 0 : 1
-      now.year - date.year - year_adjustment
+    now = Date.today
+    if birthday
+      year_adjustment = (now.month > birthday.month || (now.month == birthday.month && now.day >= birthday.day)) ? 0 : 1
+      now.year - birthday.year - year_adjustment
+    elsif birthyear
+      now.year - birthyear
     else
       ""
     end
@@ -33,7 +34,7 @@ class Patient < ActiveRecord::Base
     if birthday
       "#{age} (born #{I18n.l(birthday)})"
     elsif birthyear
-      "#{age} (born in #{birthyear.year})"
+      "#{age} (born in #{birthyear})"
     else
       ""
     end
