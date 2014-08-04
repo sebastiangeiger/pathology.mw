@@ -1,11 +1,12 @@
 class RobustFillIn
   def initialize(page)
     @page = page
+    @debug = false
   end
   def fill_in(field_name,value)
     @field_name = field_name
     @value = value
-    try_all(:date_input_field,:input_field,:radio_buttons,:select_field,:checkbox_field)
+    try_all(:date_input_field,:input_field, :disabled_input_field, :radio_buttons,:select_field,:checkbox_field)
   end
   def try_all(*methods)
     success = false
@@ -14,13 +15,16 @@ class RobustFillIn
       begin
         self.send(method)
         success = true
-        # puts "Filled out #{@field_name} with #{@value}"
-        # puts @page.all("input").map(&:value).inspect
+        debug "Filled out #{@field_name} with #{@value.inspect} using #{method}"
       rescue Exception => e
-        # puts e
+        debug "Failed to fill in #{@field_name} with #{@value.inspect} using #{method}: #{e.to_s}"
       end
     end
     raise %Q{Could not fill out "#{@field_name}" with "#{@value}"} unless success
+  end
+
+  def debug(message)
+    puts message if @debug
   end
 
   def date_input_field
@@ -32,6 +36,14 @@ class RobustFillIn
 
   def input_field
     @page.fill_in @field_name, with: @value
+  end
+
+  def disabled_input_field
+    #Filling out a disabled field is fine as long as the desired input is blank
+    @page.field_labeled(@field_name, disabled: true)
+    unless @value.blank?
+      raise "Found disabled field #{@field_name} but your input was not blank"
+    end
   end
 
   def radio_buttons
