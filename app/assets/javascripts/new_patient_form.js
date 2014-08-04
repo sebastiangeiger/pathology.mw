@@ -33,7 +33,6 @@ $(function(){
     var birthdayUnknownField = form.find("input#patient_birthday_unknown");
 
     var checkBirthdayField = function(event){
-      console.log("checkBirthdayField");
       var age = calculateAgeFromDate(birthdayField.val());
       if(isNaN(age)){
         ageField.val("").prop("disabled", false);

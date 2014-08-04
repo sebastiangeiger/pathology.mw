@@ -8,3 +8,11 @@ Given(/^the patient "(.*?)" exists$/) do |full_name|
   FactoryGirl.create(:patient, first_name: first_name, last_name: last_name)
 end
 
+
+Given(/^there are no patients in the system$/) do
+  expect(Patient.count).to eql 0
+end
+
+Then(/^there should be no patients in the system$/) do
+  expect(Patient.count).to eql 0
+end

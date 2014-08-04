@@ -5,7 +5,7 @@ class RobustFillIn
   def fill_in(field_name,value)
     @field_name = field_name
     @value = value
-    try_all(:input_field,:radio_buttons,:select_field)
+    try_all(:date_input_field,:input_field,:radio_buttons,:select_field,:checkbox_field)
   end
   def try_all(*methods)
     success = false
@@ -21,6 +21,13 @@ class RobustFillIn
       end
     end
     raise %Q{Could not fill out "#{@field_name}" with "#{@value}"} unless success
+  end
+
+  def date_input_field
+    field = @page.find_field(@field_name)
+    raise unless field['type'] == "date"
+    formatted_date = I18n.l(Date.parse(@value), format: '%Y-%m-%d')
+    @page.fill_in @field_name, with: formatted_date
   end
 
   def input_field
@@ -40,10 +47,17 @@ class RobustFillIn
   def select_field
     @page.select @value, from: @field_name
   end
+
+  def checkbox_field
+    label = @page.find('label', text: @field_name)
+    input = @page.find("input[id=#{label['for']}]")
+    raise unless input['type'] == 'checkbox'
+    input.set(@value == "true")
+  end
 end
 
 When(/^(?:|I )fill "(.*?)" with "(.*?)"$/) do |field_name, value|
-  fill_in field_name, with: value
+  RobustFillIn.new(page).fill_in(field_name,value)
 end
 
 When(/^I select "(.*?)" from the "(.*?)" dropdown$/) do |role_name, select_name|
@@ -58,4 +72,10 @@ end
 
 When(/^I enter "(.*?)" into "(.*?)"$/) do |value, field_name|
   RobustFillIn.new(page).fill_in(field_name,value)
+end
+
+Then(/^the value of the "(.*?)" input field should be "(.*?)"$/) do |field_name, value|
+  label = page.find('label', text: field_name)
+  input = page.find("input[id=#{label['for']}]")
+  expect(input.value).to eql value
 end
