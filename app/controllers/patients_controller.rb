@@ -10,9 +10,8 @@ class PatientsController < ApplicationController
 
   def create
     if @patient.save
-      patient_link = view_context.link_to(@patient.full_name, patient_path(@patient))
-      flash[:success] = {html_safe: "Patient #{patient_link} has been created."}
-      redirect_to patients_path
+      flash[:success] = %Q{Patient "#{@patient.full_name}" has been created.}
+      redirect_to @patient
     else
       render :new
     end
@@ -25,6 +24,6 @@ class PatientsController < ApplicationController
   private
   def create_params
     params.require(:patient)
-      .permit(:first_name, :last_name, :district, :gender, :birthday)
+      .permit(:first_name, :last_name, :district, :gender, :birthday, :birthyear, :birthday_unknown)
   end
 end
