@@ -1,5 +1,7 @@
 #patient-info
   h1 = patient.full_name
 
-  - ["Patient number", "Age", "Gender", "District"].each do |attribute|
-    = patient_info_row(attribute,patient)
+  = patient_info_row("Patient number",patient)
+  = patient_info_row("Age",patient, method: :detailed_age)
+  = patient_info_row("Gender",patient)
+  = patient_info_row("District",patient)

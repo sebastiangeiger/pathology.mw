@@ -6,4 +6,7 @@ module ApplicationHelper
       ""
     end
   end
+  def css_class(name)
+    name.to_s.gsub("_", "-").downcase
+  end
 end

@@ -5,6 +5,7 @@
 # files.
 
 require 'cucumber/rails'
+require 'capybara/poltergeist'
 
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any
@@ -54,5 +55,15 @@ end
 # Possible values are :truncation and :transaction
 # The :transaction strategy is faster, but might give you threading problems.
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
+Capybara.register_driver :poltergeist do |app|
+    options = {
+        js_errors: true,
+        timeout: 120,
+        debug: false,
+        phantomjs_options: ['--load-images=no', '--disk-cache=false'],
+        inspector: true
+    }
+    Capybara::Poltergeist::Driver.new(app, options)
+end
+Capybara.javascript_driver = :poltergeist
 Cucumber::Rails::Database.javascript_strategy = :truncation
-

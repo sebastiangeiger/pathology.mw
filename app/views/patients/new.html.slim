@@ -14,7 +14,15 @@
 
       = form.select :gender, %w{Male Female}, include_blank: true
 
-      = form.text_field :birthday, type: :date
+      .row
+        .small-4.columns
+          = form.text_field :birthday, type: :date
+          = form.hidden_field :birthyear
+        .small-1.columns
+          ' or
+        .small-3.columns
+          = label_tag :patient_age, "Age"
+          = text_field_tag :patient_age, "", type: :number
 
       = form.select :district, Districts.names, include_blank: true
 
