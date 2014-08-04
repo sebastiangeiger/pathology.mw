@@ -1,4 +1,3 @@
-require 'pry'
 class Patient < ActiveRecord::Base
   attr_writer :birthday_unknown
 
