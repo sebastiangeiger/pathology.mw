@@ -13,19 +13,24 @@
       = form.text_field :last_name
 
 
-      .row
-        = form.hidden_field :birthyear
-        .small-4.columns
-          = form.text_field :birthday, type: :date
-        .small-1.columns.or
-          ' or
-        .small-2.columns
-          = label_tag :patient_age, "Age"
-          = text_field_tag :patient_age, "", type: :number
-        .small-1.columns.or
-          ' or
-        .small-4.columns.single-line
-          = form.check_box :birthday_unknown, label: "Birthday and age are unknown"
+      - birthday_error = @patient.errors[:birthday_birthyear_group].first
+      - if birthday_error
+        .row.error
+          .small-12.columns
+            small.error = birthday_error
+      .row#birthday_birthyear_group class=(birthday_error ? "error":"")
+          = form.hidden_field :birthyear
+          .small-4.columns
+            = form.text_field :birthday, type: :date
+          .small-1.columns.or
+            ' or
+          .small-2.columns
+            = label_tag :patient_age, "Age"
+            = text_field_tag :patient_age, "", type: :number
+          .small-1.columns.or
+            ' or
+          .small-4.columns.single-line
+            = form.check_box :birthday_unknown, label: "Birthday and age are unknown"
 
       .row
         .small-4.columns

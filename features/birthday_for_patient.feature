@@ -37,6 +37,7 @@ Feature: Entering a (approximate) birthday for a patient
       | Birthday and age are unknown | false    |
     And I click on "Create Patient"
     Then I should see "New Patient" in the headline
+    And I should see "Please select one of the three options:"
     Then there should be no patients in the system
 
   @javascript

@@ -54,7 +54,7 @@ class Patient < ActiveRecord::Base
 
   def either_birthday_or_birthyear_must_be_set_or_birthday_unknown
     unless birthday or birthyear or birthday_unknown
-      errors.add(:birthday, "must be set")
+      errors.add(:birthday_birthyear_group, "Please select one of the three options:")
     end
   end
 
