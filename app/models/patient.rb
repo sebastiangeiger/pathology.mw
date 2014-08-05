@@ -49,6 +49,10 @@ class Patient < ActiveRecord::Base
 
   alias_method :to_s, :full_name
 
+  def imported?
+    imported_on.present?
+  end
+
   private
 
   def either_birthday_or_birthyear_must_be_set_or_birthday_unknown

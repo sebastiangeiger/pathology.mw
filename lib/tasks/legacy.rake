@@ -43,7 +43,9 @@ def create_patient!(patient)
                     gender: patient[:gender],
                     birthday: patient[:birthday],
                     birthday_unknown: birthday_unknown,
-                    birthyear: patient[:birthyear])
+                    birthyear: patient[:birthyear],
+                    imported_on: Date.today,
+                    legacy_link: patient[:patient_link])
   end
 end
 
