@@ -7,3 +7,7 @@
     = definition(specimen, :gross)
     = definition(specimen, :stains)
     = definition(specimen, :notes)
+
+  - if specimen.imported?
+    .text-right
+      .legacy-info = link_to "Imported on #{l(specimen.imported_on)}", specimen.legacy_link

@@ -80,7 +80,9 @@ def create_specimen!(specimen)
                      diagnosis: specimen[:diagnosistype],
                      pathology_number: specimen[:path_number],
                      notes: specimen[:notes],
-                     date_submitted: specimen[:submitted_date])
+                     date_submitted: specimen[:submitted_date],
+                     imported_on: Date.today,
+                     legacy_link: specimen[:specimen_link])
   end
 end
 

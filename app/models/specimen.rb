@@ -17,4 +17,8 @@ class Specimen < ActiveRecord::Base
       self.save
     end
   end
+
+  def imported?
+    imported_on.present?
+  end
 end

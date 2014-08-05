@@ -192,6 +192,7 @@ class SpecimenFinder
 
   def get_specimen_detail(specimen_link)
     result = {id: specimen_link.split("/").last.to_i,
+              specimen_link: specimen_link,
               patient_id: specimen_link.split("/")[-2].to_i}
     page = agent.get(specimen_link)
     specimen_form = page.forms.first
@@ -244,7 +245,8 @@ configuration = YAML.load_file('config.yml')
 # 1. PatientFinder.new(configuration, data_repository).get_all_patient_links
 # 2. PatientFinder.new(configuration, data_repository).get_all_patients
 # 3. SpecimenFinder.new(configuration, data_repository).get_all_specimen_links
-# 4.  SpecimenFinder.new(configuration, data_repository).get_all_specimen
-# data_repository.save!
+# 4.
+SpecimenFinder.new(configuration, data_repository).get_all_specimen
+data_repository.save!
 # Experiments.compare_specimen_links_from_results_and_patients(data_repository)
-Experiments.patients_with_several_specimen(data_repository)
+# Experiments.patients_with_several_specimen(data_repository)
