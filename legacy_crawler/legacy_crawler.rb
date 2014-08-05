@@ -3,6 +3,7 @@ require 'mechanize'
 require 'yaml'
 require 'forwardable'
 require 'pry'
+require 'pp'
 
 class SignedInMechanize
   def initialize(agent, configuration)
@@ -43,13 +44,31 @@ class DataRepository
     end
   end
 
-  def add(key, new_data)
-    @data[key] ||= []
-    @data[key] += Array(new_data)
+  def add(keys, new_data)
+    element = @data
+    while key = keys.shift do
+      if keys.empty?
+        if new_data.is_a? Array
+          element[key] ||= []
+          element[key] += new_data
+        elsif new_data.is_a? Hash
+          element[key] = new_data
+        else
+          raise
+        end
+      else
+        element[key] ||= {}
+      end
+      element = element[key]
+    end
+  end
+
+  def get(key)
+    @data[key]
   end
 
   def to_s
-    @data.inspect
+    @data
   end
 
   def save!
@@ -97,6 +116,34 @@ class PatientFinder
       map(&:uri).map(&:to_s)
   end
 
+  def get_all_patients
+    patient_links = @data_repository.get(:patient_links)#.first(1)
+    patients = patient_links.each_with_index do |patient_link,i|
+      puts "Patient Detail #{i+1}/#{patient_links.size}"
+      patient = get_patient_detail(patient_link)
+      @data_repository.add([:patients, patient[:id]], patient)
+    end
+  end
+
+  def get_patient_detail(patient_link)
+    result = {patient_link: patient_link,
+              id: patient_link.split("/").last.to_i}
+    page = agent.get(patient_link)
+    patient_info_table = page.search('table').first
+    patient_info_table.search("tr").each do |row|
+      key = row.search("th").first.text.gsub(" ","_").downcase.to_sym
+      value = row.search("td").first.text
+      result[key] = value
+    end
+    raise unless result[:id] == (result[:patient_number].match(/^\s*PHRS\s+(\d+)/)[1].to_i)
+    edit_link = result[:patient_link].gsub(/\/patient\//, "/edit/")
+    page = agent.get(edit_link)
+    form = page.forms.first
+    result[:first_name] = form.field_with(name: "firstname").value
+    result[:last_name] = form.field_with(name: "lastname").value
+    result
+  end
+
   def run
     get_all_patients
   end
@@ -107,7 +154,9 @@ class PatientFinder
   end
 end
 
+# vvvvv Workspace vvvv
 data_repository = DataRepository.new('data.yml')
 configuration = YAML.load_file('config.yml')
-# PatientFinder.new(configuration, data_repository).get_all_patient_links
-data_repository.save!
+# 1. PatientFinder.new(configuration, data_repository).get_all_patient_links
+# 2.  PatientFinder.new(configuration, data_repository).get_all_patients
+# data_repository.save!
