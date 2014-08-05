@@ -1,8 +1,8 @@
+require 'fileutils'
 require 'mechanize'
 require 'yaml'
 require 'forwardable'
 require 'pry'
-
 
 class SignedInMechanize
   def initialize(agent, configuration)
@@ -33,6 +33,7 @@ class SignedInMechanize
 end
 
 class DataRepository
+
   def initialize(file_path)
     @file_path = file_path
     if File.exists? file_path
@@ -41,18 +42,33 @@ class DataRepository
       @data = {}
     end
   end
+
   def add(key, new_data)
     @data[key] ||= []
     @data[key] += Array(new_data)
   end
+
   def to_s
     @data.inspect
   end
+
   def save!
+    backup!
     File.open(@file_path, "w+") do |file|
       file.write(YAML.dump(@data))
     end
   end
+
+  def backup!
+    if File.exists? @file_path
+      extension = File.extname(@file_path)
+      basename = File.basename(@file_path, extension)
+      new_name = basename + "." + Time.now.to_s + extension
+      new_path = File.join(File.dirname(@file_path), new_name)
+      FileUtils.cp @file_path, new_path
+    end
+  end
+
 end
 
 class PatientFinder
@@ -93,6 +109,5 @@ end
 
 data_repository = DataRepository.new('data.yml')
 configuration = YAML.load_file('config.yml')
-PatientFinder.new(configuration, data_repository).get_all_patient_links
+# PatientFinder.new(configuration, data_repository).get_all_patient_links
 data_repository.save!
-puts data_repository
