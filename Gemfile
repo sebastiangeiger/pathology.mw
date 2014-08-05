@@ -31,6 +31,7 @@ group :development do
   gem 'guard-livereload', require: false
   gem 'travis', '~> 1.6.17'
   gem 'pry'
+  gem 'mechanize'
 end
 
 group :test, :development do

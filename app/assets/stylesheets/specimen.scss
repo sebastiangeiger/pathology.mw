@@ -28,5 +28,15 @@ form#new_specimen {
     margin-bottom: 0px;
     line-height: 1em;
   }
+  .legacy-info {
+    font-size: 0.5em;
+    color: $background-color-more-contrast;
+    a {
+      color: $background-color-more-contrast;
+      &:hover {
+        font-style: italic;
+      }
+    }
+  }
 }
 

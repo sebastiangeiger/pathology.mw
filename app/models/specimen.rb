@@ -1,6 +1,7 @@
 class Specimen < ActiveRecord::Base
   belongs_to :patient
   belongs_to :clinical_history
+  validates :date_submitted, presence: true
 
   def clinical_history_description
     clinical_history.try(:description) || ""
@@ -15,5 +16,9 @@ class Specimen < ActiveRecord::Base
       self.clinical_history = history
       self.save
     end
+  end
+
+  def imported?
+    imported_on.present?
   end
 end
