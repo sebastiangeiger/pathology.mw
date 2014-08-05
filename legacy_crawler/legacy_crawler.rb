@@ -225,6 +225,12 @@ class Experiments
       puts "Difference between the speciment links:"
       pp difference(specimen_links_from_patients, specimen_links_from_results)
     end
+    def patients_with_several_specimen(data_repository)
+      patients = data_repository.get(:patients)
+      pp patients.select{|id,patient|
+        patient[:specimen_links].size > 1
+      }
+    end
     private
     def difference(array_a, array_b)
       (array_a - array_b) | (array_b - array_a)
@@ -241,3 +247,4 @@ configuration = YAML.load_file('config.yml')
 # 4.  SpecimenFinder.new(configuration, data_repository).get_all_specimen
 # data_repository.save!
 # Experiments.compare_specimen_links_from_results_and_patients(data_repository)
+Experiments.patients_with_several_specimen(data_repository)
