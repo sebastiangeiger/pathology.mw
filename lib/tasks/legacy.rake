@@ -1,8 +1,15 @@
-def get_file_path(args)
-  raise "Usage: #{t}[FILE_PATH]" unless args[:file_path]
-  file_path = File.absolute_path(args[:file_path])
-  raise %Q{"#{file_path}" does not exist} unless File.exists?(file_path)
-  file_path
+require 'open-uri'
+
+def read_data(args)
+  raise "Usage: #{t}[FILE_PATH_OR_URL]" unless args[:file_path_or_url]
+  file_path_or_url = args[:file_path_or_url]
+  if file_path_or_url =~ /^https?:\/\//
+    YAML::load_file(open(file_path_or_url))
+  else
+    file_path = File.absolute_path(file_path_or_url)
+    raise %Q{"#{file_path}" does not exist} unless File.exists?(file_path)
+    YAML::load_file(file_path)
+  end
 end
 
 def create_patients!(patients)
@@ -116,9 +123,8 @@ end
 
 namespace :legacy do
   desc "This imports the data from a data.yml file"
-  task :import_from_data_yml, [:file_path] => [:environment] do |t,args|
-    file_path = get_file_path(args)
-    data = YAML.load_file(file_path)
+  task :import_from_data_yml, [:file_path_or_url] => [:environment] do |t,args|
+    data = read_data(args)
     create_patients!(data[:patients])
     create_specimens!(data[:specimen])
     make_sure_all_specimen_are_there!(data[:patients])
