@@ -140,7 +140,7 @@ class PatientFinder
     end
     result[:specimen_links] = page.links_with(href: /\/patients\/edit_specimen\//).
       map(&:uri).map(&:to_s)
-    raise unless result[:id] == (result[:patient_number].match(/^\s*PHRS\s+(\d+)/)[1].to_i)
+    raise unless result[:id] == (result[:patient_number].match(/^\s*phrs\s+(\d+)/)[1].to_i)
     edit_link = result[:patient_link].gsub(/\/patient\//, "/edit/")
     page = agent.get(edit_link)
     form = page.forms.first
@@ -175,10 +175,40 @@ class SpecimenFinder
     end
   end
 
+  def get_all_specimen
+    specimen_links = @data_repository.get(:specimen_links)#.first(1)
+    specimen_links.each_with_index do |specimen_link,i|
+      puts "Specimen Detail #{i+1}/#{specimen_links.size}"
+      specimen = get_specimen_detail(specimen_link)
+      @data_repository.add([:specimen, specimen[:id]], specimen)
+    end
+  end
+
   private
   def specimen_links_from(page)
     page.links_with(href: /\/patients\/edit_specimen\//).
       map(&:uri).map(&:to_s)
+  end
+
+  def get_specimen_detail(specimen_link)
+    result = {id: specimen_link.split("/").last.to_i,
+              patient_id: specimen_link.split("/")[-2].to_i}
+    page = agent.get(specimen_link)
+    specimen_form = page.forms.first
+    specimen_form.fields.each do |field|
+      key = field.name.to_sym
+      if field.is_a? Mechanize::Form::Textarea or field.is_a? Mechanize::Form::Text
+        value = field.value
+      elsif field.is_a? Mechanize::Form::SelectList
+        selected_options = field.options_with(value: field.value)
+        raise "Failed at #{specimen_link}" if selected_options.empty?
+        value = selected_options.first.text
+      else
+        raise "Failed at #{specimen_link}"
+      end
+      result[key] = value
+    end
+    result
   end
 
   def agent
@@ -208,5 +238,6 @@ configuration = YAML.load_file('config.yml')
 # 1. PatientFinder.new(configuration, data_repository).get_all_patient_links
 # 2. PatientFinder.new(configuration, data_repository).get_all_patients
 # 3. SpecimenFinder.new(configuration, data_repository).get_all_specimen_links
+# 4.  SpecimenFinder.new(configuration, data_repository).get_all_specimen
 # data_repository.save!
 # Experiments.compare_specimen_links_from_results_and_patients(data_repository)
