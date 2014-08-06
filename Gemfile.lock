@@ -245,7 +245,7 @@ GEM
     thread_safe (0.3.4)
     tilt (1.4.1)
     timers (1.1.0)
-    travis (1.6.17)
+    travis (1.7.0)
       addressable (~> 2.3)
       backports
       faraday (~> 0.9)
@@ -324,7 +324,7 @@ DEPENDENCIES
   sass
   slim (~> 2.0.3)
   sqlite3 (~> 1.3.9)
-  travis (~> 1.6.17)
+  travis (~> 1.7.0)
   turbolinks (~> 2.2.2)
   uglifier
   zurb-foundation (~> 4.3.2)
