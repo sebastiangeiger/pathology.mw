@@ -16,3 +16,9 @@ end
 Then(/^there should be no patients in the system$/) do
   expect(Patient.count).to eql 0
 end
+
+Given(/^the patients (\d+) to (\d+) exist$/) do |from, to|
+  (from.to_i .. to.to_i).each do |i|
+    FactoryGirl.create(:patient, first_name: "Patient ##{i}", last_name: "Lastname")
+  end
+end

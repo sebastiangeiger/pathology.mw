@@ -22,3 +22,15 @@ Feature: Patient Management
     And I click on "Create Patient"
     Then I should see "Could not create the Patient"
     And I should see "can't be blank"
+
+  Scenario: Paginating the patient index
+    Given I am signed in as a pathologist
+    Given the patients 1 to 30 exist
+    When I am on the patients overview page
+    Then I should see "Patient #1"
+    And I should see "Patient #25"
+    And I should not see "Patient #26"
+    When I click on "Next"
+    Then I should not see "Patient #1"
+    And I should not see "Patient #25"
+    And I should see "Patient #26"

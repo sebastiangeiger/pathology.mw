@@ -7,3 +7,6 @@
 .row
   .large-12
     = table_for PatientTable.new(@patients), html: { id: "patients", class: "content" }
+.row
+  .large-12.columns.content.text-center
+    = paginate @patients

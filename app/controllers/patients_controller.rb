@@ -1,4 +1,8 @@
 class PatientsController < ApplicationController
+  before_filter :load_by_pagination, only: :index
+  def load_by_pagination
+    @patients = Patient.accessible_by(current_ability).order("id asc").page params[:page]
+  end
   load_and_authorize_resource
 
   def index
