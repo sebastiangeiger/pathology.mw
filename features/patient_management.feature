@@ -30,7 +30,7 @@ Feature: Patient Management
     Then I should see "Patient #1"
     And I should see "Patient #25"
     And I should not see "Patient #26"
-    When I click on ">"
+    When I click on "Next"
     Then I should not see "Patient #1"
     And I should not see "Patient #25"
     And I should see "Patient #26"
