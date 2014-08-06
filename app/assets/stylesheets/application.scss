@@ -65,6 +65,10 @@ main .row {
   }
 }
 
+main {
+  margin-bottom: 2em;
+}
+
 .alert-box {
   .success {
     a {
@@ -72,3 +76,9 @@ main .row {
     }
   }
 }
+
+nav.pagination {
+  margin-top: 0.5em;
+  margin-bottom: 0em;
+}
+
