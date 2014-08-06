@@ -1,6 +1,11 @@
 table#patients {
   margin: 0px;
   width: 100%;
+  border-width-bottom: 0px;
+}
+
+#loading-indicator {
+  background: white;
 }
 
 #patient-info {
