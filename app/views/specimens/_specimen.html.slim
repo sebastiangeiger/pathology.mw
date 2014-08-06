@@ -1,12 +1,13 @@
 .specimen
   dl
-    = definition(specimen, :description)
     = definition(specimen, :date_submitted, value: l(specimen.date_submitted))
-    = definition(specimen, :diagnosis)
+    = definition(specimen, :pathology_number, label: "Pathology #")
+    = definition(specimen, :description)
     = definition(specimen, :clinical_history, value: specimen.clinical_history_description)
-    = definition(specimen, :gross)
+    = definition(specimen, :diagnosis)
     = definition(specimen, :stains)
     = definition(specimen, :notes)
+    = definition(specimen, :gross)
 
   - if specimen.imported?
     .text-right

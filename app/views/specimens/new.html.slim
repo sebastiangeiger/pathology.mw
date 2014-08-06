@@ -11,11 +11,13 @@
 
           = form.text_field :pathology_number, label: "Pathology #"
 
-          = form.text_field :description, label: "Specimen"
-
           = form.text_area :clinical_history_description, label: "Clinical history"
 
+          = form.text_field :description, label: "Specimen"
+
           = form.text_field :diagnosis
+
+          = form.text_area :notes
 
           = form.text_area :gross
 
@@ -23,7 +25,6 @@
 
           = form.text_field :date_submitted, type: :date, value: Date.today
 
-          = form.text_area :notes
 
           .text-right
             = link_to "Cancel", @patient, class: "button small cancel"

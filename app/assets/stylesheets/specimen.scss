@@ -9,24 +9,22 @@ form#new_specimen {
   padding-bottom: 1em;
 
 
-  dt.description, dt.date-submitted {
-    display: none;
-  }
-  .description {
-    margin: 0;
-    font-size: 1.5em;
-  }
-  .date-submitted {
+  .pathology-number, .date-submitted {
     color: $background-color-more-contrast;
     font-size: 0.9em;
     margin-top: 0.2em;
+
+    dt:after {
+      content: ":";
+    }
+    dd, dt { display: inline; }
   }
-  dt {
-    color: $background-color-more-contrast;
-    font-weight: normal;
-    font-style: italic;
-    margin-bottom: 0px;
-    line-height: 1em;
+  .description {
+    dt { display: none; }
+    margin-top: 0.5em;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-decoration: underline;
   }
   .legacy-info {
     font-size: 0.5em;
