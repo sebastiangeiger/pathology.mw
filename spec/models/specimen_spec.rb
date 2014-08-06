@@ -9,4 +9,20 @@ RSpec.describe Specimen, :type => :model do
       expect(FactoryGirl.create(:specimen).patient).to be_present
     end
   end
+
+  describe 'pathology_number' do
+    it "accepts 2014-QT-32" do
+      expect(FactoryGirl.build(:specimen, pathology_number: "2014-QT-32")).to be_valid
+    end
+    it "rejects 12345" do
+      expect(FactoryGirl.build(:specimen, pathology_number: "12345")).to be_invalid
+    end
+    it "accepts 2014-32" do
+      expect(FactoryGirl.build(:specimen, pathology_number: "2014-32")).to be_valid
+    end
+    it 'converts 2014-32 to 2014-QT-32' do
+      specimen = FactoryGirl.build(:specimen, pathology_number: "2014-32")
+      expect(specimen.pathology_number).to eql "2014-QT-32"
+    end
+  end
 end
