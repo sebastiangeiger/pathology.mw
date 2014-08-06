@@ -23,6 +23,9 @@ gem 'uglifier'
 #Heroku
 gem 'rails_12factor'
 
+#Pagination
+gem 'kaminari'
+
 group :development do
   gem 'sqlite3', '~> 1.3.9'
   gem 'launchy'
