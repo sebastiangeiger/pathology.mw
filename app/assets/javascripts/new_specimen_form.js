@@ -5,7 +5,7 @@ $(function(){
     var pathologyNumberField = $("#specimen_pathology_number");
     var prefixField = $("<span class='input-prefix'>Prefix</span>");
     var inputFacade = $("<input id='specimen_pathology_number_fake_input' type='text'></input>");
-    pathologyNumberField.wrap("<div id='fake-input'></div>");
+    pathologyNumberField.wrap("<div class='fake-input'></div>");
     inputFacade.insertBefore(pathologyNumberField);
     prefixField.insertBefore(inputFacade);
     inputFacade.focus();
