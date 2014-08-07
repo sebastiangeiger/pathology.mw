@@ -12,6 +12,7 @@ Feature: Patient Activity Feed
     And the patient "Anne Moore" exists
     When I go to the patient page for "Anne Moore"
     And I click on "Add specimen"
+    And I enter "2014-QT-133" into "Pathology #"
     And I enter "Left Eye" into "Specimen"
     And I click on "Save"
     Then I should be on the patient page for "Anne Moore"
