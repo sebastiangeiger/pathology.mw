@@ -16,7 +16,7 @@ class SpecimensController < ApplicationController
 
   def create_params
     params.require(:specimen)
-      .permit(:pathologist, :description, :diagnosis, :date_submitted, :notes,
+      .permit(:pathology_number, :description, :diagnosis, :date_submitted, :notes,
               :gross, :stains)
   end
 
