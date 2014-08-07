@@ -6,7 +6,7 @@ class RobustFillIn
   def fill_in(field_name,value)
     @field_name = field_name
     @value = value
-    try_all(:date_input_field,:input_field, :disabled_input_field, :radio_buttons,:select_field,:checkbox_field)
+    try_all(:date_input_field,:input_field, :disabled_input_field, :fake_input_field, :radio_buttons,:select_field,:checkbox_field)
   end
   def try_all(*methods)
     success = false
@@ -44,6 +44,11 @@ class RobustFillIn
     unless @value.blank?
       raise "Found disabled field #{@field_name} but your input was not blank"
     end
+  end
+
+  def fake_input_field
+    id = @page.find('label', text: @field_name)['for']
+    @page.find("input##{id}_fake_input").set(@value)
   end
 
   def radio_buttons

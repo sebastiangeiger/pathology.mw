@@ -9,7 +9,7 @@
 
         = form_for [@patient, @specimen] do |form|
 
-          = form.text_field :pathology_number, label: "Pathology #"
+          = form.text_field :pathology_number, label: "Pathology #", value: "#{Date.today.year}-QT-"
 
           = form.text_area :clinical_history_description, label: "Clinical history"
 
