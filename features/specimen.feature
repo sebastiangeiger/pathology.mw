@@ -25,7 +25,8 @@ Feature: Specimen
     When I go to the patient page for "Anne Moore"
     And I click on "Add specimen"
     And I enter "204" into "Pathology #"
-    And I enter "Left Eye" into "Specimen"
+    And I add the option "Left Eye" to the "Specimen" combobox
     And I click on "Save"
     Then I should be on the patient page for "Anne Moore"
     And I should see "2014-QT-204" within ".pathology-number"
+    And I should see "Left Eye" within ".description"

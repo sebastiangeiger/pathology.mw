@@ -96,3 +96,15 @@ Then(/^the value of the "(.*?)" input field should be "(.*?)"$/) do |field_name,
   input = page.find("input[id=#{label['for']}]")
   expect(input.value).to eql value
 end
+
+When(/^I add the option "(.*?)" to the "(.*?)" combobox$/) do |value, field_name|
+  label = page.find('label', text: field_name)
+  chosen_container = label.first(:xpath, ".//following-sibling::*")
+  expect(chosen_container['class'].split(" ")).to include 'chosen-container'
+  chosen_container.click
+  search_field = chosen_container.find(".chosen-search input")
+  search_field.native.send_key(value)
+  expect(chosen_container.text).to include %Q{Add option : "#{value}"}
+  search_field.native.send_key(:Down, :Enter)
+  expect(chosen_container.find('span').text).to eql value
+end
