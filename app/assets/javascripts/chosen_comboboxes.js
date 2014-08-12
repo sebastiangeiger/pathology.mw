@@ -32,7 +32,7 @@ $(function(){
     var $label = $("label[for='"+input['id']+"']");
     var $wrapper = $input.wrap('<div>').parent();
 
-    var $toggleLink = $("<a href='#' tabindex='-1'>");
+    var $toggleLink = $("<a href='#' class='chosen-toggle' tabindex='-1'>");
     $toggleLink.insertAfter($label);
 
     var values = $input.data('chosen-values');
