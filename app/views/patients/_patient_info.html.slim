@@ -1,0 +1,11 @@
+#patient-info
+  h1 = patient.full_name
+
+  = patient_info_row("Patient number",patient)
+  = patient_info_row("Age",patient, method: :detailed_age)
+  = patient_info_row("Gender",patient)
+  = patient_info_row("District",patient)
+
+  - if patient.imported?
+    .text-right
+      .legacy-info = link_to "Imported on #{l(patient.imported_on)}", patient.legacy_link

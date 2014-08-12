@@ -1,0 +1,11 @@
+table id=(html_options[:id]) class=(html_options[:class])
+  thead
+    tr
+      - headers.each do |header|
+        th = header
+  tbody.page
+    - rows.each do |row|
+      tr data-link-to=row[:link]
+        - row[:cells].each do |cell|
+          td = cell
+

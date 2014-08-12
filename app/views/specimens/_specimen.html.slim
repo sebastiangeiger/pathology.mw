@@ -1,0 +1,14 @@
+.specimen
+  dl
+    = definition(specimen, :date_submitted, value: l(specimen.date_submitted))
+    = definition(specimen, :pathology_number, label: "Pathology #")
+    = definition(specimen, :description)
+    = definition(specimen, :clinical_history, value: specimen.clinical_history_description)
+    = definition(specimen, :diagnosis)
+    = definition(specimen, :stains)
+    = definition(specimen, :notes)
+    = definition(specimen, :gross)
+
+  - if specimen.imported?
+    .text-right
+      .legacy-info = link_to "Imported on #{l(specimen.imported_on)}", specimen.legacy_link

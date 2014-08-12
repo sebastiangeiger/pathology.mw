@@ -1,0 +1,19 @@
+.row.vertically-centered
+  .large-centered.large-6.columns.content
+
+    h2 Sign in
+
+
+    = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+
+      div = f.email_field :email, autofocus: true
+
+      div = f.password_field :password, autocomplete: "off"
+
+      .row
+        - if devise_mapping.rememberable?
+          .small-6.columns = f.check_box :remember_me
+        .small-6.columns.text-right = f.submit "Sign in", class: 'small button'
+
+
+    = render "devise/shared/links"

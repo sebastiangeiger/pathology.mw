@@ -1,0 +1,13 @@
+language: ruby
+rvm:
+- 2.0.0-p481
+- 2.1.2
+deploy:
+  provider: heroku
+  api_key:
+    secure: g7EVB3BaPB3VeGqaRbZ5uZTzADJepPbbHJ5uqqSvK8xtJYI58OMQIyfL20VNLl3atWLvilQVa/a+OJWBVJ9kQtv2mP+XozSI5XV6R/FCK9tyDsiN8cNcgZrjt3EzWqwwCLzII/G4RmYXaB+Jfd6zIDKgUraige3VqWUcsiS4Fv4=
+  app: pathology-mw
+  on:
+    repo: sebastiangeiger/pathology.mw
+    branch: develop
+    ruby: 2.1.2

@@ -1,0 +1,84 @@
+table#patients {
+  margin: 0px;
+  width: 100%;
+  border-width-bottom: 0px;
+}
+
+#loading-indicator {
+  background: white;
+}
+
+#patient-info {
+  .not-set {
+    color: lightgrey;
+    font-style: italic;
+  }
+  .row {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+  .legacy-info {
+    font-size: 0.5em;
+    color: $background-color-more-contrast;
+    a {
+      color: $background-color-more-contrast;
+      &:hover {
+        font-style: italic;
+      }
+    }
+  }
+}
+
+#activity-feed {
+  .activity-group {
+    margin-top: 1em;
+    & > .row:not(:first-child) {
+      margin-top: 0.5em;
+    }
+  }
+
+  .year, .end-of-feed {
+    color: $background-color-more-contrast;
+    font-size: 1.5em;
+  }
+
+  .end-of-feed {
+    margin-top: 2em;
+    text-align: center;
+    font-style: italic;
+  }
+
+  .specimen, .clinical_history {
+    padding-top: 1.5em;
+    padding-bottom: 1em;
+
+
+    & > div {
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+      &.date {
+        color: $background-color-more-contrast;
+        font-size: 0.9em;
+        margin-top: 0.2em;
+      }
+      &.description {
+        margin: 0;
+        font-size: 1.5em;
+      }
+    }
+  }
+
+  margin-bottom: 3em;
+}
+
+#new_patient {
+  .or, .single-line {
+    margin-top: 1.5em;
+  }
+  .or {
+    font-weight: bold;
+  }
+  input[type=checkbox] {
+    margin-right: 0.5em;
+  }
+}

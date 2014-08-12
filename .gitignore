@@ -14,3 +14,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+/legacy_crawler/config.yml
+/legacy_crawler/data.yml
+/legacy_crawler/data.*.yml

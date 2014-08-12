@@ -1,0 +1,21 @@
+.row
+  .large-4.columns.content
+    = render partial: 'patient_info', locals: { patient: @patient }
+
+  .large-8.columns
+    #activity-feed
+      .row
+        .large-12.columns.content
+          h2 Specimens
+          = link_to "Add specimen", new_patient_specimen_path(patient_id: @patient.id), class: "button"
+      - @activity_feed_items.each_pair do |year,items|
+        .activity-group
+          .year
+            = year
+          - items.each do |item|
+            = render partial: 'activity_feed_item', locals: { item: item }
+      - if @activity_feed_items.empty?
+        .end-of-feed No entries
+      - else
+        .end-of-feed No more entries
+
