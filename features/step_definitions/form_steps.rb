@@ -98,25 +98,40 @@ Then(/^the value of the "(.*?)" input field should be "(.*?)"$/) do |field_name,
 end
 
 When(/^I add the option "(.*?)" to the "(.*?)" combobox$/) do |value, field_name|
-  label = page.find('label', text: field_name)
-  chosen_container = label.first(:xpath, ".//following-sibling::*")
-  expect(chosen_container['class'].split(" ")).to include 'chosen-container'
-  chosen_container.click
-  search_field = chosen_container.find(".chosen-search input")
-  search_field.native.send_key(value)
-  expect(chosen_container.text).to include %Q{Add option : "#{value}"}
-  search_field.native.send_key(:Down, :Enter)
-  expect(chosen_container.find('span').text).to eql value
+  chosen = chosen_fields_for(field_name)
+  chosen.search_field.native.send_key(value)
+  expect(chosen.result_list.text).to include %Q{Add option : "#{value}"}
+  chosen.search_field.native.send_key(:Down, :Enter)
+  expect(chosen.selected_text_field.text).to eql value
 end
 
 When(/^I enter "(.*?)" into the "(.*?)" combobox and autocomplete the first entry$/) do |value, field_name|
+  chosen = chosen_fields_for(field_name)
+  chosen.search_field.native.send_key(value)
+  expect(chosen.result_list.text).to_not include %Q{Add option : "#{value}"}
+  chosen.search_field.native.send_key(:Down, :Enter)
+  expect(chosen.selected_text_field.text).to include value
+end
+
+class ChosenWrapper
+  def initialize(chosen_container)
+    @chosen_container = chosen_container
+  end
+  def search_field
+    @chosen_container.find(".chosen-search input")
+  end
+  def result_list
+    @chosen_container.find("li")
+  end
+  def selected_text_field
+    @chosen_container.find("span")
+  end
+end
+
+def chosen_fields_for(field_name)
   label = page.find('label', text: field_name)
   chosen_container = label.first(:xpath, ".//following-sibling::*")
   expect(chosen_container['class'].split(" ")).to include 'chosen-container'
   chosen_container.click
-  search_field = chosen_container.find(".chosen-search input")
-  search_field.native.send_key(value)
-  expect(chosen_container.text).to_not include %Q{Add option : "#{value}"}
-  search_field.native.send_key(:Down, :Enter)
-  expect(chosen_container.find('span').text).to include value
+  ChosenWrapper.new(chosen_container)
 end
