@@ -13,9 +13,9 @@
 
           = form.text_area :clinical_history_description, label: "Clinical history"
 
-          = form.combo_box :description, Specimen.uniq.pluck(:description), label: "Specimen"
+          = form.combo_box :description, @descriptions, label: "Specimen"
 
-          = form.text_field :diagnosis
+          = form.combo_box :diagnosis, @diagnoses
 
           = form.text_area :notes
 

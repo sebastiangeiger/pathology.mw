@@ -3,6 +3,8 @@ class SpecimensController < ApplicationController
   load_and_authorize_resource :specimen, through: :patient
 
   def new
+    @descriptions = existing_values(:description)
+    @diagnoses = existing_values(:diagnosis)
   end
 
   def create
@@ -24,5 +26,12 @@ class SpecimensController < ApplicationController
     if description = params['specimen']['clinical_history_description']
       @specimen.clinical_history_description = description
     end
+  end
+
+  private
+  def existing_values(column)
+    values = Specimen.uniq.order(column).pluck(column)
+    values = [""] + values unless values.first == ""
+    values
   end
 end

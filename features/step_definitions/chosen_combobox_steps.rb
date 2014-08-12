@@ -21,7 +21,10 @@ Then(/^the entry "(.*?)" in the "(.*?)" combobox is shadowed by "(.*?)"$/) do |v
 end
 
 When(/^I click on the fallback link for "(.*?)"$/) do |field_name|
-  click_link "Simple Input"
+  label = page.find('label', text: field_name)
+  link = label.first(:xpath, ".//following-sibling::a[text()='Simple Input']")
+  link.click
+  expect(page.find_field(field_name)).to be_present
 end
 
 class ChosenWrapper
