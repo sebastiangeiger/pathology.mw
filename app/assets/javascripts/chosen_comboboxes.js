@@ -17,6 +17,5 @@ $(function(){
       chosen({create_option: true, skip_no_results: true});
     copyAttributes(["name", "id", "class"], {from: $input, to: $select});
     $input.attr('name', "fallback_" + $input.attr('name')).hide();
-
   });
 });

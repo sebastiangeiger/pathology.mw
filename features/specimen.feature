@@ -19,14 +19,12 @@ Feature: Specimen
     And I should see "Stains here" within ".stains"
 
   @javascript
-  Scenario: Adding a specimen with javascript
+  Scenario: Prepopulated Pathology #
     Given I am signed in as a pathologist
     And the patient "Anne Moore" exists
     When I go to the patient page for "Anne Moore"
     And I click on "Add specimen"
     And I enter "204" into "Pathology #"
-    And I add the option "Left Eye" to the "Specimen" combobox
     And I click on "Save"
     Then I should be on the patient page for "Anne Moore"
     And I should see "2014-QT-204" within ".pathology-number"
-    And I should see "Left Eye" within ".description"
