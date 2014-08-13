@@ -6,7 +6,9 @@ class RobustFillIn
   def fill_in(field_name,value)
     @field_name = field_name
     @value = value
-    try_all(:date_input_field,:input_field, :disabled_input_field, :fake_input_field, :radio_buttons,:select_field,:checkbox_field)
+    try_all(:date_input_field,:input_field, :disabled_input_field,
+            :fake_input_field, :radio_buttons,:select_field,:chosen_combobox,
+            :checkbox_field)
   end
   def try_all(*methods)
     success = false
@@ -63,6 +65,15 @@ class RobustFillIn
 
   def select_field
     @page.select @value, from: @field_name
+  end
+
+  def chosen_combobox
+    raise unless value_field = @page.find_field(@field_name, visible:false)
+    chosen_selector = "##{value_field['id']}_chosen.chosen-container"
+    chosen_combobox = @page.find(chosen_selector)
+    chosen_combobox.click
+    chosen_combobox.native.send_keys(@value, :Down, :Enter)
+    raise unless chosen_combobox.find('span').text == @value
   end
 
   def checkbox_field
