@@ -46,9 +46,9 @@ $(function(){
       $select.append($("<option></option>").text(value));
     });
     $select.insertAfter($input);
+    copyAttributes({from: $input, to: $select});
     $select.chosen({create_option: true, skip_no_results: true});
     var $combobox = $wrapper.find(".chosen-container");
-    copyAttributes({from: $input, to: $select});
 
     var updateUI = function(){
       if(fancyInput){
