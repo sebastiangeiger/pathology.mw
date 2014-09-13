@@ -3,6 +3,7 @@ $(function(){
   $("#patients .page").infinitescroll({
     loading: {
       finishedMsg: "Congratulations, you've reached the end of the internet.",
+      finished: makeLinks,
       msgText: "",
       speed: 'fast',
       selector: "#loading-indicator"
