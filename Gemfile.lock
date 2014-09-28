@@ -244,6 +244,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
+    timecop (0.7.1)
     timers (1.1.0)
     travis (1.7.0)
       addressable (~> 2.3)
@@ -324,6 +325,7 @@ DEPENDENCIES
   sass
   slim (~> 2.0.3)
   sqlite3 (~> 1.3.9)
+  timecop
   travis (~> 1.7.0)
   turbolinks (~> 2.2.2)
   uglifier

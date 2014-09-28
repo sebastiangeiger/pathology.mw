@@ -67,3 +67,7 @@ Capybara.register_driver :poltergeist do |app|
 end
 Capybara.javascript_driver = :poltergeist
 Cucumber::Rails::Database.javascript_strategy = :truncation
+
+After do
+  Timecop.return
+end
