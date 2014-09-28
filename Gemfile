@@ -12,7 +12,7 @@ gem 'cancancan', '~> 1.9.1'
 #Views
 gem 'jquery-rails', '~> 3.1.1'
 gem 'turbolinks', '~> 2.2.2'
-gem 'slim', '~> 2.0.3'
+gem 'slim-rails', '~> 2.1.5'
 gem 'zurb-foundation', '~> 4.3.2'
 gem 'foundation_rails_helper'
 gem 'sass'

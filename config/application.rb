@@ -20,5 +20,10 @@ module PathologyMw
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     config.autoload_paths += %W(#{config.root}/app/views/table_renderers)
+    config.generators do |g|
+      g.helper      false
+      g.stylesheets false
+      g.javascripts false
+    end
   end
 end
