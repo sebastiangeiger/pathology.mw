@@ -28,10 +28,15 @@ end
 Given(/^the following patients exist:$/) do |table|
   table.hashes.each do |patient|
     first_name, last_name = patient["Name"].split(" ")
-    birthday = Date.parse(patient["Date of birth"])
-    FactoryGirl.create(:patient,
-                       first_name: first_name,
-                       last_name: last_name,
-                       birthday: birthday)
+    options = { first_name: first_name,
+                last_name: last_name }
+    if patient.has_key? "Date of birth"
+      options.merge!({birthday: Date.parse(patient["Date of birth"])})
+      options.merge!({birthyear: nil})
+    elsif patient.has_key? "Birthyear"
+      options.merge!({birthyear: patient["Birthyear"].to_i})
+      options.merge!({birthday: nil})
+    end
+    FactoryGirl.create(:patient, options)
   end
 end

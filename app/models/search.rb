@@ -32,6 +32,7 @@ class Search
   private
   def maximum_birthday_conditions
     maximum_birthday = Date.today - maximum_age.years
-    ['birthday > ? ', maximum_birthday]
+    maximum_birthyear = Date.today.year - maximum_age - 2
+    ['birthday > ? OR birthyear > ? ', maximum_birthday, maximum_birthyear]
   end
 end
