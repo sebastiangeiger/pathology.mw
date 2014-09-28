@@ -28,6 +28,10 @@ end
 Given(/^the following patients exist:$/) do |table|
   table.hashes.each do |patient|
     first_name, last_name = patient["Name"].split(" ")
-    FactoryGirl.create(:patient, first_name: first_name, last_name: last_name)
+    birthday = Date.parse(patient["Date of birth"])
+    FactoryGirl.create(:patient,
+                       first_name: first_name,
+                       last_name: last_name,
+                       birthday: birthday)
   end
 end
