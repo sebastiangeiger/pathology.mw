@@ -19,6 +19,7 @@ gem 'sass'
 
 #Assets
 gem 'uglifier'
+gem 'quiet_assets'
 
 #Heroku
 gem 'rails_12factor'
