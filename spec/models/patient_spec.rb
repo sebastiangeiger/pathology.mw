@@ -81,6 +81,11 @@ RSpec.describe Patient, :type => :model do
 
   describe '.maximum_age' do
     subject { Patient.maximum_age(maximum_age).all }
+    context 'with no age given' do
+      let(:patient) { FactoryGirl.create(:patient) }
+      let(:maximum_age) { nil }
+      it { is_expected.to include patient }
+    end
     context 'when patient has his 30th birthday' do
       let(:patient) do
         FactoryGirl.create(:patient, birthday: birthday, birthyear: nil)
