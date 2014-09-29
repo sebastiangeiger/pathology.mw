@@ -81,10 +81,10 @@ RSpec.describe Patient, :type => :model do
 
   describe '.maximum_age' do
     subject { Patient.maximum_age(maximum_age).all }
-    let(:patient) do
-      FactoryGirl.create(:patient, birthday: birthday)
-    end
     context 'when patient has his 30th birthday' do
+      let(:patient) do
+        FactoryGirl.create(:patient, birthday: birthday, birthyear: nil)
+      end
       let(:maximum_age) { 30 }
       context 'tomorrow' do
         let(:birthday) { 30.years.ago.tomorrow.to_date }
@@ -96,6 +96,29 @@ RSpec.describe Patient, :type => :model do
       end
       context 'yesterday' do
         let(:birthday) { 30.years.ago.yesterday.to_date }
+        it { is_expected.to_not include patient }
+      end
+    end
+    context 'when patient has a birthyear' do
+      around(:each) do |example|
+        Timecop.travel(Time.zone.parse("2014-09-28").to_date)
+        example.run
+        Timecop.return
+      end
+      let(:patient) do
+        FactoryGirl.create(:patient, birthyear: birthyear, birthday: nil)
+      end
+      let(:maximum_age) { 30 }
+      context '1984' do
+        let(:birthyear) { 1984 }
+        it { is_expected.to include patient }
+      end
+      context '1983' do
+        let(:birthyear) { 1983 }
+        it { is_expected.to include patient }
+      end
+      context '1982' do
+        let(:birthyear) { 1982 }
         it { is_expected.to_not include patient }
       end
     end

@@ -12,7 +12,8 @@ class Patient < ActiveRecord::Base
   def self.maximum_age(age = nil)
     if age
       maximum_birthday = Time.zone.today - age.years
-      self.where(['birthday >= ?', maximum_birthday])
+      maximum_birthyear = Time.zone.today.year - age.to_i - 1
+      self.where(['birthday >= ? OR birthyear >= ?', maximum_birthday, maximum_birthyear])
     else
       all
     end
