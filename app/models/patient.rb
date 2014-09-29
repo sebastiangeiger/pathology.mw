@@ -18,7 +18,7 @@ class Patient < ActiveRecord::Base
   end
 
   def age
-    now = Date.today
+    now = Time.zone.today
     if birthday
       year_adjustment = (now.month > birthday.month || (now.month == birthday.month && now.day >= birthday.day)) ? 0 : 1
       now.year - birthday.year - year_adjustment
