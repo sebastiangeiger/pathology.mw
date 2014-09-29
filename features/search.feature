@@ -20,8 +20,8 @@ Feature: Specimen
     And the following patients exist:
       | Name         | Birthyear |
       | Anne Moore   | 1980      |
-      | Cecilia Orth | 1981      |
-      | Beth Norris  | 1982      |
+      | Beth Norris  | 1981      |
+      | Cecilia Orth | 1982      |
     And it is currently 23. September 2014
     When I go to the search page
     And I enter "32" into "Maximum age"

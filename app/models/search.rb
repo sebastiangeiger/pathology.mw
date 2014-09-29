@@ -18,7 +18,7 @@ class Search
   end
 
   def execute
-    Patient.where(maximum_birthday_conditions).all
+    Patient.maximum_age(maximum_age).all
   end
 
   def maximum_age
@@ -27,12 +27,5 @@ class Search
 
   def minimum_age
     @minimum_age.to_i if @minimum_age
-  end
-
-  private
-  def maximum_birthday_conditions
-    maximum_birthday = Date.today - maximum_age.years
-    maximum_birthyear = Date.today.year - maximum_age - 2
-    ['birthday > ? OR birthyear > ? ', maximum_birthday, maximum_birthyear]
   end
 end
