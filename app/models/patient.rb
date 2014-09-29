@@ -9,6 +9,15 @@ class Patient < ActiveRecord::Base
   has_many :clinical_histories
   has_many :specimens
 
+  def self.maximum_age(age = nil)
+    if age
+      maximum_birthday = Time.zone.today - age.years
+      self.where(['birthday >= ?', maximum_birthday])
+    else
+      all
+    end
+  end
+
   def patient_number
     "PHTRS #{format('%04d', id)}"
   end

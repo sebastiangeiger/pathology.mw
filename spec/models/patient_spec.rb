@@ -78,4 +78,26 @@ RSpec.describe Patient, :type => :model do
       it { is_expected.to eql "" }
     end
   end
+
+  describe '.maximum_age' do
+    subject { Patient.maximum_age(maximum_age).all }
+    let(:patient) do
+      FactoryGirl.create(:patient, birthday: birthday)
+    end
+    context 'when patient has his 30th birthday' do
+      let(:maximum_age) { 30 }
+      context 'tomorrow' do
+        let(:birthday) { 30.years.ago.tomorrow.to_date }
+        it { is_expected.to include patient }
+      end
+      context 'today' do
+        let(:birthday) { 30.years.ago.to_date }
+        it { is_expected.to include patient }
+      end
+      context 'yesterday' do
+        let(:birthday) { 30.years.ago.yesterday.to_date }
+        it { is_expected.to_not include patient }
+      end
+    end
+  end
 end
