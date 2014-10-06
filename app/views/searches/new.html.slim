@@ -5,9 +5,12 @@
 
 .row
   .large-12
-    = form_for @search, method: :get, url: search_path do |form|
-      = form.text_field :maximum_age
-      = form.text_field :minimum_age
-      = form.select :gender, Patient.genders, include_blank: true
+    = render partial: 'search_form'
 
-      = form.submit "Search"
+- if @search.is_executable?
+  .row
+    .large-12
+      p = "#{@results.size} Matches"
+      ul
+        - @results.each do |result|
+          li = result.full_name

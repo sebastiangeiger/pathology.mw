@@ -8,7 +8,6 @@ class SearchesController < ApplicationController
     @search = Search.new(params[:search])
     if @search.is_executable?
       @results = @search.execute
-      render :show
     end
   end
 end
