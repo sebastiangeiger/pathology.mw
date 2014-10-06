@@ -27,16 +27,42 @@ end
 
 Given(/^the following patients exist:$/) do |table|
   table.hashes.each do |patient|
-    first_name, last_name = patient["Name"].split(" ")
-    options = { first_name: first_name,
-                last_name: last_name }
-    if patient.has_key? "Date of birth"
-      options.merge!({birthday: Date.parse(patient["Date of birth"])})
-      options.merge!({birthyear: nil})
-    elsif patient.has_key? "Birthyear"
-      options.merge!({birthyear: patient["Birthyear"].to_i})
-      options.merge!({birthday: nil})
+    PatientBuilder.new(patient).create!
+  end
+end
+
+class PatientBuilder
+  def initialize(hash)
+    @hash = hash
+    @options = {}
+    @option_processors = []
+  end
+  def read_options!
+    @hash.each_pair do |attribute, value|
+      begin
+        self.send(attribute.parameterize.underscore.to_sym, value)
+      rescue NoMethodError
+        raise %Q{Don't know what to do with column "#{attribute}".}
+      end
     end
-    FactoryGirl.create(:patient, options)
+  end
+  def create!
+    read_options!
+    begin
+    FactoryGirl.create(:patient, @options)
+    rescue
+      binding.pry
+    end
+  end
+
+  def name(name)
+    first_name, last_name = name.split(" ")
+    @options.merge!({ first_name: first_name, last_name: last_name })
+  end
+  def date_of_birth(date)
+    @options.merge!({birthday: Date.parse(date), birthyear: nil})
+  end
+  def birthyear(year)
+    @options.merge!({birthyear: Integer(year), birthday: nil})
   end
 end

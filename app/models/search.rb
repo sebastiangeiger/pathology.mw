@@ -7,18 +7,25 @@ class Search
 
   def initialize(attributes = {})
     attributes ||= {}
-    @executable = attributes.any?
+    attributes.select! { |k,v| v.present? }
+    @fields = attributes.keys
     attributes.each do |name, value|
       send("#{name}=", value)
     end
   end
 
   def is_executable?
-    @executable
+    @fields.any?
   end
 
   def execute
-    Patient.maximum_age(maximum_age).all
+    scopes.reduce(:merge).all
+  end
+
+  def scopes
+    @fields.map do |field|
+      Patient.send(field, self.send(field))
+    end
   end
 
   def maximum_age
