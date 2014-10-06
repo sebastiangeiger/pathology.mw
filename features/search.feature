@@ -66,3 +66,4 @@ Feature: Specimen
     Examples:
       | Search Term | should see? |
       | John Doe    | see         |
+      | Jon Doe     | see         |

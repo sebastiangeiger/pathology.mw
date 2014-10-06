@@ -178,4 +178,31 @@ RSpec.describe Patient, :type => :model do
       end
     end
   end
+
+  describe '.name_query' do
+    let(:patient) do
+      FactoryGirl.create(:patient, first_name: "John", last_name: "Doe")
+    end
+    subject { Patient.name_query(name_query).all }
+    context "when searching for 'John Doe'" do
+      let(:name_query) { "John Doe" }
+      it { is_expected.to include patient }
+    end
+    context "when searching for 'Doe'" do
+      let(:name_query) { "Doe" }
+      it { is_expected.to include patient }
+    end
+    context "when searching for 'John'" do
+      let(:name_query) { "John" }
+      it { is_expected.to include patient }
+    end
+    context "when searching for 'Jon Doe'" do
+      let(:name_query) { "Jon Doe" }
+      it { is_expected.to include patient }
+    end
+    context "when searching for 'Jan Due'" do
+      let(:name_query) { "Jan Due" }
+      it { is_expected.to_not include patient }
+    end
+  end
 end

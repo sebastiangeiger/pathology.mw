@@ -1,8 +1,7 @@
 class SearchesController < ApplicationController
   skip_authorization_check
-  # before_filter do
-  #   authorize! if can? :create, :search
-  # end
+  #TODO: Needs security
+  #TODO: Needs to use the Patient Table with pagination
 
   def new
     @search = Search.new(params[:search])

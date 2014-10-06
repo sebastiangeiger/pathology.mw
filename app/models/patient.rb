@@ -1,4 +1,5 @@
 class Patient < ActiveRecord::Base
+  include PgSearch
   attr_writer :birthday_unknown
 
   VALID_GENDERS = ["Male","Female"]
@@ -12,6 +13,8 @@ class Patient < ActiveRecord::Base
   has_many :specimens
 
   # === Scopes === #
+  pg_search_scope :name_query, against: [:first_name, :last_name], using: [:tsearch, :trigram]
+
   def self.maximum_age(age = nil)
     if age
       maximum_birthday = Time.zone.today - age.years
@@ -40,14 +43,6 @@ class Patient < ActiveRecord::Base
     end
   end
 
-  def self.name_query(name = nil)
-    if name
-      first_name, last_name = name.split(" ")
-      self.where(first_name: first_name, last_name: last_name)
-    else
-      all
-    end
-  end
   # === /Scopes === #
 
   def self.genders
