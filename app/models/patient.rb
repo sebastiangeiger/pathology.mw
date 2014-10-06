@@ -39,6 +39,15 @@ class Patient < ActiveRecord::Base
       all
     end
   end
+
+  def self.name_query(name = nil)
+    if name
+      first_name, last_name = name.split(" ")
+      self.where(first_name: first_name, last_name: last_name)
+    else
+      all
+    end
+  end
   # === /Scopes === #
 
   def self.genders

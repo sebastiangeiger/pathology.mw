@@ -50,3 +50,19 @@ Feature: Specimen
     And I click on "Search"
     Then I should see "Anne Moore"
     Then I should not see "John Doe"
+
+  Scenario Outline: Searching by name
+    Given I am signed in as a pathologist
+    And the following patients exist:
+      | Name         |
+      | Anne Moore   |
+      | John Doe     |
+    When I go to the search page
+    And I enter "<Search Term>" into "Name"
+    And I click on "Search"
+    Then I should not see "Anne Moore"
+    Then I should <should see?> "John Doe"
+
+    Examples:
+      | Search Term | should see? |
+      | John Doe    | see         |

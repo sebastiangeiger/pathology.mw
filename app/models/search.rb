@@ -4,7 +4,7 @@ class Search
   extend ActiveModel::Naming
 
   attr_writer :maximum_age, :minimum_age
-  attr_accessor :gender
+  attr_accessor :gender, :name_query
 
   def initialize(attributes = {})
     attributes ||= {}
