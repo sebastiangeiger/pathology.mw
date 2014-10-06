@@ -22,6 +22,16 @@ class Patient < ActiveRecord::Base
     end
   end
 
+  def self.minimum_age(age = nil)
+    if age
+      minimum_age = Time.zone.today - age.years
+      minimum_birthyear = Time.zone.today.year - age.to_i - 1
+      self.where(['birthday <= ? OR birthyear <= ?', minimum_age, minimum_birthyear])
+    else
+      all
+    end
+  end
+
   def self.gender(gender = nil)
     if gender
       self.where(gender: gender)

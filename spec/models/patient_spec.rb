@@ -128,4 +128,54 @@ RSpec.describe Patient, :type => :model do
       end
     end
   end
+
+  describe '.minimum_age' do
+    subject { Patient.minimum_age(minimum_age).all }
+    context 'with no age given' do
+      let(:patient) { FactoryGirl.create(:patient) }
+      let(:minimum_age) { nil }
+      it { is_expected.to include patient }
+    end
+    context 'when patient has his 30th birthday' do
+      let(:patient) do
+        FactoryGirl.create(:patient, birthday: birthday, birthyear: nil)
+      end
+      let(:minimum_age) { 30 }
+      context 'tomorrow' do
+        let(:birthday) { 30.years.ago.tomorrow.to_date }
+        it { is_expected.to_not include patient }
+      end
+      context 'today' do
+        let(:birthday) { 30.years.ago.to_date }
+        it { is_expected.to include patient }
+      end
+      context 'yesterday' do
+        let(:birthday) { 30.years.ago.yesterday.to_date }
+        it { is_expected.to include patient }
+      end
+    end
+    context 'when patient has a birthyear' do
+      around(:each) do |example|
+        Timecop.travel(Time.zone.parse("2014-09-28").to_date)
+        example.run
+        Timecop.return
+      end
+      let(:patient) do
+        FactoryGirl.create(:patient, birthyear: birthyear, birthday: nil)
+      end
+      let(:minimum_age) { 30 }
+      context '1984' do
+        let(:birthyear) { 1984 }
+        it { is_expected.to_not include patient }
+      end
+      context '1983' do
+        let(:birthyear) { 1983 }
+        it { is_expected.to include patient }
+      end
+      context '1982' do
+        let(:birthyear) { 1982 }
+        it { is_expected.to include patient }
+      end
+    end
+  end
 end
