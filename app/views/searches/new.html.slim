@@ -10,7 +10,5 @@
 - if @search.is_executable?
   .row
     .large-12
-      p = "#{@results.size} Matches"
-      ul
-        - @results.each do |result|
-          li = result.full_name
+      p = "#{@patients.size} Matches"
+      = table_for PatientTable.new(@patients), html: { id: "patients", class: "content" }

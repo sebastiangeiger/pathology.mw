@@ -6,7 +6,7 @@ class SearchesController < ApplicationController
   def new
     @search = Search.new(params[:search])
     if @search.is_executable?
-      @results = @search.execute
+      @patients = @search.execute
     end
   end
 end
