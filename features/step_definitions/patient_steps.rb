@@ -65,4 +65,9 @@ class PatientBuilder
   def birthyear(year)
     @options.merge!({birthyear: Integer(year), birthday: nil})
   end
+  def gender(gender)
+    unless gender == "unknown"
+      @options.merge!({ gender: gender })
+    end
+  end
 end

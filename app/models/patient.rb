@@ -1,14 +1,17 @@
 class Patient < ActiveRecord::Base
   attr_writer :birthday_unknown
 
+  VALID_GENDERS = ["Male","Female"]
+
   validates :first_name, presence: true, length: { minimum: 1}
   validates :last_name,  presence: true, length: { minimum: 1}
-  validates :gender, inclusion: ["Male","Female"]
+  validates :gender, inclusion: VALID_GENDERS
   validate :either_birthday_or_birthyear_must_be_set_or_birthday_unknown
 
   has_many :clinical_histories
   has_many :specimens
 
+  # === Scopes === #
   def self.maximum_age(age = nil)
     if age
       maximum_birthday = Time.zone.today - age.years
@@ -17,6 +20,19 @@ class Patient < ActiveRecord::Base
     else
       all
     end
+  end
+
+  def self.gender(gender = nil)
+    if gender
+      self.where(gender: gender)
+    else
+      all
+    end
+  end
+  # === /Scopes === #
+
+  def self.genders
+    VALID_GENDERS
   end
 
   def patient_number

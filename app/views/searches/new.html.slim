@@ -8,5 +8,6 @@
     = form_for @search, method: :get, url: search_path do |form|
       = form.text_field :maximum_age
       = form.text_field :minimum_age
+      = form.select :gender, Patient.genders, include_blank: true
 
       = form.submit "Search"

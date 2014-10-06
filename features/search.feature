@@ -37,3 +37,16 @@ Feature: Specimen
     And I click on "Search"
     Then I should see "32" in "Maximum age"
     And "Minimum age" should be empty
+
+  Scenario: Searching by gender
+    Given I am signed in as a pathologist
+    And the following patients exist:
+      | Name         | Gender  |
+      | Anne Moore   | Female  |
+      | John Doe     | Male    |
+    And it is currently 23. September 2014
+    When I go to the search page
+    And I enter "Female" into "Gender"
+    And I click on "Search"
+    Then I should see "Anne Moore"
+    Then I should not see "John Doe"
