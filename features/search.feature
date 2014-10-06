@@ -29,3 +29,11 @@ Feature: Specimen
     Then I should not see "Anne Moore"
     Then I should see "Beth Norris"
     Then I should see "Cecilia Orth"
+
+  Scenario: Showing the search values
+    Given I am signed in as a pathologist
+    When I go to the search page
+    And I enter "32" into "Maximum age"
+    And I click on "Search"
+    Then I should see "32" in "Maximum age"
+    And "Minimum age" should be empty

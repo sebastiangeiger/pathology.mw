@@ -5,8 +5,8 @@ class Search
 
   attr_writer :maximum_age, :minimum_age
 
-  def initialize(attributes = [])
-    attributes ||= []
+  def initialize(attributes = {})
+    attributes ||= {}
     @executable = attributes.any?
     attributes.each do |name, value|
       send("#{name}=", value)
@@ -22,10 +22,10 @@ class Search
   end
 
   def maximum_age
-    @maximum_age.to_i if @maximum_age
+    Integer(@maximum_age) rescue nil
   end
 
   def minimum_age
-    @minimum_age.to_i if @minimum_age
+    Integer(@minimum_age) rescue nil
   end
 end
