@@ -10,7 +10,7 @@ Feature: Specimen
     And it is currently 23. September 2014
     When I go to the search page
     And I enter "32" into "Maximum age"
-    And I click on "Search"
+    And I click on the "Search" button
     Then I should not see "Anne Moore"
     Then I should see "Beth Norris"
     Then I should see "Cecilia Orth"
@@ -25,7 +25,7 @@ Feature: Specimen
     And it is currently 23. September 2014
     When I go to the search page
     And I enter "32" into "Maximum age"
-    And I click on "Search"
+    And I click on the "Search" button
     Then I should not see "Anne Moore"
     Then I should see "Beth Norris"
     Then I should see "Cecilia Orth"
@@ -34,7 +34,7 @@ Feature: Specimen
     Given I am signed in as a pathologist
     When I go to the search page
     And I enter "32" into "Maximum age"
-    And I click on "Search"
+    And I click on the "Search" button
     Then I should see "32" in "Maximum age"
     And "Minimum age" should be empty
 
@@ -47,7 +47,7 @@ Feature: Specimen
     And it is currently 23. September 2014
     When I go to the search page
     And I enter "Female" into "Gender"
-    And I click on "Search"
+    And I click on the "Search" button
     Then I should see "Anne Moore"
     Then I should not see "John Doe"
 
@@ -59,7 +59,7 @@ Feature: Specimen
       | John Doe     |
     When I go to the search page
     And I enter "<Search Term>" into "Name"
-    And I click on "Search"
+    And I click on the "Search" button
     Then I should not see "Anne Moore"
     Then I should <should see?> "John Doe"
 

@@ -2,6 +2,7 @@ class SearchesController < ApplicationController
   load_and_authorize_resource
 
   def new
+    @menu_point_active = :search
     @search = Search.new(params[:search])
     if @search.is_executable?
       results = @search.execute.accessible_by(current_ability)

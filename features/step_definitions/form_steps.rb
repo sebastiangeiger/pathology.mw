@@ -117,3 +117,10 @@ Then(/^"(.*?)" should be empty$/) do |field_name|
   input = page.find("input[id=#{label['for']}]")
   expect(input.value).to be_blank
 end
+
+When(/^I click on the "(.*?)" button$/) do |text|
+  inputs = page.all('input[type=submit]')
+  fitting = inputs.select {|i| i.value == text }
+  raise "Expected to find one button, found #{fitting.size}" unless fitting.size == 1
+  fitting.first.click
+end

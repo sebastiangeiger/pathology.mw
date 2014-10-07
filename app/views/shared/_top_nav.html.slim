@@ -9,6 +9,9 @@ nav.top-bar
       - if can? :read, Patient
         li class=(is_active?(:patient))
           = link_to "Patients", patients_path
+      - if can? :create, Search
+        li class=(is_active?(:search))
+          = link_to "Search", search_path
     ul.right
       - if can? :read, User
         li.has-dropdown.admin
