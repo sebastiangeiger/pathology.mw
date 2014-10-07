@@ -18,5 +18,5 @@
   .row
     .large-12.columns.content.text-center
       = paginate @patients
-- else
+- elsif @search.is_executable?
   .empty-search-results No search results
