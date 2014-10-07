@@ -10,5 +10,8 @@
 - if @search.is_executable?
   .row
     .large-12
-      p = "#{@patients.size} Matches"
+      p = "#{@result_size} Matches"
       = table_for PatientTable.new(@patients), html: { id: "patients", class: "content" }
+  .row
+    .large-12.columns.content.text-center
+      = paginate @patients

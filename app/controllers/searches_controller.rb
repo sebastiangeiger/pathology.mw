@@ -1,12 +1,13 @@
 class SearchesController < ApplicationController
   skip_authorization_check
   #TODO: Needs security
-  #TODO: Needs to use the Patient Table with pagination
 
   def new
     @search = Search.new(params[:search])
     if @search.is_executable?
-      @patients = @search.execute
+      results = @search.execute.accessible_by(current_ability)
+      @patients = results.page params[:page]
+      @result_size = results.count(:all)
     end
   end
 end
