@@ -15,7 +15,7 @@ class Ability
       can :cru, Patient
       can :cru, ClinicalHistory
       can :cru, Specimen
-      can :cru, Search
+      can :create, Search
     end
 
   end

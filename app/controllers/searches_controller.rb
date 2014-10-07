@@ -1,6 +1,5 @@
 class SearchesController < ApplicationController
-  skip_authorization_check
-  #TODO: Needs security
+  load_and_authorize_resource
 
   def new
     @search = Search.new(params[:search])
