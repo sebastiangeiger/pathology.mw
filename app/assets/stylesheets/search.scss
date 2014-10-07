@@ -1,0 +1,17 @@
+#new_search {
+  background-color: white;
+  padding: 1em;
+  border: 1px solid $background-color-contrast;
+  border-bottom-width: 2px;
+  border-radius: 3px;
+  background-color: $content-background-color;
+  padding-bottom: 0.5em;
+}
+
+.empty-search-results {
+  text-align: center;
+  margin-top: 2em;
+  font-style: italic;
+  font-size: 150%;
+  color: $background-color-more-contrast;
+}

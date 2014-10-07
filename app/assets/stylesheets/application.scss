@@ -33,6 +33,7 @@ $header-font-weight: 100;
 @import "form_errors_summary";
 @import "patient";
 @import "specimen";
+@import "search";
 
 body {
   background-color: $background-color;
