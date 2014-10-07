@@ -16,7 +16,7 @@ class Specimen < ActiveRecord::Base
     if self.clinical_history
       raise :not_implemented_yet
     else
-      history = ClinicalHistory.create!(date: Date.today,
+      history = ClinicalHistory.create!(date: Time.zone.today,
                                         description: new_description)
       self.clinical_history = history
       self.save

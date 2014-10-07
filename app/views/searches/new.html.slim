@@ -1,0 +1,22 @@
+.row
+  .large-12.columns.content
+    - if @search.is_executable?
+      h1 Search (#{@result_size} Matches)
+    - else
+      h1 Search
+
+
+
+.row
+  .large-12
+    = render partial: 'search_form'
+
+- if @search.is_executable? and @result_size > 0
+  .row
+    .large-12
+      = table_for PatientTable.new(@patients), html: { id: "patients", class: "content" }
+  .row
+    .large-12.columns.content.text-center
+      = paginate @patients
+- else
+  .empty-search-results No search results

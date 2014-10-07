@@ -78,4 +78,131 @@ RSpec.describe Patient, :type => :model do
       it { is_expected.to eql "" }
     end
   end
+
+  describe '.maximum_age' do
+    subject { Patient.maximum_age(maximum_age).all }
+    context 'with no age given' do
+      let(:patient) { FactoryGirl.create(:patient) }
+      let(:maximum_age) { nil }
+      it { is_expected.to include patient }
+    end
+    context 'when patient has his 30th birthday' do
+      let(:patient) do
+        FactoryGirl.create(:patient, birthday: birthday, birthyear: nil)
+      end
+      let(:maximum_age) { 30 }
+      context 'tomorrow' do
+        let(:birthday) { 30.years.ago.tomorrow.to_date }
+        it { is_expected.to include patient }
+      end
+      context 'today' do
+        let(:birthday) { 30.years.ago.to_date }
+        it { is_expected.to include patient }
+      end
+      context 'yesterday' do
+        let(:birthday) { 30.years.ago.yesterday.to_date }
+        it { is_expected.to_not include patient }
+      end
+    end
+    context 'when patient has a birthyear' do
+      around(:each) do |example|
+        Timecop.travel(Time.zone.parse("2014-09-28").to_date)
+        example.run
+        Timecop.return
+      end
+      let(:patient) do
+        FactoryGirl.create(:patient, birthyear: birthyear, birthday: nil)
+      end
+      let(:maximum_age) { 30 }
+      context '1984' do
+        let(:birthyear) { 1984 }
+        it { is_expected.to include patient }
+      end
+      context '1983' do
+        let(:birthyear) { 1983 }
+        it { is_expected.to include patient }
+      end
+      context '1982' do
+        let(:birthyear) { 1982 }
+        it { is_expected.to_not include patient }
+      end
+    end
+  end
+
+  describe '.minimum_age' do
+    subject { Patient.minimum_age(minimum_age).all }
+    context 'with no age given' do
+      let(:patient) { FactoryGirl.create(:patient) }
+      let(:minimum_age) { nil }
+      it { is_expected.to include patient }
+    end
+    context 'when patient has his 30th birthday' do
+      let(:patient) do
+        FactoryGirl.create(:patient, birthday: birthday, birthyear: nil)
+      end
+      let(:minimum_age) { 30 }
+      context 'tomorrow' do
+        let(:birthday) { 30.years.ago.tomorrow.to_date }
+        it { is_expected.to_not include patient }
+      end
+      context 'today' do
+        let(:birthday) { 30.years.ago.to_date }
+        it { is_expected.to include patient }
+      end
+      context 'yesterday' do
+        let(:birthday) { 30.years.ago.yesterday.to_date }
+        it { is_expected.to include patient }
+      end
+    end
+    context 'when patient has a birthyear' do
+      around(:each) do |example|
+        Timecop.travel(Time.zone.parse("2014-09-28").to_date)
+        example.run
+        Timecop.return
+      end
+      let(:patient) do
+        FactoryGirl.create(:patient, birthyear: birthyear, birthday: nil)
+      end
+      let(:minimum_age) { 30 }
+      context '1984' do
+        let(:birthyear) { 1984 }
+        it { is_expected.to_not include patient }
+      end
+      context '1983' do
+        let(:birthyear) { 1983 }
+        it { is_expected.to include patient }
+      end
+      context '1982' do
+        let(:birthyear) { 1982 }
+        it { is_expected.to include patient }
+      end
+    end
+  end
+
+  describe '.name_query' do
+    let(:patient) do
+      FactoryGirl.create(:patient, first_name: "John", last_name: "Doe")
+    end
+    subject { Patient.name_query(name_query).all }
+    context "when searching for 'John Doe'" do
+      let(:name_query) { "John Doe" }
+      it { is_expected.to include patient }
+    end
+    context "when searching for 'Doe'" do
+      let(:name_query) { "Doe" }
+      it { is_expected.to include patient }
+    end
+    context "when searching for 'John'" do
+      let(:name_query) { "John" }
+      it { is_expected.to include patient }
+    end
+    context "when searching for 'Jon Doe'" do
+      let(:name_query) { "Jon Doe" }
+      it { is_expected.to include patient }
+    end
+    context "when searching for 'Jan Due'" do
+      let(:name_query) { "Jan Due" }
+      it { is_expected.to_not include patient }
+    end
+  end
 end

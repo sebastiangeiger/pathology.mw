@@ -107,3 +107,20 @@ Then(/^the value of the "(.*?)" input field should be "(.*?)"$/) do |field_name,
   input = page.find("input[id=#{label['for']}]")
   expect(input.value).to eql value
 end
+
+Then(/^I should see "(.*?)" in "(.*?)"$/) do |value, field_name|
+  step %Q{the value of the "#{field_name}" input field should be "#{value}"}
+end
+
+Then(/^"(.*?)" should be empty$/) do |field_name|
+  label = page.find('label', text: field_name)
+  input = page.find("input[id=#{label['for']}]")
+  expect(input.value).to be_blank
+end
+
+When(/^I click on the "(.*?)" button$/) do |text|
+  inputs = page.all('input[type=submit]')
+  fitting = inputs.select {|i| i.value == text }
+  raise "Expected to find one button, found #{fitting.size}" unless fitting.size == 1
+  fitting.first.click
+end

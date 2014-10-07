@@ -33,7 +33,7 @@ def create_patient!(patient)
   end
   patient.delete(:date_of_birth)
   if patient[:birthday].nil? and patient[:age].present?
-    patient[:birthyear] = Date.today.year - patient[:age].to_i
+    patient[:birthyear] = Time.zone.today.year - patient[:age].to_i
   end
   patient.delete(:date_of_birth)
   birthday_unknown = patient[:birthday].nil? and patient[:birthyear].nil?
@@ -51,7 +51,7 @@ def create_patient!(patient)
                     birthday: patient[:birthday],
                     birthday_unknown: birthday_unknown,
                     birthyear: patient[:birthyear],
-                    imported_on: Date.today,
+                    imported_on: Time.zone.today,
                     legacy_link: patient[:patient_link])
   end
 end
@@ -71,7 +71,7 @@ def create_specimen!(specimen)
       year = matchdata[1].to_i
       approximate_date = Date.new(year,1,1)
     else
-      approximate_date = Date.today
+      approximate_date = Time.zone.today
     end
     specimen[:submitted_date] = approximate_date
   end
@@ -88,7 +88,7 @@ def create_specimen!(specimen)
                      pathology_number: specimen[:path_number],
                      notes: specimen[:notes],
                      date_submitted: specimen[:submitted_date],
-                     imported_on: Date.today,
+                     imported_on: Time.zone.today,
                      legacy_link: specimen[:specimen_link])
   end
 end
