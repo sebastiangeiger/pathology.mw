@@ -1,6 +1,6 @@
 Feature: Filter and search
 
-  Scenario: Searching by age (birthday)
+  Scenario: Filtering by age (birthday)
     Given I am signed in as a pathologist
     And the following patients exist:
       | Name         | Date of birth      |
@@ -10,12 +10,12 @@ Feature: Filter and search
     And it is currently 23. September 2014
     And I am on the patients overview page
     When I enter "32" into "Maximum age"
-    And I click on the "Search" button
+    And I click on the "Filter" button
     Then I should not see "Anne Moore"
     Then I should see "Beth Norris"
     Then I should see "Cecilia Orth"
 
-  Scenario: Searching by age (birthyear)
+  Scenario: Filtering by age (birthyear)
     Given I am signed in as a pathologist
     And the following patients exist:
       | Name         | Birthyear |
@@ -25,20 +25,20 @@ Feature: Filter and search
     And it is currently 23. September 2014
     And I am on the patients overview page
     When I enter "32" into "Maximum age"
-    And I click on the "Search" button
+    And I click on the "Filter" button
     Then I should not see "Anne Moore"
     Then I should see "Beth Norris"
     Then I should see "Cecilia Orth"
 
-  Scenario: Showing the search values
+  Scenario: Showing the filter values
     Given I am signed in as a pathologist
     And I am on the patients overview page
     When I enter "32" into "Maximum age"
-    And I click on the "Search" button
+    And I click on the "Filter" button
     Then I should see "32" in "Maximum age"
     And "Minimum age" should be empty
 
-  Scenario: Searching by gender
+  Scenario: Filtering by gender
     Given I am signed in as a pathologist
     And the following patients exist:
       | Name         | Gender  |
@@ -47,7 +47,7 @@ Feature: Filter and search
     And it is currently 23. September 2014
     And I am on the patients overview page
     When I enter "Female" into "Gender"
-    And I click on the "Search" button
+    And I click on the "Filter" button
     Then I should see "Anne Moore"
     Then I should not see "John Doe"
 
