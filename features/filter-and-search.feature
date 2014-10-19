@@ -67,3 +67,23 @@ Feature: Filter and search
       | Search Term | should see? |
       | John Doe    | see         |
       | Jon Doe     | see         |
+
+  Scenario: Filtering and searching work together
+    Given I am signed in as a pathologist
+    And the following patients exist:
+      | Name        | Date of birth      |
+      | Anne Moore  | 16. June 1978      |
+      | Beth Norris | 23. September 1982 |
+      | Anne Orth   | 15. May 1983       |
+    And it is currently 23. September 2014
+    And I am on the patients overview page
+    When I enter "32" into "Maximum age"
+    And I click on the "Filter" button
+    Then I should not see "Anne Moore"
+    Then I should see "Beth Norris"
+    Then I should see "Anne Orth"
+    When I enter "Anne" into "Name"
+    And I click on the "Search" button
+    Then I should not see "Anne Moore"
+    Then I should not see "Beth Norris"
+    Then I should see "Anne Orth"
