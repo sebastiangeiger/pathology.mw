@@ -6,5 +6,4 @@ Rails.application.routes.draw do
     resources :clinical_histories, only: [:new, :create]
     resources :specimens, only: [:new, :create]
   end
-  get '/search', to: "searches#new"
 end
