@@ -7,6 +7,12 @@ class PatientsController < ApplicationController
 
   def index
     @menu_point_active = :patient
+    @search = Search.new(params[:search])
+    if @search.is_executable?
+      results = @search.execute.accessible_by(current_ability)
+      @patients = results.page params[:page]
+      @result_size = results.count(:all)
+    end
   end
 
   def new
