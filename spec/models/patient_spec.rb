@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Patient, :type => :model do
+  around do |example|
+    Timecop.freeze(Time.local(2014, 9, 1))
+    example.run
+    Timecop.return
+  end
+
   describe 'validations' do
     describe 'for names' do
       it 'works fine for normal names' do
@@ -62,17 +68,21 @@ RSpec.describe Patient, :type => :model do
     let(:patient) do
       FactoryGirl.build(:patient, birthday: birthday, birthyear: birthyear, birthday_unknown: birthday_unknown)
     end
+
     let(:birthday) { nil }
     let(:birthyear) { nil }
     let(:birthday_unknown) { false }
+
     context 'with birthday on June 16 1984' do
       let(:birthday) { "June 16 1984" }
       it { is_expected.to eql "30 (born June 16 1984)" }
     end
+
     context 'with birthyear 1984' do
       let(:birthyear) { "1984" }
       it { is_expected.to eql "30 (born in 1984)" }
     end
+
     context 'with birthday unknown' do
       let(:birthday_unknown) { true }
       it { is_expected.to eql "" }
@@ -105,23 +115,22 @@ RSpec.describe Patient, :type => :model do
       end
     end
     context 'when patient has a birthyear' do
-      around(:each) do |example|
-        Timecop.travel(Time.zone.parse("2014-09-28").to_date)
-        example.run
-        Timecop.return
-      end
+
       let(:patient) do
         FactoryGirl.create(:patient, birthyear: birthyear, birthday: nil)
       end
       let(:maximum_age) { 30 }
+
       context '1984' do
         let(:birthyear) { 1984 }
         it { is_expected.to include patient }
       end
+
       context '1983' do
         let(:birthyear) { 1983 }
         it { is_expected.to include patient }
       end
+
       context '1982' do
         let(:birthyear) { 1982 }
         it { is_expected.to_not include patient }
@@ -131,11 +140,13 @@ RSpec.describe Patient, :type => :model do
 
   describe '.minimum_age' do
     subject { Patient.minimum_age(minimum_age).all }
+
     context 'with no age given' do
       let(:patient) { FactoryGirl.create(:patient) }
       let(:minimum_age) { nil }
       it { is_expected.to include patient }
     end
+
     context 'when patient has his 30th birthday' do
       let(:patient) do
         FactoryGirl.create(:patient, birthday: birthday, birthyear: nil)
@@ -154,24 +165,24 @@ RSpec.describe Patient, :type => :model do
         it { is_expected.to include patient }
       end
     end
+
     context 'when patient has a birthyear' do
-      around(:each) do |example|
-        Timecop.travel(Time.zone.parse("2014-09-28").to_date)
-        example.run
-        Timecop.return
-      end
       let(:patient) do
         FactoryGirl.create(:patient, birthyear: birthyear, birthday: nil)
       end
+
       let(:minimum_age) { 30 }
+
       context '1984' do
         let(:birthyear) { 1984 }
         it { is_expected.to_not include patient }
       end
+
       context '1983' do
         let(:birthyear) { 1983 }
         it { is_expected.to include patient }
       end
+
       context '1982' do
         let(:birthyear) { 1982 }
         it { is_expected.to include patient }
