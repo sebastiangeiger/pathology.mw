@@ -1,7 +1,7 @@
-= form_for @search, method: :get, url: search_path do |form|
+= form_for @search, method: :get, url: patients_path do |form|
   = form.text_field :name_query, label: "Name"
-  = form.text_field :maximum_age
-  = form.text_field :minimum_age
-  = form.select :gender, Patient.genders, include_blank: true
+  = form.hidden_field :maximum_age
+  = form.hidden_field :minimum_age
+  = form.hidden_field :gender
 
   = form.submit "Search"

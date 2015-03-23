@@ -27,10 +27,6 @@ When(/^I go to the manage users page$/) do
   click_in_top_bar "Manage", "Users"
 end
 
-When(/^(?:|I )go to the search page$/) do
-  visit "/search"
-end
-
 Then(/^(?:|I )should(?:| still) be on the sign in page$/) do
   expect(current_path).to eql "/users/sign_in"
 end

@@ -3,9 +3,12 @@
     h1 Patients
     - if can? :create, Patient
       = link_to "New Patient", new_patient_path, class: "button"
+    = render partial: 'searches/search_form'
 
-.row
-  .large-12
+.row.content
+  .large-2.columns
+    = render partial: 'shared/filter_form'
+  .large-10.columns
     = table_for PatientTable.new(@patients), html: { id: "patients", class: "content" }
 .row
   .large-12.columns.content.text-center

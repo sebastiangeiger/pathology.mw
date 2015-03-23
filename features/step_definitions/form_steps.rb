@@ -104,8 +104,9 @@ end
 
 Then(/^the value of the "(.*?)" input field should be "(.*?)"$/) do |field_name, value|
   label = page.find('label', text: field_name)
-  input = page.find("input[id=#{label['for']}]")
-  expect(input.value).to eql value
+  page.all("input[id=#{label['for']}]").each do |input|
+    expect(input.value).to eql value
+  end
 end
 
 Then(/^I should see "(.*?)" in "(.*?)"$/) do |value, field_name|
@@ -114,8 +115,9 @@ end
 
 Then(/^"(.*?)" should be empty$/) do |field_name|
   label = page.find('label', text: field_name)
-  input = page.find("input[id=#{label['for']}]")
-  expect(input.value).to be_blank
+  page.all("input[id=#{label['for']}]").each do |input|
+    expect(input.value).to be_blank
+  end
 end
 
 When(/^I click on the "(.*?)" button$/) do |text|
