@@ -1,4 +1,7 @@
 = form_for @search, method: :get, url: patients_path do |form|
   = form.text_field :name_query, label: "Name"
+  = form.hidden_field :maximum_age
+  = form.hidden_field :minimum_age
+  = form.hidden_field :gender
 
   = form.submit "Search"
