@@ -1,8 +1,9 @@
+@javascript
 Feature: Entering a (approximate) birthday for a patient
 
-  @javascript
   Scenario Outline: Different ways to enter the age
     Given I am signed in as a pathologist
+    And it is currently September 1 2014
     When I am on the patients overview page
     And I click on "New Patient"
     And I fill in the following:
@@ -20,12 +21,12 @@ Feature: Entering a (approximate) birthday for a patient
     Examples:
         | Birthday      | Age | Age unknown | Displayed Age          |
         | 14. July 1988 |     | false       | 26 (born July 14 1988) |
-        |               | 26  | false       | 26 (born in 1988)      |
+        |               | 26  | false       | 25 (born in 1989)      |
         |               |     | true        | not set                |
 
-  @javascript
   Scenario: Not entering any age is invalid
     Given I am signed in as a pathologist
+    And it is currently September 1 2014
     And there are no patients in the system
     When I am on the patients overview page
     And I click on "New Patient"
@@ -40,9 +41,9 @@ Feature: Entering a (approximate) birthday for a patient
     And I should see "Please select one of the three options:"
     Then there should be no patients in the system
 
-  @javascript
   Scenario: Age input field updates automatically
     Given I am signed in as a pathologist
+    And it is currently September 1 2014
     When I am on the patients overview page
     And I click on "New Patient"
     When I fill "Birthday" with "14. July 1988"

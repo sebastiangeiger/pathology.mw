@@ -21,6 +21,7 @@ Feature: Specimen
   @javascript
   Scenario: Prepopulated Pathology #
     Given I am signed in as a pathologist
+    And it is currently September 1 2014
     And the patient "Anne Moore" exists
     When I go to the patient page for "Anne Moore"
     And I click on "Add specimen"
