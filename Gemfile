@@ -37,11 +37,11 @@ group :development do
   gem 'rack-livereload'
   gem 'guard-livereload', require: false
   gem 'travis', '~> 1.7.0'
-  gem 'pry'
   gem 'mechanize'
 end
 
 group :test, :development do
+  gem 'pry'
   gem 'rspec-rails', '~> 3.0.2'
 end
 
