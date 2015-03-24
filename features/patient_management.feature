@@ -34,3 +34,16 @@ Feature: Patient Management
     Then I should not see "Patient #1"
     And I should not see "Patient #25"
     And I should see "Patient #26"
+
+  Scenario: Editing a patient
+    Given I am signed in as a pathologist
+    When I am on the patients overview page
+    And I click on "New Patient"
+    And I fill in the following:
+      | First name | Anne          |
+      | Last name  | Moore         |
+      | Gender     | Female        |
+      | District   | Blantyre      |
+      | Birthday   | 14. July 1988 |
+    And I click on "Create Patient"
+    When I click on "Edit Patient"

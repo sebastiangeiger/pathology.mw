@@ -31,6 +31,10 @@ class PatientsController < ApplicationController
     @activity_feed_items = ActivityFeed.new(@patient.specimens).calculate
   end
 
+  def edit
+    redirect_to action: :show
+  end
+
   private
   def create_params
     params.require(:patient)
