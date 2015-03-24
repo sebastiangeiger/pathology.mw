@@ -191,29 +191,60 @@ RSpec.describe Patient, :type => :model do
   end
 
   describe '.name_query' do
-    let(:patient) do
-      FactoryGirl.create(:patient, first_name: "John", last_name: "Doe")
+    context "with a patient called 'John Doe'" do
+      let(:patient) do
+        FactoryGirl.create(:patient, first_name: "John", last_name: "Doe")
+      end
+
+      subject { Patient.name_query(name_query).all }
+
+      context "when searching for 'John Doe'" do
+        let(:name_query) { "John Doe" }
+        it { is_expected.to include patient }
+      end
+
+      context "when searching for 'Doe'" do
+        let(:name_query) { "Doe" }
+        it { is_expected.to include patient }
+      end
+
+      context "when searching for 'John'" do
+        let(:name_query) { "John" }
+        it { is_expected.to include patient }
+      end
+
+      context "when searching for 'Jon Doe'" do
+        let(:name_query) { "Jon Doe" }
+        it { is_expected.to include patient }
+      end
+
+      context "when searching for 'Jan Due'" do
+        let(:name_query) { "Jan Due" }
+        it { is_expected.to_not include patient }
+      end
     end
-    subject { Patient.name_query(name_query).all }
-    context "when searching for 'John Doe'" do
-      let(:name_query) { "John Doe" }
-      it { is_expected.to include patient }
-    end
-    context "when searching for 'Doe'" do
-      let(:name_query) { "Doe" }
-      it { is_expected.to include patient }
-    end
-    context "when searching for 'John'" do
-      let(:name_query) { "John" }
-      it { is_expected.to include patient }
-    end
-    context "when searching for 'Jon Doe'" do
-      let(:name_query) { "Jon Doe" }
-      it { is_expected.to include patient }
-    end
-    context "when searching for 'Jan Due'" do
-      let(:name_query) { "Jan Due" }
-      it { is_expected.to_not include patient }
+
+    context "with a patient called 'Neslon Lemani'" do
+      let(:patient) do
+        FactoryGirl.create(:patient, first_name: "Nelson", last_name: "Lemani")
+      end
+
+      subject { Patient.name_query(name_query).all }
+
+      context "when searching for 'Nelson'" do
+        let(:name_query) { "Nelson" }
+        it { is_expected.to include patient }
+      end
+
+      context "when searching for 'Nel'" do
+        let(:name_query) { "Nel" }
+        it { is_expected.to include patient }
+      end
+
+      context "when searching for 'Nel Lemuni'" do
+        let(:name_query) { "Nel Lemuni" }
+        it { is_expected.to include patient }
+      end
     end
   end
 end

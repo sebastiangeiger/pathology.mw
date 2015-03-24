@@ -13,7 +13,8 @@ class Patient < ActiveRecord::Base
   has_many :specimens
 
   # === Scopes === #
-  pg_search_scope :name_query, against: [:first_name, :last_name], using: [:tsearch, :trigram]
+  pg_search_scope :name_query, against: [:first_name, :last_name],
+    using: {tsearch: {prefix: true}, trigram: {}}
 
   def self.maximum_age(age = nil)
     if age
