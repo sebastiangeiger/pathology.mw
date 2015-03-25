@@ -64,6 +64,6 @@ end
 
 Then(/^I should be on the patient page for "(.*?)"$/) do |full_name|
   first_name, last_name = full_name.split(" ")
-  patient = Patient.where(first_name: first_name, last_name: last_name).first
+  patient = Patient.find_by!(first_name: first_name, last_name: last_name)
   expect(current_path).to eql "/patients/#{patient.id}"
 end

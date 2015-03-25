@@ -51,3 +51,22 @@ Feature: Patient Management
       | Gender     | Female        |
       | District   | Blantyre      |
       | Birthday   | 14. July 1988 |
+
+  Scenario: Updating a patient
+    Given I am signed in as a pathologist
+    Given I have created the following patient:
+      | First name | Anne          |
+      | Last name  | Moore         |
+      | Gender     | Female        |
+      | District   | Blantyre      |
+      | Birthday   | 14. July 1988 |
+    When I go to the patient edit page for "Anne Moore"
+    Then I should see "Edit 'Anne Moore'"
+    And I fill in the following:
+      | First name | Anna          |
+      | Last name  | Mure          |
+      | Gender     | Female        |
+      | District   | Blantyre      |
+      | Birthday   | 15. July 1988 |
+    And I click on "Update Patient"
+    Then I should be on the patient page for "Anna Mure"
