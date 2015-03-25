@@ -97,8 +97,12 @@ class Patient < ActiveRecord::Base
   private
 
   def either_birthday_or_birthyear_must_be_set_or_birthday_unknown
-    unless birthday or birthyear or birthday_unknown
+    fields_set = [birthday.present?, birthyear.present?, !!birthday_unknown]
+    number_of_fields_set = fields_set.map {|bool| bool ? 1 : 0}.reduce(:+)
+    if number_of_fields_set == 0
       errors.add(:birthday_birthyear_group, "Please select one of the three options:")
+    elsif number_of_fields_set > 1
+      errors.add(:birthday_birthyear_group, "Please select only one of the three options:")
     end
   end
 
