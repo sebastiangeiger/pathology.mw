@@ -15,9 +15,6 @@ class PatientsController < ApplicationController
     end
   end
 
-  def new
-  end
-
   def create
     if @patient.save
       flash[:success] = %Q{Patient "#{@patient.full_name}" has been created.}
@@ -29,9 +26,6 @@ class PatientsController < ApplicationController
 
   def show
     @activity_feed_items = ActivityFeed.new(@patient.specimens).calculate
-  end
-
-  def edit
   end
 
   private
