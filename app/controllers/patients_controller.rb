@@ -32,7 +32,6 @@ class PatientsController < ApplicationController
   end
 
   def edit
-    redirect_to action: :show
   end
 
   private

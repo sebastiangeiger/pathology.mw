@@ -103,9 +103,21 @@ When(/^I enter "(.*?)" into "(.*?)"$/) do |value, field_name|
 end
 
 Then(/^the value of the "(.*?)" input field should be "(.*?)"$/) do |field_name, value|
-  label = page.find('label', text: field_name)
+  label = begin
+            page.find('label', text: field_name)
+          rescue Capybara::Ambiguous => e
+            candidates = page.all('label', text: field_name).select do |field|
+              field.text == field_name
+            end
+            raise e unless candidates.size == 1
+            candidates.first
+          end
   page.all("input[id=#{label['for']}]").each do |input|
-    expect(input.value).to eql value
+    if input["type"] == "date"
+      expect(DateTime.parse(input.value)).to eql DateTime.parse(value)
+    else
+      expect(input.value).to eql value
+    end
   end
 end
 
@@ -125,4 +137,10 @@ When(/^I click on the "(.*?)" button$/) do |text|
   fitting = inputs.select {|i| i.value == text }
   raise "Expected to find one button, found #{fitting.size}" unless fitting.size == 1
   fitting.first.click
+end
+
+Then(/^should see the following:$/) do |table|
+  table.raw.each do |field_name,value|
+    step %{I should see "#{value}" in "#{field_name}"}
+  end
 end
