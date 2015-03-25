@@ -25,7 +25,7 @@ $(function(){
     return birthyear;
   };
 
-  var form = $("form#new_patient");
+  var form = $("form#new_patient,form[id^=edit_patient_]");
   if(form.length){
     var ageField = form.find("input#patient_age");
     var birthdayField = form.find("input#patient_birthday");
