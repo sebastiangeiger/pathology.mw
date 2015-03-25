@@ -37,16 +37,13 @@ Feature: Patient Management
 
   Scenario: Patient edit form
     Given I am signed in as a pathologist
-    When I am on the patients overview page
-    And I click on "New Patient"
-    And I fill in the following:
+    Given I have created the following patient:
       | First name | Anne          |
       | Last name  | Moore         |
       | Gender     | Female        |
       | District   | Blantyre      |
       | Birthday   | 14. July 1988 |
-    And I click on "Create Patient"
-    When I click on "Edit Patient"
+    When I go to the patient edit page for "Anne Moore"
     Then I should see "Edit 'Anne Moore'"
     Then should see the following:
       | First name | Anne          |

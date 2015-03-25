@@ -57,6 +57,11 @@ When(/^I go to the patient page for "(.*?)"$/) do |patient_name|
   end
 end
 
+When(/^I go to the patient edit page for "(.*?)"$/) do |patient_name|
+  step %{I go to the patient page for "#{patient_name}"}
+  step %{I click on "Edit Patient"}
+end
+
 Then(/^I should be on the patient page for "(.*?)"$/) do |full_name|
   first_name, last_name = full_name.split(" ")
   patient = Patient.where(first_name: first_name, last_name: last_name).first
