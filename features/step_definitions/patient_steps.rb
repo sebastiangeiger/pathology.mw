@@ -31,6 +31,15 @@ Given(/^the following patients exist:$/) do |table|
   end
 end
 
+Given(/^I have created the following patient:$/) do |table|
+    step %{I am on the patients overview page}
+    step %{I click on "New Patient"}
+    table.raw.each do |field_name,value|
+      RobustFillIn.new(page).fill_in(field_name,value)
+    end
+    step %{I click on "Create Patient"}
+end
+
 class PatientBuilder
   def initialize(hash)
     @hash = hash

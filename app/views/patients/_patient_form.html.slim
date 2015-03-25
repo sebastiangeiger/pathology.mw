@@ -1,0 +1,38 @@
+= form_for @patient do |form|
+
+  = form_errors_summary(@patient)
+
+  = form.text_field :first_name
+
+  = form.text_field :last_name
+
+
+  - birthday_error = @patient.errors[:birthday_birthyear_group].first
+  - if birthday_error
+    .row.error
+      .small-12.columns
+        small.error = birthday_error
+  .row#birthday_birthyear_group class=(birthday_error ? "error":"")
+      = form.hidden_field :birthyear
+      .small-4.columns
+        = form.text_field :birthday, type: :date
+      .small-1.columns.or
+        ' or
+      .small-2.columns
+        = label_tag :patient_age, "Age"
+        = text_field_tag :patient_age, "", type: :number
+      .small-1.columns.or
+        ' or
+      .small-4.columns.single-line
+        = form.check_box :birthday_unknown, label: "Birthday and age are unknown"
+
+  .row
+    .small-4.columns
+      = form.select :gender, %w{Male Female}, include_blank: true
+    .small-4.columns
+      = form.select :district, Districts.names, include_blank: true
+    .small-4.columns.text-right
+      - if @patient.persisted?
+        = form.submit "Update Patient", class: "small button"
+      - else
+        = form.submit "Create Patient", class: "small button"

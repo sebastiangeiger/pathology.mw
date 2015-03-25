@@ -27,7 +27,13 @@ RSpec.describe Patient, :type => :model do
     describe 'for age indicator' do
       it 'denies birthday and year being nil' do
         expect(FactoryGirl.build(:patient, birthday: nil,
-                                           birthyear: nil)).to be_invalid
+                                           birthyear: nil,
+                                           birthday_unknown: false)).to be_invalid
+      end
+      it 'denies birthday and year both being set' do
+        expect(FactoryGirl.build(:patient, birthday: "June 16 1984",
+                                           birthyear: "1984",
+                                           birthday_unknown: false)).to be_invalid
       end
       it 'allows birthday and year being nil when birthday_unknown is set' do
         expect(FactoryGirl.build(:patient, birthday: nil,

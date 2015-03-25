@@ -25,7 +25,7 @@ $(function(){
     return birthyear;
   };
 
-  var form = $("form#new_patient");
+  var form = $("form#new_patient,form[id^=edit_patient_]");
   if(form.length){
     var ageField = form.find("input#patient_age");
     var birthdayField = form.find("input#patient_birthday");
@@ -36,9 +36,11 @@ $(function(){
       var age = calculateAgeFromDate(birthdayField.val());
       if(isNaN(age)){
         ageField.val("").prop("disabled", false);
+        birthdayUnknownField.prop("disabled", false);
       } else {
         ageField.val(age).prop("disabled", true);
         birthyearField.val("");
+        birthdayUnknownField.prop("disabled", true);
       }
     };
     birthdayField.on('input', checkBirthdayField);
@@ -49,9 +51,11 @@ $(function(){
       if(isNaN(birthyear)) {
         birthdayField.prop("disabled", false);
         birthyearField.val("");
+        birthdayUnknownField.prop("disabled", false);
       } else {
         birthdayField.prop("disabled", true);
         birthyearField.val(birthyear);
+        birthdayUnknownField.prop("disabled", true);
       }
     };
     ageField.on('input', checkAgeField);
@@ -74,7 +78,7 @@ $(function(){
       if (!isNaN(age)) {
         ageField.val(age).prop('disabled', false);
         birthdayField.val("").prop('disabled', true);
-        birthdayUnknownField.prop('checked', false);
+        birthdayUnknownField.prop('checked', false).prop('disabled', true);
       }
     }
 

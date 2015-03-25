@@ -15,9 +15,6 @@ class PatientsController < ApplicationController
     end
   end
 
-  def new
-  end
-
   def create
     if @patient.save
       flash[:success] = %Q{Patient "#{@patient.full_name}" has been created.}
@@ -31,9 +28,19 @@ class PatientsController < ApplicationController
     @activity_feed_items = ActivityFeed.new(@patient.specimens).calculate
   end
 
+  def update
+    if @patient.update_attributes(update_params)
+      flash[:success] = %Q{Patient "#{@patient.full_name}" was updated.}
+      redirect_to @patient
+    else
+      render :edit
+    end
+  end
+
   private
   def create_params
     params.require(:patient)
       .permit(:first_name, :last_name, :district, :gender, :birthday, :birthyear, :birthday_unknown)
   end
+  alias update_params create_params
 end
