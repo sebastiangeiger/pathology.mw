@@ -5,11 +5,12 @@ Feature: Specimen
     And the patient "Anne Moore" exists
     When I go to the patient page for "Anne Moore"
     And I click on "Add specimen"
-    And I enter "2014-QT-204" into "Pathology #"
-    And I enter "Left Eye" into "Specimen"
-    And I enter "Presented with fever and N/S for 2 weeks" into "Clinical history"
-    And I enter "Gross results here" into "Gross"
-    And I enter "Stains here" into "Stains"
+    And I fill in the following:
+      | Pathology #      | 2014-QT-204                              |
+      | Specimen         | Left Eye                                 |
+      | Clinical history | Presented with fever and N/S for 2 weeks |
+      | Gross            | Gross results here                       |
+      | Stains           | Stains here                              |
     And I click on "Save"
     Then I should be on the patient page for "Anne Moore"
     And I should see "2014-QT-204" within ".pathology-number"
