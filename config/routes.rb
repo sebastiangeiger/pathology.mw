@@ -4,6 +4,6 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :edit, :update]
   resources :patients, except: :destroy do
     resources :clinical_histories, only: [:new, :create]
-    resources :specimens, only: [:new, :create]
+    resources :specimens, except: [:destory, :show, :index]
   end
 end

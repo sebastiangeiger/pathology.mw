@@ -5,6 +5,7 @@ class SpecimensController < ApplicationController
   def new
     @descriptions = existing_values(:description)
     @diagnoses = existing_values(:diagnosis)
+    @specimen.pathology_number ||= "#{Time.zone.today.year}-QT-"
   end
 
   def create
@@ -14,6 +15,12 @@ class SpecimensController < ApplicationController
     else
       render :new
     end
+  end
+
+  def edit
+    @descriptions = existing_values(:description)
+    @diagnoses = existing_values(:diagnosis)
+    @specimen.pathology_number ||= "#{Time.zone.today.year}-QT-"
   end
 
   def create_params

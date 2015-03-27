@@ -30,3 +30,22 @@ Feature: Specimen
     And I click on "Save"
     Then I should be on the patient page for "Anne Moore"
     And I should see "2014-QT-204" within ".pathology-number"
+
+  Scenario: Specimen edit form
+    Given I am signed in as a pathologist
+    And the patient "Anne Moore" exists
+    And I have create the following specimen for "Anne Moore":
+      | Pathology #      | 2014-QT-204                              |
+      | Specimen         | Left Eye                                 |
+      | Clinical history | Presented with fever and N/S for 2 weeks |
+      | Gross            | Gross results here                       |
+      | Stains           | Stains here                              |
+    When I go to the patient page for "Anne Moore"
+    And I click on "Edit specimen"
+    Then I should see "Edit specimen '2014-QT-204'"
+    And should see the following:
+      | Pathology #      | 2014-QT-204                              |
+      | Specimen         | Left Eye                                 |
+      | Clinical history | Presented with fever and N/S for 2 weeks |
+      | Gross            | Gross results here                       |
+      | Stains           | Stains here                              |
