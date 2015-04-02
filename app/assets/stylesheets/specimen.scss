@@ -1,4 +1,4 @@
-form#new_specimen {
+form#new_specimen, form[id^=edit_specimen_] {
   .button.cancel {
     margin-right: 1em;
   }

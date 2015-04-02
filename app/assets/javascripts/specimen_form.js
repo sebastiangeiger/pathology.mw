@@ -1,5 +1,5 @@
 $(function(){
-  var form = $("form#new_specimen");
+  var form = $("form#new_specimen,form[id^=edit_specimen_]");
   var regex = new RegExp(/(20\d{2})-(QT-)?(\d*)/);
   if(form.length){
     var pathologyNumberField = $("#specimen_pathology_number");
