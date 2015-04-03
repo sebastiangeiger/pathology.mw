@@ -55,6 +55,25 @@ input.button:hover {
   background-color: $accent-color-darker;
 }
 
+h1 {
+  margin-bottom: 0.1em;
+}
+
+h1 .button {
+  font-size: 36.36%;
+  float: right;
+}
+
+h2 .button {
+  font-size: 36.36%;
+  float: right;
+}
+
+.button.edit-specimen {
+  float: right;
+}
+
+
 .button.cancel {
   background-color: $background-color-more-contrast;
   border-color: $background-color-more-contrast;

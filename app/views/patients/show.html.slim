@@ -6,8 +6,9 @@
     #activity-feed
       .row
         .large-12.columns.content
-          h2 Specimens
-          = link_to "Add specimen", new_patient_specimen_path(patient_id: @patient.id), class: "button"
+          h2
+            | Specimens
+            = link_to "Add specimen", new_patient_specimen_path(patient_id: @patient.id), class: "button"
       - @activity_feed_items.each_pair do |year,items|
         .activity-group
           .year
