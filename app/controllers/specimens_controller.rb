@@ -16,11 +16,27 @@ class SpecimensController < ApplicationController
     end
   end
 
+  def edit
+    @descriptions = existing_values(:description)
+    @diagnoses = existing_values(:diagnosis)
+  end
+
+  def update
+    if @specimen.update_attributes(update_params)
+      flash[:success] = %Q{Specimen "#{@specimen.pathology_number}" was updated.}
+      redirect_to @patient
+    else
+      render :edit
+    end
+  end
+
+  private
   def create_params
     params.require(:specimen)
       .permit(:pathology_number, :description, :diagnosis, :date_submitted, :notes,
               :gross, :stains)
   end
+  alias update_params create_params
 
   def save_clinical_history!
     if description = params['specimen']['clinical_history_description']
@@ -28,7 +44,6 @@ class SpecimensController < ApplicationController
     end
   end
 
-  private
   def existing_values(column)
     values = Specimen.uniq.order(column).pluck(column)
     values = [""] + values unless values.first == ""

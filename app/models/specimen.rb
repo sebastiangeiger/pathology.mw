@@ -33,6 +33,10 @@ class Specimen < ActiveRecord::Base
     write_attribute(:pathology_number, new_number)
   end
 
+  def pathology_number
+    read_attribute(:pathology_number) || "#{Time.zone.today.year}-QT-"
+  end
+
   private
   def pathology_number_follows_pattern
     unless pathology_number == :invalid or pathology_number =~ PATHOLOGY_REGEX

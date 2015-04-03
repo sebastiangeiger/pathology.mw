@@ -61,7 +61,6 @@ Feature: Patient Management
       | District   | Blantyre      |
       | Birthday   | 14. July 1988 |
     When I go to the patient edit page for "Anne Moore"
-    Then I should see "Edit 'Anne Moore'"
     And I fill in the following:
       | First name | Anna          |
       | Last name  | Mure          |

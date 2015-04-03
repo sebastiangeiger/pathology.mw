@@ -14,6 +14,7 @@ $(function(){
       }
       $to.attr(attribute, existingValue);
     });
+    $to.val($from.val());
   };
   var deactivate = function(value_element,visible_element){
     // chosen has a value element: the original select box and
