@@ -15,7 +15,7 @@ class Specimen < ActiveRecord::Base
 
   def clinical_history_description=(new_description)
     if self.clinical_history
-      raise :not_implemented_yet
+      self.clinical_history.tap{|ch| ch.description = new_description}.save
     else
       history = ClinicalHistory.create!(date: Time.zone.today,
                                         description: new_description)

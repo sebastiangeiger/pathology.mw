@@ -71,15 +71,16 @@ Feature: Specimen
     When I go to the patient page for "Anne Moore"
     And I click on "Edit specimen"
     And I fill in the following:
-      | Specimen  | Right Eye             |
-      | Physician | Dr. Nicholas Riviera  |
-      | Gross     | Gross results changed |
-      | Stains    | Stains changed        |
+      | Specimen         | Right Eye                |
+      | Physician        | Dr. Nicholas Riviera     |
+      | Gross            | Gross results changed    |
+      | Stains           | Stains changed           |
+      | Clinical history | Clinical history changed |
     And I click on "Save"
     Then I should be on the patient page for "Anne Moore"
     And I should see "2014-QT-204" within ".pathology-number"
     And I should see "Right Eye" within ".description"
-    And I should see "Presented with fever and N/S for 2 weeks" within ".clinical-history"
+    And I should see "Clinical history changed" within ".clinical-history"
     And I should see "Gross results changed" within ".gross"
     And I should see "Dr. Nicholas Riviera" within ".physician-name"
     And I should see "Stains changed" within ".stains"
