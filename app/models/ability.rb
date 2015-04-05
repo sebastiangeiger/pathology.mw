@@ -18,6 +18,5 @@ class Ability
       can :cru, Specimen
       can :create, Search
     end
-
   end
 end

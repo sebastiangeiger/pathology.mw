@@ -1,5 +1,4 @@
 class Physician < ActiveRecord::Base
-
   has_many :specimens
 
   def full_name

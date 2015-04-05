@@ -13,8 +13,8 @@ class ClinicalHistoriesController < ApplicationController
     end
   end
 
-
   private
+
   def create_params
     params.require(:clinical_history)
       .permit(:description, :date)

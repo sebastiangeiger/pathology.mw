@@ -7,11 +7,11 @@ class User < ActiveRecord::Base
   POSSIBLE_ROLE_NAMES = [:guest, :administrator, :pathologist, :physician]
 
   def role_name
-    read_attribute(:role_name).downcase.to_sym
+    self[:role_name].downcase.to_sym
   end
 
   POSSIBLE_ROLE_NAMES.each do |name|
-    question = (name.to_s+"?").to_sym
+    question = (name.to_s + '?').to_sym
     define_method(question) { return role_name == name }
   end
   alias_method :admin?, :administrator?
@@ -21,13 +21,14 @@ class User < ActiveRecord::Base
   end
 
   private
+
   def default_values
     self.role_name ||= :guest
   end
 
   def role_name_must_be_one_of_the_predefined_ones
     unless POSSIBLE_ROLE_NAMES.include?(role_name)
-      message = "Role name must be one of: #{POSSIBLE_ROLE_NAMES.join(", ")}"
+      message = "Role name must be one of: #{POSSIBLE_ROLE_NAMES.join(', ')}"
       errors.add(:role_name, message)
     end
   end

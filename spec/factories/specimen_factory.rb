@@ -6,4 +6,3 @@ FactoryGirl.define do
     date_submitted 2.days.ago
   end
 end
-

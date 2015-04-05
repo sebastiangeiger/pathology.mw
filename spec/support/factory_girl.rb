@@ -1,5 +1,4 @@
 RSpec.configure do |config|
-
   # Linting all factories
   config.before(:suite) do
     begin

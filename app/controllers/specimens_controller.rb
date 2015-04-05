@@ -1,7 +1,7 @@
 class SpecimensController < ApplicationController
   load_and_authorize_resource :patient
   load_and_authorize_resource :specimen, through: :patient
-  before_filter :load_form_values, only: [:new, :edit]
+  before_action :load_form_values, only: [:new, :edit]
 
   def new
   end
@@ -24,7 +24,7 @@ class SpecimensController < ApplicationController
     if @specimen.update_attributes(update_params)
       save_clinical_history!
       save_physician!
-      flash[:success] = %Q{Specimen "#{@specimen.pathology_number}" was updated.}
+      flash[:success] = %(Specimen "#{@specimen.pathology_number}" was updated.)
       redirect_to @patient
     else
       load_form_values
@@ -33,12 +33,13 @@ class SpecimensController < ApplicationController
   end
 
   private
+
   def create_params
     params.require(:specimen)
       .permit(:pathology_number, :description, :diagnosis, :date_submitted, :notes,
               :gross, :stains, :physician)
   end
-  alias update_params create_params
+  alias_method :update_params, :create_params
 
   def save_clinical_history!
     if description = params['specimen']['clinical_history_description']
@@ -56,7 +57,7 @@ class SpecimensController < ApplicationController
 
   def existing_values(column)
     values = Specimen.uniq.order(column).pluck(column)
-    values = [""] + values unless values.first == ""
+    values = [''] + values unless values.first == ''
     values
   end
 
