@@ -1,10 +1,9 @@
 class SpecimensController < ApplicationController
   load_and_authorize_resource :patient
   load_and_authorize_resource :specimen, through: :patient
+  before_filter :load_form_values, only: [:new, :edit]
 
   def new
-    @descriptions = existing_values(:description)
-    @diagnoses = existing_values(:diagnosis)
   end
 
   def create
@@ -12,13 +11,12 @@ class SpecimensController < ApplicationController
       save_clinical_history!
       redirect_to @patient
     else
+      load_form_values
       render :new
     end
   end
 
   def edit
-    @descriptions = existing_values(:description)
-    @diagnoses = existing_values(:diagnosis)
   end
 
   def update
@@ -26,6 +24,7 @@ class SpecimensController < ApplicationController
       flash[:success] = %Q{Specimen "#{@specimen.pathology_number}" was updated.}
       redirect_to @patient
     else
+      load_form_values
       render :edit
     end
   end
@@ -48,5 +47,11 @@ class SpecimensController < ApplicationController
     values = Specimen.uniq.order(column).pluck(column)
     values = [""] + values unless values.first == ""
     values
+  end
+
+  def load_form_values
+    @descriptions = existing_values(:description)
+    @diagnoses = existing_values(:diagnosis)
+    @physicians = Physician.all
   end
 end
