@@ -51,5 +51,6 @@ group :test do
   gem 'factory_girl_rails'
   gem 'poltergeist'
   gem 'timecop'
+  gem "codeclimate-test-reporter", require: false
 end
 
