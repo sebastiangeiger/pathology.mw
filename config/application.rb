@@ -21,7 +21,7 @@ module PathologyMw
     # config.i18n.default_locale = :de
     config.autoload_paths += %W(#{config.root}/app/views/table_renderers)
     config.generators do |g|
-      g.helper      false
+      g.helper false
       g.stylesheets false
       g.javascripts false
     end

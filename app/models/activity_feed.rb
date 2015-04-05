@@ -1,17 +1,19 @@
 class ActivityFeed
   def initialize(items, current_year: Date.today.year)
     @items = items
-    @current_year = current_year #Test seam
+    @current_year = current_year # Test seam
   end
+
   def calculate
     items = fill_in_empty_years(divide_into_years(sort(@items)))
-    #Hash preserves order, empty years come at the end, need to reorder them chronologically
+    # Hash preserves order, empty years come at the end, need to reorder them chronologically
     Hash[items.sort.reverse]
   end
 
   private
+
   def sort(items)
-    items.sort { |a,b| b.date_submitted <=> a.date_submitted }
+    items.sort { |a, b| b.date_submitted <=> a.date_submitted }
   end
 
   def divide_into_years(items)
@@ -24,7 +26,7 @@ class ActivityFeed
     return hash if hash.keys.empty?
     years = hash.keys + [@current_year]
     Range.new(*years.minmax).each do |year|
-      unless hash.has_key? year
+      unless hash.key? year
         hash[year] = []
       end
     end

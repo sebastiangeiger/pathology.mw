@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Patient, :type => :model do
+RSpec.describe Patient, type: :model do
   around do |example|
     Timecop.freeze(Time.local(2014, 9, 1))
     example.run
@@ -21,7 +21,7 @@ RSpec.describe Patient, :type => :model do
         expect(FactoryGirl.build(:patient, gender: nil)).to be_invalid
       end
       it 'accepts lowercase gender' do
-        expect(FactoryGirl.build(:patient, gender: "male")).to be_valid
+        expect(FactoryGirl.build(:patient, gender: 'male')).to be_valid
       end
     end
     describe 'for age indicator' do
@@ -31,8 +31,8 @@ RSpec.describe Patient, :type => :model do
                                            birthday_unknown: false)).to be_invalid
       end
       it 'denies birthday and year both being set' do
-        expect(FactoryGirl.build(:patient, birthday: "June 16 1984",
-                                           birthyear: "1984",
+        expect(FactoryGirl.build(:patient, birthday: 'June 16 1984',
+                                           birthyear: '1984',
                                            birthday_unknown: false)).to be_invalid
       end
       it 'allows birthday and year being nil when birthday_unknown is set' do
@@ -43,19 +43,19 @@ RSpec.describe Patient, :type => :model do
       it 'allows birthday and year being nil when birthday_unknown is set to 1' do
         expect(FactoryGirl.build(:patient, birthday: nil,
                                            birthyear: nil,
-                                           birthday_unknown: "1")).to be_valid
+                                           birthday_unknown: '1')).to be_valid
       end
       it 'denies birthday and year being nil when birthday_unknown is set to 0' do
         expect(FactoryGirl.build(:patient, birthday: nil,
                                            birthyear: nil,
-                                           birthday_unknown: "0")).to be_invalid
+                                           birthday_unknown: '0')).to be_invalid
       end
       it 'denies random text as birthday' do
-        expect(FactoryGirl.build(:patient, birthday: "Something",
+        expect(FactoryGirl.build(:patient, birthday: 'Something',
                                            birthyear: nil)).to be_invalid
       end
       it 'accepts a date string as birthday' do
-        expect(FactoryGirl.build(:patient, birthday: "June 16 1984",
+        expect(FactoryGirl.build(:patient, birthday: 'June 16 1984',
                                            birthyear: nil)).to be_valid
       end
       it 'accepts a number as birthyear' do
@@ -64,7 +64,7 @@ RSpec.describe Patient, :type => :model do
       end
       it 'accepts a string as birthyear' do
         expect(FactoryGirl.build(:patient, birthday: nil,
-                                           birthyear: "1984")).to be_valid
+                                           birthyear: '1984')).to be_valid
       end
     end
   end
@@ -80,18 +80,18 @@ RSpec.describe Patient, :type => :model do
     let(:birthday_unknown) { false }
 
     context 'with birthday on June 16 1984' do
-      let(:birthday) { "June 16 1984" }
-      it { is_expected.to eql "30 (born June 16 1984)" }
+      let(:birthday) { 'June 16 1984' }
+      it { is_expected.to eql '30 (born June 16 1984)' }
     end
 
     context 'with birthyear 1984' do
-      let(:birthyear) { "1984" }
-      it { is_expected.to eql "30 (born in 1984)" }
+      let(:birthyear) { '1984' }
+      it { is_expected.to eql '30 (born in 1984)' }
     end
 
     context 'with birthday unknown' do
       let(:birthday_unknown) { true }
-      it { is_expected.to eql "" }
+      it { is_expected.to eql '' }
     end
   end
 
@@ -121,7 +121,6 @@ RSpec.describe Patient, :type => :model do
       end
     end
     context 'when patient has a birthyear' do
-
       let(:patient) do
         FactoryGirl.create(:patient, birthyear: birthyear, birthday: nil)
       end
@@ -199,56 +198,56 @@ RSpec.describe Patient, :type => :model do
   describe '.name_query' do
     context "with a patient called 'John Doe'" do
       let(:patient) do
-        FactoryGirl.create(:patient, first_name: "John", last_name: "Doe")
+        FactoryGirl.create(:patient, first_name: 'John', last_name: 'Doe')
       end
 
       subject { Patient.name_query(name_query).all }
 
       context "when searching for 'John Doe'" do
-        let(:name_query) { "John Doe" }
+        let(:name_query) { 'John Doe' }
         it { is_expected.to include patient }
       end
 
       context "when searching for 'Doe'" do
-        let(:name_query) { "Doe" }
+        let(:name_query) { 'Doe' }
         it { is_expected.to include patient }
       end
 
       context "when searching for 'John'" do
-        let(:name_query) { "John" }
+        let(:name_query) { 'John' }
         it { is_expected.to include patient }
       end
 
       context "when searching for 'Jon Doe'" do
-        let(:name_query) { "Jon Doe" }
+        let(:name_query) { 'Jon Doe' }
         it { is_expected.to include patient }
       end
 
       context "when searching for 'Jan Due'" do
-        let(:name_query) { "Jan Due" }
+        let(:name_query) { 'Jan Due' }
         it { is_expected.to_not include patient }
       end
     end
 
     context "with a patient called 'Neslon Lemani'" do
       let(:patient) do
-        FactoryGirl.create(:patient, first_name: "Nelson", last_name: "Lemani")
+        FactoryGirl.create(:patient, first_name: 'Nelson', last_name: 'Lemani')
       end
 
       subject { Patient.name_query(name_query).all }
 
       context "when searching for 'Nelson'" do
-        let(:name_query) { "Nelson" }
+        let(:name_query) { 'Nelson' }
         it { is_expected.to include patient }
       end
 
       context "when searching for 'Nel'" do
-        let(:name_query) { "Nel" }
+        let(:name_query) { 'Nel' }
         it { is_expected.to include patient }
       end
 
       context "when searching for 'Nel Lemuni'" do
-        let(:name_query) { "Nel Lemuni" }
+        let(:name_query) { 'Nel Lemuni' }
         it { is_expected.to include patient }
       end
     end

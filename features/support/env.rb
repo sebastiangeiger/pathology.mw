@@ -34,7 +34,7 @@ ActionController::Base.allow_rescue = false
 begin
   DatabaseCleaner.strategy = :transaction
 rescue NameError
-  raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
+  raise 'You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it.'
 end
 
 # You may also want to configure DatabaseCleaner to use different strategies for certain features and scenarios.
@@ -56,14 +56,14 @@ end
 # The :transaction strategy is faster, but might give you threading problems.
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Capybara.register_driver :poltergeist do |app|
-    options = {
-        js_errors: true,
-        timeout: 120,
-        debug: false,
-        phantomjs_options: ['--load-images=no', '--disk-cache=false'],
-        inspector: true
-    }
-    Capybara::Poltergeist::Driver.new(app, options)
+  options = {
+    js_errors: true,
+    timeout: 120,
+    debug: false,
+    phantomjs_options: ['--load-images=no', '--disk-cache=false'],
+    inspector: true
+  }
+  Capybara::Poltergeist::Driver.new(app, options)
 end
 Capybara.javascript_driver = :poltergeist
 Cucumber::Rails::Database.javascript_strategy = :truncation

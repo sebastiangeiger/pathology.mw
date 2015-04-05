@@ -8,7 +8,7 @@ class Search
 
   def initialize(attributes = {})
     attributes ||= {}
-    attributes.select! { |k,v| v.present? }
+    attributes.select! { |_k, v| v.present? }
     @fields = attributes.keys
     attributes.each do |name, value|
       send("#{name}=", value)
@@ -25,7 +25,7 @@ class Search
 
   def scopes
     @fields.map do |field|
-      Patient.send(field, self.send(field))
+      Patient.send(field, send(field))
     end
   end
 

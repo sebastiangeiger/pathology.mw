@@ -1,7 +1,7 @@
 class PatientsController < ApplicationController
-  before_filter :load_by_pagination, only: :index
+  before_action :load_by_pagination, only: :index
   def load_by_pagination
-    @patients = Patient.accessible_by(current_ability).order("id asc").page params[:page]
+    @patients = Patient.accessible_by(current_ability).order('id asc').page params[:page]
   end
   load_and_authorize_resource
 
@@ -17,7 +17,7 @@ class PatientsController < ApplicationController
 
   def create
     if @patient.save
-      flash[:success] = %Q{Patient "#{@patient.full_name}" has been created.}
+      flash[:success] = %(Patient "#{@patient.full_name}" has been created.)
       redirect_to @patient
     else
       render :new
@@ -30,7 +30,7 @@ class PatientsController < ApplicationController
 
   def update
     if @patient.update_attributes(update_params)
-      flash[:success] = %Q{Patient "#{@patient.full_name}" was updated.}
+      flash[:success] = %(Patient "#{@patient.full_name}" was updated.)
       redirect_to @patient
     else
       render :edit
@@ -38,9 +38,10 @@ class PatientsController < ApplicationController
   end
 
   private
+
   def create_params
     params.require(:patient)
       .permit(:first_name, :last_name, :district, :gender, :birthday, :birthyear, :birthday_unknown)
   end
-  alias update_params create_params
+  alias_method :update_params, :create_params
 end

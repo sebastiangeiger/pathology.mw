@@ -3,7 +3,7 @@ class PhysiciansController < ApplicationController
 
   def create
     if @physician.save
-      flash[:success] = %Q{Physician "#{@physician.full_name}" has been created.}
+      flash[:success] = %(Physician "#{@physician.full_name}" has been created.)
       redirect_to patients_path
     else
       render :new
@@ -11,6 +11,7 @@ class PhysiciansController < ApplicationController
   end
 
   private
+
   def create_params
     params.require(:physician).permit(:first_name, :last_name, :title)
   end

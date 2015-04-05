@@ -1,15 +1,15 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 gem 'rails', '~> 4.1.10'
 
-#Database
+# Database
 gem 'pg', '~> 0.17.1'
 
-#Authentication and authorization
+# Authentication and authorization
 gem 'devise', '~> 3.2.4'
 gem 'cancancan', '~> 1.9.1'
 
-#Views
+# Views
 gem 'jquery-rails', '~> 3.1.1'
 gem 'turbolinks', '~> 2.2.2'
 gem 'slim-rails', '~> 2.1.5'
@@ -17,17 +17,17 @@ gem 'zurb-foundation', '~> 4.3.2'
 gem 'foundation_rails_helper'
 gem 'sass'
 
-#Assets
+# Assets
 gem 'uglifier'
 gem 'quiet_assets'
 
-#Heroku
+# Heroku
 gem 'rails_12factor'
 
-#Pagination
+# Pagination
 gem 'kaminari'
 
-#Searching
+# Searching
 gem 'pg_search'
 
 group :development do
@@ -51,6 +51,6 @@ group :test do
   gem 'factory_girl_rails'
   gem 'poltergeist'
   gem 'timecop'
-  gem "codeclimate-test-reporter", require: false
+  gem 'codeclimate-test-reporter', require: false
+  gem 'rubocop', '~> 0.29.1'
 end
-

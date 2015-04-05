@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :user do
-    email "user@email.com"
-    password "supersecret"
+    email 'user@email.com'
+    password 'supersecret'
     confirmation_token nil
     confirmed_at 1.hour.ago
 

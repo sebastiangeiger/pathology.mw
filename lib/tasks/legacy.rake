@@ -1,19 +1,19 @@
 require 'open-uri'
 
 def read_data(args)
-  raise "Usage: #{t}[FILE_PATH_OR_URL]" unless args[:file_path_or_url]
+  fail "Usage: #{t}[FILE_PATH_OR_URL]" unless args[:file_path_or_url]
   file_path_or_url = args[:file_path_or_url]
   if file_path_or_url =~ /^https?:\/\//
-    YAML::load_file(open(file_path_or_url))
+    YAML.load_file(open(file_path_or_url))
   else
     file_path = File.absolute_path(file_path_or_url)
-    raise %Q{"#{file_path}" does not exist} unless File.exists?(file_path)
-    YAML::load_file(file_path)
+    fail %("#{file_path}" does not exist) unless File.exist?(file_path)
+    YAML.load_file(file_path)
   end
 end
 
 def create_patients!(patients)
-  patients.values.each {|patient| create_patient!(patient)}
+  patients.values.each { |patient| create_patient!(patient) }
 end
 
 def clean_up!(hash)
@@ -23,25 +23,25 @@ def clean_up!(hash)
 end
 
 def create_patient!(patient)
-  raise unless "PHRS 00#{patient[:id]}" == patient[:patient_number]
-  raise unless patient[:first_name] + " " + patient[:last_name] == patient[:name]
+  fail unless "PHRS 00#{patient[:id]}" == patient[:patient_number]
+  fail unless patient[:first_name] + ' ' + patient[:last_name] == patient[:name]
   patient.delete(:name)
   patient.delete(:patient_number)
   clean_up!(patient)
-  if patient[:date_of_birth] and patient[:date_of_birth] != "0000-00-00"
+  if patient[:date_of_birth] && patient[:date_of_birth] != '0000-00-00'
     patient[:birthday] = patient[:date_of_birth]
   end
   patient.delete(:date_of_birth)
-  if patient[:birthday].nil? and patient[:age].present?
+  if patient[:birthday].nil? && patient[:age].present?
     patient[:birthyear] = Time.zone.today.year - patient[:age].to_i
   end
   patient.delete(:date_of_birth)
-  birthday_unknown = patient[:birthday].nil? and patient[:birthyear].nil?
-  raise if patient[:birthday].present? and patient[:birthyear].present?
+  birthday_unknown = (patient[:birthday].nil? && patient[:birthyear].nil?)
+  fail if patient[:birthday].present? && patient[:birthyear].present?
   if record = Patient.where(id: patient[:id]).first
-    unless record.first_name == patient[:first_name] and
-      record.last_name == patient[:last_name]
-      raise "Record already exists but names don't match (id: #{patient[:id]})"
+    unless record.first_name == patient[:first_name] &&
+           record.last_name == patient[:last_name]
+      fail "Record already exists but names don't match (id: #{patient[:id]})"
     end
   else
     Patient.create!(id: patient[:id],
@@ -57,28 +57,28 @@ def create_patient!(patient)
 end
 
 def create_specimens!(specimens)
-  specimens.values.each {|specimen| create_specimen!(specimen)}
+  specimens.values.each { |specimen| create_specimen!(specimen) }
 end
 
 def create_specimen!(specimen)
   clean_up!(specimen)
-  if specimen[:submitted_date] and specimen[:submitted_date] == "0000-00-00"
+  if specimen[:submitted_date] && specimen[:submitted_date] == '0000-00-00'
     specimen.delete(:submitted_date)
   end
   if specimen[:submitted_date].nil?
     matchdata = specimen[:path_number].match(/^(20\d{2})-/)
     if matchdata
       year = matchdata[1].to_i
-      approximate_date = Date.new(year,1,1)
+      approximate_date = Date.new(year, 1, 1)
     else
       approximate_date = Time.zone.today
     end
     specimen[:submitted_date] = approximate_date
   end
   if record = Specimen.where(id: specimen[:id]).first
-    unless record.description == specimen[:specimentype] and
-      record.patient_id == specimen[:patient_id]
-      raise "Record already exists but names don't match (id: #{speciment[:id]})"
+    unless record.description == specimen[:specimentype] &&
+           record.patient_id == specimen[:patient_id]
+      fail "Record already exists but names don't match (id: #{speciment[:id]})"
     end
   else
     Specimen.create!(id: specimen[:id],
@@ -94,21 +94,21 @@ def create_specimen!(specimen)
 end
 
 def make_sure_all_specimen_are_there!(patients)
-  patients.each do |id,patient|
+  patients.each do |_id, patient|
     specimen_ids = patient[:specimen_links].map do |link|
-      link.split("/").last.to_i
+      link.split('/').last.to_i
     end
     record = Patient.find(patient[:id])
     unless Set.new(record.specimens.map(&:id)) == Set.new(specimen_ids)
-      raise "Patient ##{record.id} does not have all specimen"
+      fail "Patient ##{record.id} does not have all specimen"
     end
   end
 end
 
 def add_clinical_histories_to_specimen!(patients)
-  patients.each do |id,patient|
+  patients.each do |_id, patient|
     clinical_history = patient[:clinical_history]
-    unless clinical_history == "# Not Set"
+    unless clinical_history == '# Not Set'
       Specimen.where(patient_id: patient[:id]).each do |specimen|
         if specimen.clinical_history_description != clinical_history
           record = ClinicalHistory.create!(date: specimen.date_submitted,
@@ -122,13 +122,12 @@ def add_clinical_histories_to_specimen!(patients)
 end
 
 namespace :legacy do
-  desc "This imports the data from a data.yml file"
-  task :import_from_data_yml, [:file_path_or_url] => [:environment] do |t,args|
+  desc 'This imports the data from a data.yml file'
+  task :import_from_data_yml, [:file_path_or_url] => [:environment] do |_t, args|
     data = read_data(args)
     create_patients!(data[:patients])
     create_specimens!(data[:specimen])
     make_sure_all_specimen_are_there!(data[:patients])
     add_clinical_histories_to_specimen!(data[:patients])
   end
-
 end

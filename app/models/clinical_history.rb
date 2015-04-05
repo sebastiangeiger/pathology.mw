@@ -3,6 +3,6 @@ class ClinicalHistory < ActiveRecord::Base
   validates :date, presence: true
 
   def date_submitted
-    self.date
+    date
   end
 end
