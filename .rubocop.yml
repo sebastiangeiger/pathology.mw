@@ -1,3 +1,10 @@
+inherit_from: .rubocop_todo.yml
+
 AllCops:
   RunRailsCops: true
-inherit_from: .rubocop_todo.yml
+  Exclude:
+    - db/schema.rb
+    - db/migrate/*.rb
+
+Style/HashSyntax:
+  EnforcedStyle: ruby19
