@@ -13,6 +13,7 @@ class Ability
 
     if user.pathologist?
       can :cru, Patient
+      can :create, Physician
       can :cru, ClinicalHistory
       can :cru, Specimen
       can :create, Search

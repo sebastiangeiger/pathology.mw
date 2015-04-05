@@ -1,0 +1,16 @@
+.row.vertically-centered
+  .large-8.large-centered.columns.content
+
+    h1 New Physician
+    = form_for @physician do |form|
+
+      = form_errors_summary(@physician)
+
+      = form.text_field :title
+
+      = form.text_field :first_name
+
+      = form.text_field :last_name
+
+      .text-right
+        = form.submit "Create Physician", class: "small button"

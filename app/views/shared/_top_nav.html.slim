@@ -12,6 +12,11 @@ nav.top-bar
       - if can? :read, Patient
         li class=(is_active?(:patient))
           = link_to "Patients", patients_path
+      - if can? :create, Physician
+        li.has-dropdown
+          a href="#" Physicians
+          ul.dropdown
+            li = link_to "New Physician", new_physician_path
     ul.right
       - if can? :read, User
         li.has-dropdown.admin

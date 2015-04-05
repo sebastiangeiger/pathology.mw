@@ -9,6 +9,7 @@
     = definition(specimen, :stains)
     = definition(specimen, :notes)
     = definition(specimen, :gross)
+    = definition(specimen, :physician_name, label: "Submitting Physician")
 
   - if specimen.imported?
     .text-right

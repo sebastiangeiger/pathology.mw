@@ -17,8 +17,5 @@ FactoryGirl.define do
     factory :pathologist do
       role_name :pathologist
     end
-    factory :physician do
-      role_name :physician
-    end
   end
 end
