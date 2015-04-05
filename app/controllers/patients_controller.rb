@@ -1,9 +1,13 @@
 class PatientsController < ApplicationController
-  before_action :load_by_pagination, only: :index
-  def load_by_pagination
-    @patients = Patient.accessible_by(current_ability).order('id asc').page params[:page]
+  after_action :verify_authorized
+  before_action :load_patient, only: [:show, :edit, :update]
+
+  skip_authorization_check # cancancan
+
+  def new
+    @patient = Patient.new
+    authorize @patient
   end
-  load_and_authorize_resource
 
   def index
     @menu_point_active = :patient
@@ -12,10 +16,15 @@ class PatientsController < ApplicationController
       results = @search.execute.accessible_by(current_ability)
       @patients = results.page params[:page]
       @result_size = results.count(:all)
+    else
+      @patients = Patient.all.order('id asc').page params[:page]
     end
+    authorize @patients
   end
 
   def create
+    @patient = Patient.new(create_params)
+    authorize @patient
     if @patient.save
       flash[:success] = %(Patient "#{@patient.full_name}" has been created.)
       redirect_to @patient
@@ -28,6 +37,9 @@ class PatientsController < ApplicationController
     @activity_feed_items = ActivityFeed.new(@patient.specimens).calculate
   end
 
+  def edit
+  end
+
   def update
     if @patient.update_attributes(update_params)
       flash[:success] = %(Patient "#{@patient.full_name}" was updated.)
@@ -38,6 +50,11 @@ class PatientsController < ApplicationController
   end
 
   private
+
+  def load_patient
+    @patient = Patient.find(params[:id])
+    authorize @patient
+  end
 
   def create_params
     params.require(:patient)

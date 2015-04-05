@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
-  skip_authorization_check #cancancan
+  after_action :verify_authorized
+
+  skip_authorization_check # cancancan
 
   def index
     @users = User.all
@@ -7,9 +9,13 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = User.find(params[:id])
+    authorize @user
   end
 
   def update
+    @user = User.find(params[:id])
+    authorize @user
     @user.update_attributes(params[:user].permit(:role_name))
     if @user.save
       redirect_to action: :index
