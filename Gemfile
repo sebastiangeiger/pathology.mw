@@ -52,5 +52,5 @@ group :test do
   gem 'poltergeist'
   gem 'timecop'
   gem "codeclimate-test-reporter", require: false
+  gem 'rubocop', '~> 0.29.1'
 end
-
