@@ -34,4 +34,26 @@ RSpec.describe Specimen, :type => :model do
       Timecop.return
     end
   end
+
+  describe '#physician' do
+    let(:specimen) { FactoryGirl.build(:specimen, physician: physician) }
+    subject { specimen.physician }
+
+    context 'when no physician given' do
+      let(:physician) { nil }
+      it 'is still a valid specimen' do
+        expect(specimen).to be_valid
+      end
+    end
+
+    context 'when a physician is given' do
+      let(:physician) { FactoryGirl.create(:physician) }
+
+      it 'is a valid specimen' do
+        expect(specimen).to be_valid
+      end
+
+      it { is_expected.to eql physician }
+    end
+  end
 end
