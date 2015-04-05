@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
-  load_and_authorize_resource
+  skip_authorization_check #cancancan
 
   def index
+    @users = User.all
+    authorize @users
   end
 
   def edit
