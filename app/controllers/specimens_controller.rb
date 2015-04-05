@@ -9,6 +9,7 @@ class SpecimensController < ApplicationController
   def create
     if @specimen.save
       save_clinical_history!
+      save_physician!
       redirect_to @patient
     else
       load_form_values
@@ -33,13 +34,21 @@ class SpecimensController < ApplicationController
   def create_params
     params.require(:specimen)
       .permit(:pathology_number, :description, :diagnosis, :date_submitted, :notes,
-              :gross, :stains)
+              :gross, :stains, :physician)
   end
   alias update_params create_params
 
   def save_clinical_history!
     if description = params['specimen']['clinical_history_description']
       @specimen.clinical_history_description = description
+    end
+  end
+
+  def save_physician!
+    physician_id = params['specimen']['physician_id']
+    if physician_id.present?
+      @specimen.physician = Physician.find(physician_id)
+      @specimen.save
     end
   end
 

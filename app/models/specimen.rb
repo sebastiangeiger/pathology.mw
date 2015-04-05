@@ -38,6 +38,10 @@ class Specimen < ActiveRecord::Base
     read_attribute(:pathology_number) || "#{Time.zone.today.year}-QT-"
   end
 
+  def physician_name
+    physician.try(:full_name)
+  end
+
   private
   def pathology_number_follows_pattern
     unless pathology_number == :invalid or pathology_number =~ PATHOLOGY_REGEX
