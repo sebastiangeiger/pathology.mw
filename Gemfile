@@ -8,6 +8,7 @@ gem 'pg', '~> 0.17.1'
 # Authentication and authorization
 gem 'devise', '~> 3.2.4'
 gem 'cancancan', '~> 1.9.1'
+gem 'pundit', '~> 0.3.0'
 
 # Views
 gem 'jquery-rails', '~> 3.1.1'

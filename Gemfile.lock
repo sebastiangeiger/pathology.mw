@@ -186,6 +186,8 @@ GEM
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
+    pundit (0.3.0)
+      activesupport (>= 3.0.0)
     pusher-client (0.6.0)
       json
       websocket (~> 1.0)
@@ -331,6 +333,7 @@ DEPENDENCIES
   pg_search
   poltergeist
   pry
+  pundit (~> 0.3.0)
   quiet_assets
   rack-livereload
   rails (~> 4.1.10)
