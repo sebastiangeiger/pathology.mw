@@ -22,6 +22,7 @@ class SpecimensController < ApplicationController
 
   def update
     if @specimen.update_attributes(update_params)
+      save_physician!
       flash[:success] = %Q{Specimen "#{@specimen.pathology_number}" was updated.}
       redirect_to @patient
     else
