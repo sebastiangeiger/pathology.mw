@@ -1,5 +1,6 @@
 class PatientsController < ApplicationController
   after_action :verify_authorized
+  after_action :verify_policy_scoped, only: :index
   before_action :load_patient, only: [:show, :edit, :update]
 
   def new
@@ -9,14 +10,14 @@ class PatientsController < ApplicationController
 
   def index
     @menu_point_active = :patient
+    @patients = policy_scope(Patient)
+
     @search = Search.new(params[:search])
     if @search.is_executable?
-      results = @search.execute.accessible_by(current_ability)
-      @patients = results.page params[:page]
-      @result_size = results.count(:all)
-    else
-      @patients = Patient.all.order('id asc').page params[:page]
+      @patients = @patients.merge(@search.execute)
+      @result_size = @patients.count(:all)
     end
+    @patients = order_and_paginate(@patients)
     authorize @patients
   end
 
@@ -48,6 +49,10 @@ class PatientsController < ApplicationController
   end
 
   private
+
+  def order_and_paginate(scope)
+    scope.order('id asc').page(params[:page])
+  end
 
   def load_patient
     @patient = Patient.find(params[:id])
