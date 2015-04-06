@@ -1,8 +1,6 @@
 class UsersController < ApplicationController
   after_action :verify_authorized
 
-  skip_authorization_check # cancancan
-
   def index
     @users = User.all
     authorize @users

@@ -1,8 +1,6 @@
 class SpecimensController < ApplicationController
   after_action :verify_authorized
 
-  skip_authorization_check # cancancan
-
   before_action :load_patient
   before_action :load_specimen, only: [:edit, :update]
   before_action :load_form_values, only: [:new, :edit]

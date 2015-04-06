@@ -1,8 +1,6 @@
 class PhysiciansController < ApplicationController
   after_action :verify_authorized
 
-  skip_authorization_check # cancancan
-
   def new
     @physician = Physician.new
     authorize @physician

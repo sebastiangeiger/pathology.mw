@@ -2,8 +2,6 @@ class PatientsController < ApplicationController
   after_action :verify_authorized
   before_action :load_patient, only: [:show, :edit, :update]
 
-  skip_authorization_check # cancancan
-
   def new
     @patient = Patient.new
     authorize @patient
