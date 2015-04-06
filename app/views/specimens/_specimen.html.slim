@@ -1,5 +1,6 @@
 .specimen
-  = link_to "Edit specimen", edit_patient_specimen_path(@patient, specimen), class: "button small edit-specimen"
+  - if policy(specimen).edit?
+    = link_to "Edit specimen", edit_patient_specimen_path(@patient, specimen), class: "button small edit-specimen"
   dl
     = definition(specimen, :date_submitted, value: l(specimen.date_submitted))
     = definition(specimen, :pathology_number, label: "Pathology #")

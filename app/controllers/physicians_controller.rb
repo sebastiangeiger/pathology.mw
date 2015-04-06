@@ -1,7 +1,14 @@
 class PhysiciansController < ApplicationController
-  load_and_authorize_resource
+  after_action :verify_authorized
+
+  def new
+    @physician = Physician.new
+    authorize @physician
+  end
 
   def create
+    @physician = Physician.new(create_params)
+    authorize @physician
     if @physician.save
       flash[:success] = %(Physician "#{@physician.full_name}" has been created.)
       redirect_to patients_path

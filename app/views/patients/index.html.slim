@@ -2,7 +2,7 @@
   .large-12.columns.content
     h1
       | Patients
-      - if can? :create, Patient
+      - if policy(Patient).new?
         = link_to "New Patient", new_patient_path, class: "button"
     = render partial: 'searches/search_form'
 

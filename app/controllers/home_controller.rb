@@ -1,7 +1,6 @@
 class HomeController < ApplicationController
-  skip_authorization_check
   def index
-    if can? :read, Patient
+    if policy(Patient).index?
       redirect_to patients_path
     end
   end

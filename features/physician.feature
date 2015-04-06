@@ -13,8 +13,8 @@ Feature: Physicians are submitting a specimen
     When I go to the patient page for "Anne Moore"
     And I click on "Add specimen"
     And I fill in the following:
-      | Pathology #      | 2014-QT-204                              |
-      | Physician        | Dr. Julius Hibbert                       |
+      | Pathology # | 2014-QT-204        |
+      | Physician   | Dr. Julius Hibbert |
     And I click on "Save"
     Then I should be on the patient page for "Anne Moore"
     And I should see "2014-QT-204" within ".pathology-number"

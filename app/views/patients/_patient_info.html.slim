@@ -6,7 +6,7 @@
   = patient_info_row("Gender",patient)
   = patient_info_row("District",patient)
 
-  - if can? :update, patient
+  - if policy(patient).edit?
     = link_to "Edit Patient", edit_patient_path(patient), class: "small button"
 
   - if patient.imported?

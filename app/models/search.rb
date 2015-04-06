@@ -20,7 +20,7 @@ class Search
   end
 
   def execute
-    scopes.reduce(:merge).all
+    scopes.reduce(:merge)
   end
 
   def scopes

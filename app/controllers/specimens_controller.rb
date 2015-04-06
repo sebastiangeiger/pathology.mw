@@ -1,15 +1,20 @@
 class SpecimensController < ApplicationController
-  load_and_authorize_resource :patient
-  load_and_authorize_resource :specimen, through: :patient
+  after_action :verify_authorized
+
+  before_action :load_patient
+  before_action :load_specimen, only: [:edit, :update]
   before_action :load_form_values, only: [:new, :edit]
 
   def new
+    @specimen = Specimen.new
+    authorize @specimen
   end
 
   def create
+    @specimen = Specimen.new(create_params)
+    authorize @specimen
     if @specimen.save
       save_clinical_history!
-      save_physician!
       redirect_to @patient
     else
       load_form_values
@@ -23,7 +28,6 @@ class SpecimensController < ApplicationController
   def update
     if @specimen.update_attributes(update_params)
       save_clinical_history!
-      save_physician!
       flash[:success] = %(Specimen "#{@specimen.pathology_number}" was updated.)
       redirect_to @patient
     else
@@ -36,8 +40,9 @@ class SpecimensController < ApplicationController
 
   def create_params
     params.require(:specimen)
-      .permit(:pathology_number, :description, :diagnosis, :date_submitted, :notes,
-              :gross, :stains, :physician)
+      .permit(:pathology_number, :description, :diagnosis, :date_submitted,
+              :notes, :gross, :stains, :physician_id)
+      .merge(patient_id: @patient.id)
   end
   alias_method :update_params, :create_params
 
@@ -47,18 +52,19 @@ class SpecimensController < ApplicationController
     end
   end
 
-  def save_physician!
-    physician_id = params['specimen']['physician_id']
-    if physician_id.present?
-      @specimen.physician = Physician.find(physician_id)
-      @specimen.save
-    end
-  end
-
   def existing_values(column)
     values = Specimen.uniq.order(column).pluck(column)
     values = [''] + values unless values.first == ''
     values
+  end
+
+  def load_patient
+    @patient = Patient.find(params[:patient_id])
+  end
+
+  def load_specimen
+    @specimen = Specimen.find(params[:id])
+    authorize @specimen
   end
 
   def load_form_values
