@@ -9,16 +9,16 @@ nav.top-bar
 
   section.top-bar-section
     ul.left
-      - if can? :read, Patient
+      - if policy(Patient).index?
         li class=(is_active?(:patient))
           = link_to "Patients", patients_path
-      - if can? :create, Physician
+      - if policy(Physician).new?
         li.has-dropdown
           a href="#" Physicians
           ul.dropdown
             li = link_to "New Physician", new_physician_path
     ul.right
-      - if can? :read, User
+      - if policy(User).index?
         li.has-dropdown.admin
           a href="#" Manage
           ul.dropdown

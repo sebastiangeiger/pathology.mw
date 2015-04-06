@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-    if can? :read, Patient
+    if policy(Patient).index?
       redirect_to patients_path
     end
   end
