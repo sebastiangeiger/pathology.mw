@@ -17,10 +17,11 @@ nav.top-bar
           a href="#" Physicians
           ul.dropdown
             li = link_to "New Physician", new_physician_path
-      li.has-dropdown
-        a href="#" Health Facilities
-        ul.dropdown
-          li = link_to "New Health Facility"
+      - if policy(HealthFacility).new?
+        li.has-dropdown
+          a href="#" Health Facilities
+          ul.dropdown
+            li = link_to "New Health Facility"
     ul.right
       - if policy(User).index?
         li.has-dropdown.admin
