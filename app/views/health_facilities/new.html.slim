@@ -1,0 +1,19 @@
+.row.vertically-centered
+  .large-8.large-centered.columns.content
+
+    h1 New Health Facility
+    = form_for @health_facility do |form|
+
+      = form_errors_summary(@health_facility)
+
+      = form.text_field :name
+
+      = form.text_area :postal_address
+
+      = form.text_field :telephone
+
+      = form.chosen_select :district, Districts.names, include_blank: true
+
+      .text-right
+        = form.submit "Create Health Facility", class: "small button"
+

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
   resources :users, only: [:index, :edit, :update]
   resources :physicians, only: [:new, :create]
+  resources :health_facilities, only: [:new, :create]
   resources :patients, except: :destroy do
     resources :clinical_histories, only: [:new, :create]
     resources :specimens, except: [:destory, :show, :index]

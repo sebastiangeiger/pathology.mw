@@ -2,6 +2,8 @@ class Specimen < ActiveRecord::Base
   belongs_to :patient
   belongs_to :clinical_history
   belongs_to :physician
+  belongs_to :health_facility
+
   validates :date_submitted, presence: true
   validates :patient, presence: true
   validate :pathology_number_follows_pattern
@@ -40,6 +42,10 @@ class Specimen < ActiveRecord::Base
 
   def physician_name
     physician.try(:full_name)
+  end
+
+  def health_facility_name
+    health_facility.try(:name)
   end
 
   private
