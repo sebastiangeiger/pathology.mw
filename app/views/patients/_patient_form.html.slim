@@ -28,9 +28,9 @@
 
   .row
     .small-4.columns
-      = form.select :gender, %w{Male Female}, include_blank: true
+      = form.chosen_select :gender, %w{Male Female}, include_blank: true
     .small-4.columns
-      = form.select :district, Districts.names, include_blank: true
+      = form.chosen_select :district, Districts.names, include_blank: true
     .small-4.columns.text-right
       - if @patient.persisted?
         = form.submit "Update Patient", class: "small button"
