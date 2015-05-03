@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150503213101) do
+ActiveRecord::Schema.define(version: 20150503214236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,8 +70,10 @@ ActiveRecord::Schema.define(version: 20150503213101) do
     t.date     "imported_on"
     t.string   "legacy_link"
     t.integer  "physician_id"
+    t.integer  "health_facility_id"
   end
 
+  add_index "specimens", ["health_facility_id"], name: "index_specimens_on_health_facility_id", using: :btree
   add_index "specimens", ["patient_id"], name: "index_specimens_on_patient_id", using: :btree
 
   create_table "users", force: true do |t|

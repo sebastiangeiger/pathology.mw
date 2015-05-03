@@ -41,7 +41,7 @@ class SpecimensController < ApplicationController
   def create_params
     params.require(:specimen)
       .permit(:pathology_number, :description, :diagnosis, :date_submitted,
-              :notes, :gross, :stains, :physician_id)
+              :notes, :gross, :stains, :physician_id, :health_facility_id)
       .merge(patient_id: @patient.id)
   end
   alias_method :update_params, :create_params
@@ -70,6 +70,7 @@ class SpecimensController < ApplicationController
   def load_form_values
     @descriptions = existing_values(:description)
     @diagnoses = existing_values(:diagnosis)
-    @physicians = Physician.all
+    @physicians = Physician.all.map { |p| [p.full_name, p.id] }
+    @health_facilities = HealthFacility.all.map { |p| [p.name, p.id] }
   end
 end
