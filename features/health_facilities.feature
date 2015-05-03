@@ -10,3 +10,4 @@ Feature: HealthFacilities are submitting a specimen
       | Postal address | Po Box 360 |
       | Telephone      | 0999383333 |
       | District       | Blantyre   |
+    And I click on "Create"

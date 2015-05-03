@@ -13,3 +13,7 @@
       = form.text_field :telephone
 
       = form.chosen_select :district, Districts.names, include_blank: true
+
+      .text-right
+        = form.submit "Create Health Facility", class: "small button"
+
