@@ -2,6 +2,8 @@ $(function(){
   // The simple select boxes first
   $("form#new_patient select#patient_gender").chosen();
   $("form#new_patient select#patient_district").chosen();
+  $("form[id^=edit_patient_] select#patient_gender").chosen();
+  $("form[id^=edit_patient_] select#patient_district").chosen();
 
   // Now the harder part: inputs that have data-chose-values
   var copyAttributes = function(actors){
