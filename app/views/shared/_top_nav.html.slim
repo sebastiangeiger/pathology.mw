@@ -21,7 +21,7 @@ nav.top-bar
         li.has-dropdown
           a href="#" Health Facilities
           ul.dropdown
-            li = link_to "New Health Facility"
+            li = link_to "New Health Facility", new_health_facility_path
     ul.right
       - if policy(User).index?
         li.has-dropdown.admin

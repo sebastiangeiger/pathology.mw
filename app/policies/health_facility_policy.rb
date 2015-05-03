@@ -3,4 +3,3 @@ class HealthFacilityPolicy < ApplicationPolicy
     user.admin? || user.pathologist?
   end
 end
-
