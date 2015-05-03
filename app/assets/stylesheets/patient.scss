@@ -71,7 +71,7 @@ table#patients {
   margin-bottom: 3em;
 }
 
-#new_patient {
+form#new_patient, form[id^=edit_patient_]{
   .or, .single-line {
     margin-top: 1.5em;
   }

@@ -1,7 +1,6 @@
 $(function(){
   // The simple select boxes first
-  $("form#new_patient select#patient_gender").chosen();
-  $("form#new_patient select#patient_district").chosen();
+  $("select[data-infect-with-chosen=true]").chosen()
 
   // Now the harder part: inputs that have data-chose-values
   var copyAttributes = function(actors){
